@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="SPAM/Phishing," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -81,18 +81,16 @@
 
 
 
-<meta name="description" content="ForewordSpecial thanks to my ex-colleague Tanya Swift G. This article meanly talks about how to use dig command to help analyse a SPAM/Phishing email. Some examples have been given for better understa">
-<meta name="keywords" content="SPAM&#x2F;Phishing">
-<meta property="og:type" content="article">
-<meta property="og:title" content="SPAM&#x2F;Phishing Analysis">
-<meta property="og:url" content="http://yoursite.com/2018/05/06/SPAM-Phishing-Analysis/index.html">
+<meta name="description" content="Cyber Security Analyst | OSCP | CCNP">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Superpb9">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="Superpb9">
-<meta property="og:description" content="ForewordSpecial thanks to my ex-colleague Tanya Swift G. This article meanly talks about how to use dig command to help analyse a SPAM/Phishing email. Some examples have been given for better understa">
+<meta property="og:description" content="Cyber Security Analyst | OSCP | CCNP">
 <meta property="og:locale" content="English, Chinese">
-<meta property="og:updated_time" content="2018-05-07T08:33:24.706Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SPAM&#x2F;Phishing Analysis">
-<meta name="twitter:description" content="ForewordSpecial thanks to my ex-colleague Tanya Swift G. This article meanly talks about how to use dig command to help analyse a SPAM/Phishing email. Some examples have been given for better understa">
+<meta name="twitter:title" content="Superpb9">
+<meta name="twitter:description" content="Cyber Security Analyst | OSCP | CCNP">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/06/SPAM-Phishing-Analysis/"/>
+  <link rel="canonical" href="http://yoursite.com/page/2/"/>
 
 
 
 
 
-  <title>SPAM/Phishing Analysis | Superpb9</title>
+  <title>Superpb9</title>
   
 
 
@@ -147,7 +145,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -240,9 +239,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -272,7 +271,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SPAM/Phishing Analysis</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/06/SPAM-Phishing-Analysis/" itemprop="url">SPAM/Phishing Analysis</a></h1>
         
 
         <div class="post-meta">
@@ -344,7 +345,9 @@
       
 
       
-        <h3 id="Foreword"><a href="#Foreword" class="headerlink" title="Foreword"></a>Foreword</h3><p>Special thanks to my ex-colleague Tanya Swift G. This article meanly talks about how to use <strong>dig</strong> command to help analyse a SPAM/Phishing email. Some examples have been given for better understanding.  </p>
+        
+          
+            <h3 id="Foreword"><a href="#Foreword" class="headerlink" title="Foreword"></a>Foreword</h3><p>Special thanks to my ex-colleague Tanya Swift G. This article meanly talks about how to use <strong>dig</strong> command to help analyse a SPAM/Phishing email. Some examples have been given for better understanding.  </p>
 <h3 id="Introduction-of-dig-command"><a href="#Introduction-of-dig-command" class="headerlink" title="Introduction of dig command"></a>Introduction of dig command</h3><p>You may use the <strong>dig</strong> command below on a command shell, in order to identify <strong>MX/TXT</strong> records that may help your SPAM/Phising investigation.</p>
 <h4 id="Example-1-Google-TXT-record"><a href="#Example-1-Google-TXT-record" class="headerlink" title="Example 1: Google TXT record"></a>Example 1: Google TXT record</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ dig google.co.nz txt @8.8.8.8 +noall +answer</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; google.co.nz txt @8.8.8.8 +noall +answer</span><br><span class="line">;; global options: +cmd</span><br><span class="line">google.co.nz.		299	IN	TXT	&quot;v=spf1 -all&quot;</span><br></pre></td></tr></table></figure>
 <h4 id="Example-2-Google-MX-record"><a href="#Example-2-Google-MX-record" class="headerlink" title="Example 2: Google MX record"></a>Example 2: Google MX record</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ dig google.co.nz mx @8.8.8.8 +noall +answer</span><br><span class="line"></span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.10.6 &lt;&lt;&gt;&gt; google.co.nz mx @8.8.8.8 +noall +answer</span><br><span class="line">;; global options: +cmd</span><br><span class="line">google.co.nz.		599	IN	MX	10 aspmx.l.google.com.</span><br><span class="line">google.co.nz.		599	IN	MX	40 alt3.aspmx.l.google.com.</span><br><span class="line">google.co.nz.		599	IN	MX	20 alt1.aspmx.l.google.com.</span><br><span class="line">google.co.nz.		599	IN	MX	30 alt2.aspmx.l.google.com.</span><br><span class="line">google.co.nz.		599	IN	MX	50 alt4.aspmx.l.google.com.</span><br></pre></td></tr></table></figure>
@@ -362,6 +365,8 @@
 <p>Blow dig result is to confirm that IP 173.203.187.120 (smtp120.iad3a.emailsrvr.com) is from the TXT record of <strong>emailsrvr.com</strong>.</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ dig emailsrvr.com txt @8.8.8.8 +noall +answer</span><br><span class="line"> </span><br><span class="line">; &lt;&lt;&gt;&gt; DiG 9.10.3-P4-Ubuntu &lt;&lt;&gt;&gt; emailsrvr.com txt @8.8.8.8 +noall +answer</span><br><span class="line">;; global options: +cmd</span><br><span class="line">emailsrvr.com.          16      IN      TXT     &quot;v=spf1 ip4:108.166.43.0/24</span><br><span class="line">ip4:146.20.86.8 ip4:146.20.161.0/25 ip4:161.47.34.7 ip4:173.203.2.16/29</span><br><span class="line">ip4:173.203.6.128/27 ip4:173.203.187.0/25 ip4:184.106.54.0/25 ip4:204.232.172.40 ~all&quot;</span><br></pre></td></tr></table></figure>
 
+          
+        
       
     </div>
     
@@ -376,36 +381,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/SPAM-Phishing/" rel="tag"># SPAM/Phishing</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/06/Splunk/" rel="prev" title="Splunk">
-                Splunk <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -415,11 +398,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+
 
 
           </div>
@@ -427,10 +413,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -451,17 +433,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -548,22 +521,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Foreword"><span class="nav-number">1.</span> <span class="nav-text">Foreword</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction-of-dig-command"><span class="nav-number">2.</span> <span class="nav-text">Introduction of dig command</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-1-Google-TXT-record"><span class="nav-number">2.1.</span> <span class="nav-text">Example 1: Google TXT record</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-2-Google-MX-record"><span class="nav-number">2.2.</span> <span class="nav-text">Example 2: Google MX record</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-3-Google-any-DNS-record"><span class="nav-number">2.3.</span> <span class="nav-text">Example 3: Google any DNS record</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Checking-SPF-record"><span class="nav-number">3.</span> <span class="nav-text">Checking SPF record</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-4-Identify-the-email-sender"><span class="nav-number">3.1.</span> <span class="nav-text">Example 4: Identify the email sender</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -697,10 +654,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
