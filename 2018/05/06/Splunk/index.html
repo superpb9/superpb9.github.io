@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English, Chinese">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+  <link rel="alternate" href="http://www.freebuf.com" title="Superpb9" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Splunk Search LanguageSearch TermsCommands | Blue (creating charts, computing statistics and formatting)Fuctions | Purple (explaining how we want to chart, compute and evaluate the results)Arguments |">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Splunk">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/Splunk/index.html">
+<meta property="og:site_name" content="Superpb9">
+<meta property="og:description" content="Splunk Search LanguageSearch TermsCommands | Blue (creating charts, computing statistics and formatting)Fuctions | Purple (explaining how we want to chart, compute and evaluate the results)Arguments |">
+<meta property="og:locale" content="English, Chinese">
+<meta property="og:image" content="http://yoursite.com/uploadimage/Splunk_1.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/Splunk_2.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/Splunk_3.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/Splunk_4.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/Splunk_5.png">
+<meta property="og:updated_time" content="2018-10-12T05:05:38.556Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Splunk">
+<meta name="twitter:description" content="Splunk Search LanguageSearch TermsCommands | Blue (creating charts, computing statistics and formatting)Fuctions | Purple (explaining how we want to chart, compute and evaluate the results)Arguments |">
+<meta name="twitter:image" content="http://yoursite.com/uploadimage/Splunk_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/Splunk/"/>
+
+
+
+
+
+  <title>Splunk | Superpb9</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Superpb9</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A journey of a thousand miles may not be achieved without accumulation of each single step, just as the enormous ocean may not be formed without gathering every brook or stream.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/Splunk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Dong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Superpb9">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Splunk</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-06T09:39:58+12:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Security-Incident-Response/" itemprop="url" rel="index">
+                    <span itemprop="name">Security Incident Response</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Splunk-Search-Language"><a href="#Splunk-Search-Language" class="headerlink" title="Splunk Search Language"></a>Splunk Search Language</h4><p>Search Terms<br>Commands | Blue (creating charts, computing statistics and formatting)<br>Fuctions | Purple (explaining how we want to chart, compute and evaluate the results)<br>Arguments | Green (variables that we want to apply to the function)<br>Clauses (explaining how you want results grouped or defined)</p>
+<p><img src="/uploadimage/Splunk_1.png" alt="Image"></p>
+<h5 id="Using-TERM-function-to-ensure-searching-efficiency"><a href="#Using-TERM-function-to-ensure-searching-efficiency" class="headerlink" title="Using TERM() function to ensure searching efficiency"></a>Using <span style="color:purple"><strong>TERM()</strong></span> function to ensure searching efficiency</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined TERM(192.168.1.222)</span><br></pre></td></tr></table></figure>
+<h5 id="Using-table-command"><a href="#Using-table-command" class="headerlink" title="Using table command"></a>Using <span style="color:blue"><strong>table</strong></span> command</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | table host _raw</span><br><span class="line">index=splunkTraining sourcetype=access_combined | table _time, host, source*, _raw</span><br></pre></td></tr></table></figure>
+<h5 id="Using-timechart-command"><a href="#Using-timechart-command" class="headerlink" title="Using timechart command"></a>Using <span style="color:blue"><strong>timechart</strong></span> command</h5><p>[span=1d —&gt; 1day span; span=5m —&gt; 5min span]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined TXXXXXX | timechart span=1d count by status</span><br><span class="line">index=splunkTraining sourcetype=access_combined status &gt;= 400 |  timechart span=1d count by status</span><br></pre></td></tr></table></figure>
+<p>The <span style="color:blue"><strong>timechart</strong></span> command allows for the use of subcommands or “evaluation expressions” such as count, avg(), max(), min(), stdev(), and others.</p>
+<p>[limit=5 means limiting to 5 clientips]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | timechart limit=5 sum(bytes) as total_bytes max(bytes) as max_bytes by clientip</span><br><span class="line">index=splunkTraining sourcetype=access_combined | timechart sum(bytes) as max_bytes by clientip WHERE max in top10</span><br></pre></td></tr></table></figure>
+<h5 id="Using-eval-command"><a href="#Using-eval-command" class="headerlink" title="Using eval command"></a>Using <span style="color:blue"><strong>eval</strong></span> command</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | eval status_category=if(status&lt;400, &quot;ok&quot;, &quot;bad&quot;)</span><br></pre></td></tr></table></figure>
+<p>[mbytes = bytes / 1024 / 1024 - Divided by 1024 twice]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | eval mbytes = bytes / 1024 / 1024</span><br><span class="line">index=splunkTraining sourcetype=access_combined | eval mbytes = bytes / 1024 / 1024 | top 5 mbytes</span><br></pre></td></tr></table></figure>
+<p>Maybe we’d like to provide a description of the activity taking place in the web request.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined itemId=*</span><br><span class="line">|  eval event_description=clientip . &quot; made a &quot; . action . &quot; on time &quot; . itemId</span><br><span class="line">|  table event_description</span><br></pre></td></tr></table></figure>
+<p>Play around with HTTP User-Agent using eval agent_category = case ()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined itemId=* | </span><br><span class="line">eval agent_category = case</span><br><span class="line">(useragent LIKE &quot;%Android%&quot;, &quot;Android&quot;, </span><br><span class="line">useragent LIKE &quot;%iPhone%&quot;, &quot;iOS&quot;, </span><br><span class="line">useragent LIKE &quot;%iPad%&quot;, &quot;iOS&quot;, true(), &quot;Other&quot;) | </span><br><span class="line">table _raw, agent_category</span><br></pre></td></tr></table></figure>
+<h5 id="Using-top-and-rare-command"><a href="#Using-top-and-rare-command" class="headerlink" title="Using top and rare command"></a>Using <span style="color:blue"><strong>top</strong></span> and <span style="color:blue"><strong>rare</strong></span> command</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | top 1 action</span><br><span class="line">index=splunkTraining sourcetype=access_combined | top itemId by action showperc=false</span><br><span class="line">index=splunkTraining sourcetype=access_combined | top itemId by status showperc=false</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | rare useragent showperc=false</span><br></pre></td></tr></table></figure>
+<p>(Seeing the unique list of xxx - groupd statics) If you were interested in seeing the unique list of products that each customer checked out you can use the values() function:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | eval mbytes=bytes / 1024 / 1024 | stats values(itemId) as products by clientip</span><br></pre></td></tr></table></figure>
+<p>We could use the timechart command, or we could employ the <span style="color:blue"><strong>bin</strong></span> and <span style="color:blue"><strong>stats</strong></span> commands together. The bin command allows us to specify that we want to group the time values by 1 day or 1 minute or 1 week, etc. It gives us the opportunity to use the span argument even though stats doesn’t support it itself.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | bin _time span=1d | stats distinct_count(clientip) as distinct_clients by _time</span><br></pre></td></tr></table></figure>
+<h5 id="Using-eventstats-command"><a href="#Using-eventstats-command" class="headerlink" title="Using eventstats command"></a>Using <span style="color:blue"><strong>eventstats</strong></span> command</h5><p>We used timechart before, but want to perform more calculations from the counts that are calculated without losing the form of the results during the new operation. The eventstats command is a close cousin of stats, but with a very special difference: eventstats adds its calculations inline to each event, meaning that the previous result set remains fully intact, but is enriched with new data produced from eventstats.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | timechart span=1d count | eventstats avg(count) as avg</span><br><span class="line">index=splunkTraining sourcetype=access_combined action=purchase | timechart span=1d count | eventstats avg(count) as avg</span><br><span class="line">index=splunkTraining sourcetype=access_combined action=purchase | timechart span=1d count | eventstats avg(count) as avg, max(count) as max, min(count) as min</span><br></pre></td></tr></table></figure>
+<h5 id="Using-sort-head-and-tail-command"><a href="#Using-sort-head-and-tail-command" class="headerlink" title="Using sort, head and tail command"></a>Using <span style="color:blue"><strong>sort</strong></span>, <span style="color:blue"><strong>head</strong></span> and <span style="color:blue"><strong>tail</strong></span> command</h5><p>We can use sort against field names to instruct that we’d like the results to be sorted either ascending or descending (where descending is indicated by a preceding “-“ dash). The example below will return results ordered by the clientip field values.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | sort clientip</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined |  stats count by clientip, method | sort clientip, -method, -count</span><br><span class="line">index=splunkTraining sourcetype=access_combined |  stats count by clientip, method | sort clientip, -method, -count |  head 10</span><br><span class="line">index=splunkTraining sourcetype=access_combined |  stats count by clientip, method | sort 10 clientip, -method, -count</span><br><span class="line">index=splunkTraining sourcetype=access_combined |  stats count by clientip, method | sort clientip, -method, -count |  tail 10</span><br></pre></td></tr></table></figure>
+<h5 id="Using-iplocation-geostats-and-geom-command"><a href="#Using-iplocation-geostats-and-geom-command" class="headerlink" title="Using iplocation, geostats and geom command"></a>Using <span style="color:blue"><strong>iplocation</strong></span>, <span style="color:blue"><strong>geostats</strong></span> and <span style="color:blue"><strong>geom</strong></span> command</h5><p>Let’s start out by using iplocation on its own.<br>Enter the search below and look out for the lat, lon, City, Country, and Region fields in your output</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined | iplocation clientip</span><br><span class="line">index=splunkTraining sourcetype=access_combined | iplocation clientip | geostats count by itemId </span><br><span class="line">index=splunkTraining sourcetype=access_combined | iplocation clientip | stats count by Region | geom geo_us_stats featureIdField=&quot;Region&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="Splunk-Searching-Exampels"><a href="#Splunk-Searching-Exampels" class="headerlink" title="Splunk Searching Exampels"></a>Splunk Searching Exampels</h4><p>“On October 1 2016, how many web hits were there for iPhone devices?”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined useragent = &quot;*iPhone*&quot; | table req_time, clientip, useragent</span><br><span class="line">index=splunkTraining sourcetype=access_combined useragent = &quot;*iPhone*&quot; | table req_time, clientip, _raw | sort req_time</span><br></pre></td></tr></table></figure>
+<p>Optimize the result by using stats values(), so that to show how many URIs that each ‘clientip’ visited via ‘iPhone’ </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined useragent = &quot;*iPhone*&quot; | stats values(uri) count by clientip</span><br></pre></td></tr></table></figure>
+<p>If we just need the total count for each of the unique ‘useragents’ (there will then be 2 colums – useragent and each unique count)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined useragent != &quot;*iPhone*&quot; AND useragent=*mobile* | table req_time, clientip, useragent | stats count by useragent</span><br><span class="line">index=splunkTraining sourcetype=access_combined useragent != &quot;*iPhone*&quot; AND useragent=*mobile* | table req_time, clientip, useragent | stats count by useragent | sort by - count</span><br></pre></td></tr></table></figure>
+<p>I’d like to see the useragents broken out into categories: Android, iOS, and Other.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined useragent=* </span><br><span class="line">| eval pippo = case(useragent LIKE &quot;%Android%&quot;, &quot;Android&quot;, </span><br><span class="line">                    useragent LIKE &quot;%iPhone%&quot;, &quot;iOS&quot;, </span><br><span class="line">                    useragent LIKE &quot;%iPad%&quot;, &quot;iOS&quot;, </span><br><span class="line">                    true(), &quot;Other&quot;) </span><br><span class="line">| top pippo</span><br></pre></td></tr></table></figure>
+<p><img src="/uploadimage/Splunk_2.png" alt="image"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined useragent=* | eval pippo = case(useragent LIKE &quot;%Android%&quot;, &quot;Android&quot;, useragent LIKE &quot;%iPhone%&quot;, &quot;iOS&quot;, useragent LIKE &quot;%iPad%&quot;, &quot;iOS&quot;, true(), &quot;Other&quot;) | top pippo</span><br></pre></td></tr></table></figure>
+<p>Can we get those results for just the purchase actions, and instead of just the total, is it possible to see how many per hour?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined useragent=* action=purchase </span><br><span class="line">| eval pippo = case(useragent LIKE &quot;%Android%&quot;, &quot;Android&quot;, </span><br><span class="line">                    useragent LIKE &quot;%iPhone%&quot;, &quot;iOS&quot;, </span><br><span class="line">                    useragent LIKE &quot;%iPad%&quot;, &quot;iOS&quot;, </span><br><span class="line">                    true(), &quot;Other&quot;) </span><br><span class="line">| timechart span=1h count by pippo</span><br></pre></td></tr></table></figure>
+<p><img src="/uploadimage/Splunk_3.png" alt="image"></p>
+<p>Can we see this data in a chart?</p>
+<p><img src="/uploadimage/Splunk_4.png" alt="image"></p>
+<p>We’ve been trying to understand product popularity in different parts of the world for the entire month of October 2016. Can we do that too?<br>(we need iplocation | geostats )</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">index=splunkTraining sourcetype=access_combined product_id=* | iplocation clientip | geostats count by product_id</span><br></pre></td></tr></table></figure>
+<p><img src="/uploadimage/Splunk_5.png" alt="image"></p>
+<h4 id="Splunk-Investigation-Cheatsheet"><a href="#Splunk-Investigation-Cheatsheet" class="headerlink" title="Splunk Investigation Cheatsheet"></a>Splunk Investigation Cheatsheet</h4><p>Syntax 1 - Using <span style="color:darkblue"><strong>table</strong></span> </p>
+<p>“search query (key word)” sourcetype=”value here” | <span style="color:darkblue"><strong>table</strong></span> field1, field2, field3, field4</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">U125121 sourcetype=&quot;websense&quot; | table _time, user, url, dst_ip, dst_port, action, category_name</span><br><span class="line">user=&quot;U125121&quot; sourcetype=&quot;websense&quot; | table _time, user, url, dst_ip, dst_port, action, category_name</span><br></pre></td></tr></table></figure>
+<p>Syntax 2 - Using <span style="color:darkblue"><strong>dedup</strong></span> </p>
+<p>“search query (key word)” sourcetype=”value here” | <span style="color:darkblue"><strong>table</strong></span> field1, field2, field3, field4 | <span style="color:darkblue"><strong>dedup</strong></span> field2</p>
+<p>Removing duplicate events. We use “dedup” to remove events which contain an identical combination of values for selected fields.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">user=&quot;U125121&quot; sourcetype=&quot;websense&quot; | table _time, user, url, dst_ip, dst_port, action, category_name | dedup url</span><br></pre></td></tr></table></figure>
+<p>Syntax 3 - Using <span style="color:darkblue"><strong>sort</strong></span> </p>
+<p>“search query (key word)” sourcetype=”value here” | <span style="color:darkblue"><strong>table</strong></span> field1, field2, field3, field4 | <span style="color:darkblue"><strong>dedup</strong></span> field2 | <span style="color:darkblue"><strong>sort</strong></span> field3</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">user=&quot;U125121&quot; sourcetype=&quot;websense&quot; | table _time, user, url, dst_ip, dst_port, action, category_name | dedup url | sort time</span><br></pre></td></tr></table></figure>
+<p>Syntax 4 - Using <span style="color:darkblue"><strong>stats</strong></span> <span style="color:purple"><strong>values</strong></span>(field)</p>
+<p>“search query (key word)” sourcetype=”value here” | <span style="color:darkblue"><strong>stats</strong></span> <span style="color:purple"><strong>values</strong></span>(field1) <span style="color:purple"><strong>values</strong></span>(field2) <span style="color:purple"><strong>count</strong></span> <span style="color:orange"><strong>by</strong></span> user</p>
+<p>This syntax provides statistics grouped optionally by field. For example, we can let splunk show the total count of user activites by grouping “values of url” and “values of dst_ip” in two different colomns.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">user=&quot;U125121&quot; sourcetype=&quot;websense&quot; | stats values(url) values(dst_ip) count by user</span><br></pre></td></tr></table></figure>
+<p>Syntax 5 - Using <span style="color:darkblue"><strong>rename</strong></span></p>
+<p>“search query (key word)” sourcetype=”value here” | <span style="color:darkblue"><strong>stats</strong></span> <span style="color:purple"><strong>values</strong></span>(field1) <span style="color:orange"><strong>as</strong></span> field1_rename <span style="color:purple"><strong>count</strong></span> <span style="color:orange"><strong>by</strong></span> user</p>
+<p>“search query (key word)” sourcetype=”value here” | <span style="color:darkblue"><strong>table</strong></span> field1, field2, field3, field4 | <span style="color:darkblue"><strong>rename</strong></span> field2 <span style="color:orange"><strong>as</strong></span> field2_rename</p>
+<p>This syntax allows us rename any field that we prefer.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Example:</span><br><span class="line">user=&quot;U125121&quot; sourcetype=&quot;websense&quot; | stats values(url) as website count by user</span><br><span class="line">user=&quot;U125121&quot; sourcetype=&quot;websense&quot; | table _time, url, action, category_name | rename url as website</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-Splunk-Receiver"><a href="#Configure-Splunk-Receiver" class="headerlink" title="Configure Splunk Receiver"></a>Configure Splunk Receiver</h4><p>Splunk start and stop</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /opt/splunk/bin/splunk [start|stop]</span><br></pre></td></tr></table></figure>
+<p>Once started we will get below information</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /opt/splunk/bin/splunk start</span><br><span class="line">Splunk&gt; Like an F-18, bro.</span><br><span class="line"></span><br><span class="line">Checking prerequisites...</span><br><span class="line">	Checking http port [8000]: open</span><br><span class="line">	Checking mgmt port [8089]: open</span><br><span class="line">	Checking appserver port [127.0.0.1:8065]: open</span><br><span class="line">	Checking kvstore port [8191]: open</span><br><span class="line">	Checking configuration...  Done.</span><br><span class="line">	Checking critical directories...	Done</span><br><span class="line">	Checking indexes...</span><br><span class="line">		Validated: _audit _internal _introspection _telemetry _thefishbucket history main summary</span><br><span class="line">	Done</span><br><span class="line">	Checking filesystem compatibility...  Done</span><br><span class="line">	Checking conf files for problems...</span><br><span class="line">	Done</span><br><span class="line">	Checking default conf files for edits...</span><br><span class="line">	Validating installed files against hashes from &apos;/opt/splunk/splunk-7.1.0-2e75b3406c5b-linux-2.6-x86_64-manifest&apos;</span><br><span class="line">	All installed files intact.</span><br><span class="line">	Done</span><br><span class="line">All preliminary checks passed.</span><br><span class="line"></span><br><span class="line">Starting splunk server daemon (splunkd)...  </span><br><span class="line">Done</span><br><span class="line"></span><br><span class="line">Waiting for web server at http://127.0.0.1:8000 to be available........ Done</span><br><span class="line"></span><br><span class="line">If you get stuck, we&apos;re here to help.  </span><br><span class="line">Look for answers here: http://docs.splunk.com</span><br><span class="line"></span><br><span class="line">The Splunk web interface is at http://pippo-vm:8000</span><br></pre></td></tr></table></figure>
+<p>Clean splunk event data</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /opt/splunk/bin/splunk clean eventdata</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-Splunk-Forwarder"><a href="#Configure-Splunk-Forwarder" class="headerlink" title="Configure Splunk Forwarder"></a>Configure Splunk Forwarder</h4><p>Specify which system log folder to be monitored (e.g. bro log)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo splunkforwarder/bin/splunk add monitor /var/spool/bro/bro/</span><br></pre></td></tr></table></figure>
+<p>Set splunk deploy poll (management)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo splunkforwarder/bin/splunk set deploy-poll splunk-receiver-ip:8089</span><br></pre></td></tr></table></figure>
+<p>Specify which port splunk receiver is listening on</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo splunkforwarder/bin/splunk add forward-server splunk-receiver-ip:9997</span><br></pre></td></tr></table></figure>
+<p>Splunk forwarder auto-restart</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo splunkforwarder/bin/splunk enable boot-start</span><br></pre></td></tr></table></figure>
+<p>Start splunk forwarder</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo splunkforwarder/bin/splunk start</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/SPAM-Phishing-Analysis/" rel="next" title="SPAM/Phishing Analysis">
+                <i class="fa fa-chevron-left"></i> SPAM/Phishing Analysis
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/06/IP-Reputation-Check/" rel="prev" title="IP Reputation Check">
+                IP Reputation Check <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Patrick Dong" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Dong</p>
+              <p class="site-description motion-element" itemprop="description">Cyber Security Analyst | OSCP | CCNP</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="http://www.freebuf.com" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/superpb9" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:d.pippo9@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Splunk-Search-Language"><span class="nav-number">1.</span> <span class="nav-text">Splunk Search Language</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-TERM-function-to-ensure-searching-efficiency"><span class="nav-number">1.1.</span> <span class="nav-text">Using TERM() function to ensure searching efficiency</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-table-command"><span class="nav-number">1.2.</span> <span class="nav-text">Using table command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-timechart-command"><span class="nav-number">1.3.</span> <span class="nav-text">Using timechart command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-eval-command"><span class="nav-number">1.4.</span> <span class="nav-text">Using eval command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-top-and-rare-command"><span class="nav-number">1.5.</span> <span class="nav-text">Using top and rare command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-eventstats-command"><span class="nav-number">1.6.</span> <span class="nav-text">Using eventstats command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-sort-head-and-tail-command"><span class="nav-number">1.7.</span> <span class="nav-text">Using sort, head and tail command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-iplocation-geostats-and-geom-command"><span class="nav-number">1.8.</span> <span class="nav-text">Using iplocation, geostats and geom command</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Splunk-Searching-Exampels"><span class="nav-number">2.</span> <span class="nav-text">Splunk Searching Exampels</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Splunk-Investigation-Cheatsheet"><span class="nav-number">3.</span> <span class="nav-text">Splunk Investigation Cheatsheet</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-Splunk-Receiver"><span class="nav-number">4.</span> <span class="nav-text">Configure Splunk Receiver</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-Splunk-Forwarder"><span class="nav-number">5.</span> <span class="nav-text">Configure Splunk Forwarder</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018.05.05 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Dong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

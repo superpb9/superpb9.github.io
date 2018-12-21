@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English, Chinese">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NSM," />
+
+
+
+
+
+  <link rel="alternate" href="http://www.freebuf.com" title="Superpb9" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="System Requirement TP-LINK TL-SG105E 5-Port Smart Switch RaspberryPi 3  Switch Port 3 used as Mirroring Port, connected to RaspberryPi’s eth0.There’s no need to assign any IP on eth0.The other interfa">
+<meta name="keywords" content="NSM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[HomeLab] RaspberryPi3 NSM Design">
+<meta property="og:url" content="http://yoursite.com/2018/05/08/RaspberryPi3-NSM-Design/index.html">
+<meta property="og:site_name" content="Superpb9">
+<meta property="og:description" content="System Requirement TP-LINK TL-SG105E 5-Port Smart Switch RaspberryPi 3  Switch Port 3 used as Mirroring Port, connected to RaspberryPi’s eth0.There’s no need to assign any IP on eth0.The other interfa">
+<meta property="og:locale" content="English, Chinese">
+<meta property="og:image" content="http://yoursite.com/uploadimage/scirius_add_source_1.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/scirius_add_source_2.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/scirius_add_ruleset_1.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/scirius_add_ruleset_2.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/RaspberryPi3-NSM-Design_Link_Scirius_Elasticsearch_1.png">
+<meta property="og:image" content="http://yoursite.com/uploadimage/RaspberryPi3-NSM-Design_Link_Scirius_Elasticsearch_2.png">
+<meta property="og:updated_time" content="2018-09-29T08:20:00.290Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[HomeLab] RaspberryPi3 NSM Design">
+<meta name="twitter:description" content="System Requirement TP-LINK TL-SG105E 5-Port Smart Switch RaspberryPi 3  Switch Port 3 used as Mirroring Port, connected to RaspberryPi’s eth0.There’s no need to assign any IP on eth0.The other interfa">
+<meta name="twitter:image" content="http://yoursite.com/uploadimage/scirius_add_source_1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/08/RaspberryPi3-NSM-Design/"/>
+
+
+
+
+
+  <title>[HomeLab] RaspberryPi3 NSM Design | Superpb9</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Superpb9</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A journey of a thousand miles may not be achieved without accumulation of each single step, just as the enormous ocean may not be formed without gathering every brook or stream.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/RaspberryPi3-NSM-Design/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Dong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Superpb9">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[HomeLab] RaspberryPi3 NSM Design</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-08T14:47:36+12:00">
+                2018-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Security-Incident-Response/" itemprop="url" rel="index">
+                    <span itemprop="name">Security Incident Response</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="System-Requirement"><a href="#System-Requirement" class="headerlink" title="System Requirement"></a>System Requirement</h3><ul>
+<li>TP-LINK TL-SG105E 5-Port Smart Switch</li>
+<li>RaspberryPi 3</li>
+</ul>
+<p>Switch <strong>Port 3</strong> used as Mirroring Port, connected to RaspberryPi’s <strong>eth0</strong>.<br>There’s no need to assign any IP on <strong>eth0</strong>.<br>The other interface <strong>wlan0</strong> will therefore be used as Management Port.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/network/interfaces</span><br><span class="line">iface eth0 inet static</span><br><span class="line">static ip_address=0.0.0.0</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ifconfig eth0 down &amp;&amp; sudo ifconfig eth0 up</span><br></pre></td></tr></table></figure>
+<h3 id="BRO-IDS-on-RaspberryPi-3"><a href="#BRO-IDS-on-RaspberryPi-3" class="headerlink" title="BRO IDS on RaspberryPi 3"></a>BRO IDS on RaspberryPi 3</h3><h4 id="BRO-IDS-Basic-Installation-and-Configuration"><a href="#BRO-IDS-Basic-Installation-and-Configuration" class="headerlink" title="BRO IDS Basic Installation and Configuration"></a>BRO IDS Basic Installation and Configuration</h4><h5 id="Install-OpenSSL-v1-0-headers"><a href="#Install-OpenSSL-v1-0-headers" class="headerlink" title="Install OpenSSL v1.0 headers:"></a>Install OpenSSL v1.0 headers:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt install libssl1.0-dev</span><br></pre></td></tr></table></figure>
+<h5 id="Verify-the-headers-have-been-properly-replaced-We-should-see-libssl1-0-dev-instaed-of-libssl-dev"><a href="#Verify-the-headers-have-been-properly-replaced-We-should-see-libssl1-0-dev-instaed-of-libssl-dev" class="headerlink" title="Verify the headers have been properly replaced. We should see libssl1.0-dev instaed of libssl-dev:"></a>Verify the headers have been properly replaced. We should see <strong>libssl1.0-dev</strong> instaed of <strong>libssl-dev</strong>:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ apt list --installed | grep libssl</span><br><span class="line">WARNING: apt does not have a stable CLI interface. Use with caution in scripts.</span><br><span class="line">libssl1.0-dev/stable,now 1.0.2l-2+deb9u3 armhf [installed]</span><br><span class="line">libssl1.0.2/stable,now 1.0.2l-2+deb9u3 armhf [installed]</span><br><span class="line">libssl1.1/now 1.1.0f-3+deb9u1 armhf [installed,upgradable to: 1.1.0f-3+deb9u2]</span><br></pre></td></tr></table></figure>
+<h5 id="Install-other-required-dependencies"><a href="#Install-other-required-dependencies" class="headerlink" title="Install other required dependencies:"></a>Install other required dependencies:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install cmake make gcc g++ flex bison libpcap-dev libssl-dev python-dev swig zlib1g-dev</span><br></pre></td></tr></table></figure>
+<h5 id="Download-Bro-using-git-clone-or-wget"><a href="#Download-Bro-using-git-clone-or-wget" class="headerlink" title="Download Bro using git clone or wget:"></a>Download Bro using <strong>git clone</strong> or <strong>wget</strong>:</h5><p>Method 1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo git clone --recursive git://git.bro.org/bro</span><br></pre></td></tr></table></figure>
+<p>Method 2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo wget https://www.bro.org/downloads/bro-2.5.3.tar.gz</span><br><span class="line">$ sudo tar xvzf bro-2.5.3.tar.gz</span><br></pre></td></tr></table></figure>
+<h5 id="Install-BRO-using-make-amp-make-install"><a href="#Install-BRO-using-make-amp-make-install" class="headerlink" title="Install BRO using make &amp; make install:"></a>Install BRO using <strong>make</strong> &amp; <strong>make install</strong>:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cd bro</span><br><span class="line">$ ./configure --prefix=/nsm/bro</span><br><span class="line">$ sudo make</span><br><span class="line">$ sudo make install</span><br></pre></td></tr></table></figure>
+<h5 id="Select-which-NIC-and-which-subnet-will-be-used-for-monitoring"><a href="#Select-which-NIC-and-which-subnet-will-be-used-for-monitoring" class="headerlink" title="Select which NIC and which subnet will be used for monitoring:"></a>Select which <strong>NIC</strong> and which subnet will be used for monitoring:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ nano /nsm/bro/etc/node.cfg</span><br><span class="line">$ nano /nsm/bro/etc/networks.cfg</span><br></pre></td></tr></table></figure>
+<h5 id="Command-to-start-BRO-IDS"><a href="#Command-to-start-BRO-IDS" class="headerlink" title="Command to start BRO IDS:"></a>Command to start BRO IDS:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">/nsm/bro/bin/broctl</span><br><span class="line">install</span><br><span class="line">exit</span><br></pre></td></tr></table></figure>
+<h5 id="Add-the-following-into-rc-local-for-auto-start"><a href="#Add-the-following-into-rc-local-for-auto-start" class="headerlink" title="Add the following into rc.local for auto-start:"></a>Add the following into <strong>rc.local</strong> for auto-start:</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/nsm/bro/bin/broctl start</span><br></pre></td></tr></table></figure>
+<h5 id="Optimization-using-Cron"><a href="#Optimization-using-Cron" class="headerlink" title="Optimization using Cron"></a>Optimization using Cron</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#### Clean /nsm/bro/logs at 23:59 everyday</span><br><span class="line">$ sudo crontab -e</span><br><span class="line">59 23 * * * rm -rf /nsm/bro/logs/20??-*-*</span><br><span class="line"></span><br><span class="line">#### Restart cron service</span><br><span class="line">$ sudo /etc/init.d/cron restart</span><br><span class="line"></span><br><span class="line">#### Check the cron runnning status in Debian</span><br><span class="line">$ sudo /etc/init.d/cron status</span><br><span class="line">● cron.service - Regular background program processing daemon</span><br><span class="line">   Loaded: loaded (/lib/systemd/system/cron.service; enabled; vendor preset: enabled)</span><br><span class="line">   Active: active (running) since Mon 2018-05-14 21:41:54 NZST; 5min ago</span><br><span class="line">     Docs: man:cron(8)</span><br><span class="line"> Main PID: 12368 (cron)</span><br><span class="line">   CGroup: /system.slice/cron.service</span><br><span class="line">           └─12368 /usr/sbin/cron -f</span><br></pre></td></tr></table></figure>
+<h5 id="Start-Bro-and-ensure-that-files-needed-by-BroControl-amp-Bro-are-brought-up-to-date-based-on-the-current-configurations"><a href="#Start-Bro-and-ensure-that-files-needed-by-BroControl-amp-Bro-are-brought-up-to-date-based-on-the-current-configurations" class="headerlink" title="Start Bro and ensure that files needed by BroControl &amp; Bro are brought up-to-date based on the current configurations"></a>Start Bro and ensure that files needed by BroControl &amp; Bro are brought up-to-date based on the current configurations</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo broctl deploy</span><br></pre></td></tr></table></figure>
+<h4 id="BRO-IDS-sending-emails"><a href="#BRO-IDS-sending-emails" class="headerlink" title="BRO IDS sending emails"></a>BRO IDS sending emails</h4><p>Configure <span style="color:darkblue"><strong>/etc/ssmtp/ssmtp.conf</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Debug=YES</span><br><span class="line">root=xxxx@gmail.com</span><br><span class="line">mailhub=smtp.gmail.com:465</span><br><span class="line">rewriteDomain=gmail.com</span><br><span class="line">hostname=raspberrypi3</span><br><span class="line">FromLineOverride=YES</span><br><span class="line">UseTLS=Yes</span><br><span class="line">UseSTARTTLS=No</span><br><span class="line">AuthUser=username</span><br><span class="line">AuthPass=password</span><br></pre></td></tr></table></figure>
+<p>Configure <span style="color:darkblue"><strong>/etc/bro/broctl.cfg</strong></span>. This file has something to do with email sendings regarding system health report.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Recipient address for all emails sent out by Bro and BroControl.</span><br><span class="line">MailTo = root@localhost</span><br><span class="line"></span><br><span class="line"># This will auto-send an email of &quot;Connection Summary&quot; every 1 hour</span><br><span class="line">LogRotationInterval = 3600</span><br></pre></td></tr></table></figure>
+<p>Test email sending function using <span style="color:darkblue"><strong>mail</strong></span>. </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mail -s &quot;This is a Test Email&quot;  user@gmail.com &lt; /dev/null</span><br><span class="line">... ...</span><br><span class="line">mail: Null message body; hope that&apos;s ok</span><br></pre></td></tr></table></figure>
+<p>[Reference: 5 Ways to Send Email From Linux Command Line - <a href="https://tecadmin.net/ways-to-send-email-from-linux-command-line/]" target="_blank" rel="noopener">https://tecadmin.net/ways-to-send-email-from-linux-command-line/]</a></p>
+<h4 id="BRO-IDS-Command-Lines"><a href="#BRO-IDS-Command-Lines" class="headerlink" title="BRO IDS Command Lines"></a>BRO IDS Command Lines</h4><p>Use <span style="color:darkblue"><strong>bro-cut</strong></span> to parse the logs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat http.log | bro-cut -d ts uid id.orig_h id.orig_p id.resp_h id.resp_p method host uri user_agent status_code status_msg username password</span><br></pre></td></tr></table></figure>
+<p>Reference for HTTP.log: <a href="https://www.bro.org/sphinx/scripts/base/protocols/http/main.bro.html" target="_blank" rel="noopener">https://www.bro.org/sphinx/scripts/base/protocols/http/main.bro.html</a></p>
+<p>Use <span style="color:darkblue"><strong>query</strong></span> to check top dns queries</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bro-cut query &lt; dns.log | sort | uniq -c | sort -rn | head -n 10</span><br></pre></td></tr></table></figure>
+<p>Exercise - Understanding and Examining Bro Logs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.bro.org/current/solutions/logs/index.html</span><br></pre></td></tr></table></figure>
+<p>Convert pcap to bro log format (e.g. Below, there’re 4 different xx.log generated)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo bro -r http.pcap</span><br><span class="line">total 3988</span><br><span class="line">-rw-r--r-- 1 root root   13403 May 23 21:03 conn.log</span><br><span class="line">-rw-r--r-- 1 root root   27396 May 23 21:03 files.log</span><br><span class="line">-rw-r--r-- 1 root root   71154 May 23 21:03 http.log</span><br><span class="line">-rw-r--r-- 1 root root 3956760 Nov  7  2013 http.pcap</span><br><span class="line">-rw-r--r-- 1 root root     253 May 23 21:03 packet_filter.log</span><br></pre></td></tr></table></figure>
+<p>What are the 5 most commonly visited webs sites?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ bro-cut host &lt; http.log | sort | uniq -c | sort -n | tail -n 5</span><br><span class="line">$ zcat http.xxxx.log.gz | bro-cut host | sort | uniq -c | sort -n | tail -n 5</span><br></pre></td></tr></table></figure>
+<p>Top 10 GeoIP in conn.log</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bro-cut resp_cc &lt; conn.log | sort | uniq -c | sort -rn | head -n 10</span><br></pre></td></tr></table></figure>
+<h3 id="Critical-Stack-on-RaspberryPi-3"><a href="#Critical-Stack-on-RaspberryPi-3" class="headerlink" title="Critical Stack on RaspberryPi 3"></a>Critical Stack on RaspberryPi 3</h3><h4 id="Add-“Collecter”-“Sensor”-and-“Feed”-from"><a href="#Add-“Collecter”-“Sensor”-and-“Feed”-from" class="headerlink" title="Add “Collecter”, “Sensor” and “Feed” from"></a>Add “Collecter”, “Sensor” and “Feed” from</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://intel.criticalstack.com</span><br></pre></td></tr></table></figure>
+<h4 id="Config-Critical-Stack-with-Bro"><a href="#Config-Critical-Stack-with-Bro" class="headerlink" title="Config Critical Stack with Bro"></a>Config Critical Stack with Bro</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -u critical-stack critical-stack-intel config --set bro.path=/nsm/bro</span><br><span class="line">$ sudo -u critical-stack critical-stack-intel config --set bro.include.path=/usr/share/bro/site/local.bro</span><br><span class="line">$ sudo -u critical-stack critical-stack-intel config --set bro.broctl.path=/usr/bin/broctl</span><br><span class="line">$ sudo -u critical-stack critical-stack-intel api xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxx</span><br></pre></td></tr></table></figure>
+<h4 id="Check-Critical-Stack-IOCs"><a href="#Check-Critical-Stack-IOCs" class="headerlink" title="Check Critical Stack IOCs"></a>Check Critical Stack IOCs</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -u critical-stack critical-stack-intel list</span><br></pre></td></tr></table></figure>
+<h4 id="Fetch-from-the-Intel-Market-using-API-key"><a href="#Fetch-from-the-Intel-Market-using-API-key" class="headerlink" title="Fetch from the Intel Market using API key"></a>Fetch from the Intel Market using API key</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -u critical-stack critical-stack-intel pull</span><br><span class="line"></span><br><span class="line">critical-stack 19:11:13 [INFO] Downloading feed information. Run with the `--debug` flag for more information.</span><br><span class="line">7 / 7 [====] 100.00 % 9s</span><br><span class="line">critical-stack 19:11:22 [INFO] Creating master file: master-public.bro.dat. Please wait.</span><br><span class="line">critical-stack 19:11:22 [INFO] Master file created successfully.</span><br><span class="line">critical-stack 19:11:22 [INFO] Checking bro configuration files.</span><br><span class="line">critical-stack 19:11:22 [INFO] Intel include exists in: /usr/share/bro/site/local.bro</span><br><span class="line">critical-stack 19:11:22 [WARN] --- RESTART NOTICE ---</span><br><span class="line">critical-stack 19:11:22 [WARN] You need to restart bro for changes to take effect.</span><br><span class="line">critical-stack 19:11:22 [INFO]     * sudo broctl check</span><br><span class="line">critical-stack 19:11:22 [INFO]     * sudo broctl install</span><br><span class="line">critical-stack 19:11:22 [INFO]     * sudo broctl restart</span><br><span class="line">critical-stack 19:11:22 [INFO] For automatic restarts run: `critical-stack-intel config --set bro.restart=true`</span><br><span class="line">critical-stack 19:11:22 [INFO] Intel files located at: /opt/critical-stack/frameworks/intel</span><br><span class="line">critical-stack 19:11:22 [INFO] API Requests Remaining: 999 of 1000/minute</span><br></pre></td></tr></table></figure>
+<h4 id="Restart-Bro-for-changes-to-take-effect"><a href="#Restart-Bro-for-changes-to-take-effect" class="headerlink" title="Restart Bro for changes to take effect"></a>Restart Bro for changes to take effect</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ broctl check</span><br><span class="line">$ broctl install</span><br><span class="line">$ broctl restart</span><br></pre></td></tr></table></figure>
+<h4 id="Set-automatic-restarts"><a href="#Set-automatic-restarts" class="headerlink" title="Set automatic restarts"></a>Set automatic restarts</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -u critical-stack critical-stack-intel config --set bro.restart=true</span><br></pre></td></tr></table></figure>
+<h4 id="Test-if-our-TI-is-working-properly"><a href="#Test-if-our-TI-is-working-properly" class="headerlink" title="Test if our TI is working properly"></a>Test if our TI is working properly</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># IP 185.170.42.14 is on ET known Compromised Host List</span><br><span class="line"># We do a SSH attempt on a testing machine then we can succesfully find this event in intel.log</span><br><span class="line"></span><br><span class="line">[Testing] $ ssh 185.170.42.14</span><br><span class="line"></span><br><span class="line">[Bro Log] $ cd /nsm/bro/logs/current </span><br><span class="line"></span><br><span class="line">[Bro Log] $ cat intel.log </span><br><span class="line">1526984588.191862 CrOHZ311FHM0wYnonf    115.xxx.xxx.74 53092 185.170.42.14 22 185.170.42.14 Intel::ADDR Conn::IN_RESP bro Intel::ADDR    from http://rules.emergingthreats.net/open/suricata/rules/compromised.rules via intel.criticalstack.com    -    -    -</span><br><span class="line"></span><br><span class="line">[Bro Log] $ cat intel.log | bro-cut -d ts id.orig_h id.orig_p id.resp_h id.resp_p proto query</span><br><span class="line">2018-05-22T22:23:08+1200 115.xxx.xxx.74 53092 185.170.42.14 22</span><br></pre></td></tr></table></figure>
+<h3 id="Suricata-IDS-on-Ubuntu"><a href="#Suricata-IDS-on-Ubuntu" class="headerlink" title="Suricata IDS on Ubuntu"></a>Suricata IDS on Ubuntu</h3><h4 id="Install-Dependencies"><a href="#Install-Dependencies" class="headerlink" title="Install Dependencies"></a>Install Dependencies</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get -y install libpcre3 libpcre3-dbg libpcre3-dev \</span><br><span class="line">build-essential autoconf automake libtool libpcap-dev libnet1-dev \</span><br><span class="line">libyaml-0-2 libyaml-dev zlib1g zlib1g-dev libmagic-dev libcap-ng-dev \</span><br><span class="line">libjansson-dev pkg-config</span><br></pre></td></tr></table></figure>
+<h4 id="Install-libhtp-via-OISF"><a href="#Install-libhtp-via-OISF" class="headerlink" title="Install libhtp via OISF"></a>Install <span style="color:darkblue"><strong>libhtp</strong></span> via OISF</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git clone  https://github.com/OISF/libhtp.git</span><br><span class="line">$ cd libhtp/</span><br><span class="line">$./autogen.sh</span><br><span class="line">$./configure</span><br><span class="line">$ make &amp;&amp; sudo make install</span><br></pre></td></tr></table></figure>
+<h4 id="Download-suricata-and-unzip"><a href="#Download-suricata-and-unzip" class="headerlink" title="Download suricata and unzip"></a>Download suricata and unzip</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://www.openinfosecfoundation.org/download/suricata-4.0.4.tar.gz</span><br><span class="line">$ tar -xvf suricata-4.0.4.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="Complie-suricata"><a href="#Complie-suricata" class="headerlink" title="Complie suricata"></a>Complie suricata</h4><p>By default, suricate runs on IDS mode</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd suricata-4.0.4</span><br><span class="line">$ ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var</span><br></pre></td></tr></table></figure>
+<p>Alternatively, suricate can runs on IDS &amp; IPS mode</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get -y install libnetfilter-queue-dev libnetfilter-queue1 libnfnetlink-dev libnfnetlink0  </span><br><span class="line">$ ./configure --enable-nfqueue --prefix=/usr --sysconfdir=/etc --localstatedir=/var</span><br></pre></td></tr></table></figure>
+<h4 id="Install-suricata-with-default-configuration"><a href="#Install-suricata-with-default-configuration" class="headerlink" title="Install suricata with default configuration"></a>Install suricata with default configuration</h4><p>Below is default configuration</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ make &amp;&amp; sudo make install</span><br><span class="line">$ sudo make install-conf # Using Default Configuration</span><br><span class="line">$ sudo make install-rules # Install Default Rules  </span><br><span class="line">$ sudo ldconfig # Enable shared system dynamic lib</span><br></pre></td></tr></table></figure>
+<p>If we don’t use default configuration, we can also</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ sudo mkdir /var/log/suricata</span><br><span class="line">$ sudo mkdir /etc/suricata</span><br><span class="line"></span><br><span class="line">$ cd /etc/suricata</span><br><span class="line">$ wget http://rules.emergingthreats.net/open/suricata/emerging.rules.tar.gz</span><br><span class="line">$ tar zxvf emerging.rules.tar.gz</span><br><span class="line">$ sudo cp -R rules/ /etc/suricata/</span><br><span class="line"></span><br><span class="line">$ cd suricata-4.0.4</span><br><span class="line">$ sudo cp suricata.yaml classification.config reference.config /etc/suricata/</span><br></pre></td></tr></table></figure>
+<h4 id="Edit-etc-suricata-suricata-yaml"><a href="#Edit-etc-suricata-suricata-yaml" class="headerlink" title="Edit /etc/suricata/suricata.yaml"></a>Edit /etc/suricata/suricata.yaml</h4><p>Key configuration fileds</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># Network Configuration</span><br><span class="line">HOME_NET: &quot;[192.168.0.0/16,10.0.0.0/8,172.16.0.0/12]&quot;</span><br><span class="line">EXTERNAL_NET: &quot;!$HOME_NET&quot;</span><br><span class="line"></span><br><span class="line"># Log file path</span><br><span class="line">default-log-dir: /var/log/suricata/</span><br><span class="line"></span><br><span class="line"># Number of packets preallocated per thread. Default 1024</span><br><span class="line">max-pending-packets: 1024 </span><br><span class="line"></span><br><span class="line"># Preallocated size for packet. Default 1514</span><br><span class="line">default-packet-size</span><br></pre></td></tr></table></figure>
+<p>Suricata Security Rules</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://redmine.openinfosecfoundation.org/projects/suricata/wiki/Suricata_Rules</span><br></pre></td></tr></table></figure>
+<h4 id="Create-our-own-rules-for-testing-purposes"><a href="#Create-our-own-rules-for-testing-purposes" class="headerlink" title="Create our own rules for testing purposes"></a>Create our own rules for testing purposes</h4><p>Edit <span style="color:darkblue"><strong>/etc/suricata/suricata.yaml</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">default-rule-path: /etc/suricata/rules</span><br><span class="line">rule-files:</span><br><span class="line"> - my.rules</span><br></pre></td></tr></table></figure>
+<p>Go to <span style="color:darkblue"><strong>my.rules</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert icmp $HOME_NET any -&gt; $EXTERNAL_NET any (msg:&quot;TEST :ICMP PING&quot;; itype:8; sid:20000; rev:3;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert tcp any any -&gt; any 80 (msg:&quot;http test&quot;;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert http any any -&gt; any any (msg:&quot;Filemagic jgp(1)&quot;; flow:established; filemagic:&quot;JPEG image data&quot;; filestore; sid:10; rev:1;)</span><br></pre></td></tr></table></figure>
+<h4 id="Suricata-Running-Mode"><a href="#Suricata-Running-Mode" class="headerlink" title="Suricata Running Mode"></a>Suricata Running Mode</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">$ sudo suricata --list-runmodes</span><br><span class="line"></span><br><span class="line">------------------------------------- Runmodes ------------------------------------------</span><br><span class="line">| RunMode Type      | Custom Mode       | Description</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| PCAP_DEV          | single            | Single threaded pcap live mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | autofp            | Multi threaded pcap live mode.  Packets from each flow are assigned to a single detect thread, unlike &quot;pcap_live_auto&quot; where packets from the same flow can be processed by any detect thread</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Workers pcap live mode, each thread does all tasks from acquisition to logging</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| PCAP_FILE         | single            | Single threaded pcap file mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | autofp            | Multi threaded pcap file mode.  Packets from each flow are assigned to a single detect thread, unlike &quot;pcap-file-auto&quot; where packets from the same flow can be processed by any detect thread</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| PFRING(DISABLED)  | autofp            | Multi threaded pfring mode.  Packets from each flow are assigned to a single detect thread, unlike &quot;pfring_auto&quot; where packets from the same flow can be processed by any detect thread</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | single            | Single threaded pfring mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Workers pfring mode, each thread does all tasks from acquisition to logging</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| NFQ               | autofp            | Multi threaded NFQ IPS mode with respect to flow</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Multi queue NFQ IPS mode with one thread per queue</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| NFLOG             | autofp            | Multi threaded nflog mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | single            | Single threaded nflog mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Workers nflog mode</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| IPFW              | autofp            | Multi threaded IPFW IPS mode with respect to flow</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Multi queue IPFW IPS mode with one thread per queue</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| ERF_FILE          | single            | Single threaded ERF file mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | autofp            | Multi threaded ERF file mode.  Packets from each flow are assigned to a single detect thread</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| ERF_DAG           | autofp            | Multi threaded DAG mode.  Packets from each flow are assigned to a single detect thread, unlike &quot;dag_auto&quot; where packets from the same flow can be processed by any detect thread</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | single            | Singled threaded DAG mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Workers DAG mode, each thread does all  tasks from acquisition to logging</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| AF_PACKET_DEV     | single            | Single threaded af-packet mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Workers af-packet mode, each thread does all tasks from acquisition to logging</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | autofp            | Multi socket AF_PACKET mode.  Packets from each flow are assigned to a single detect thread.</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| NETMAP(DISABLED)  | single            | Single threaded netmap mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | workers           | Workers netmap mode, each thread does all tasks from acquisition to logging</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | autofp            | Multi threaded netmap mode.  Packets from each flow are assigned to a single detect thread.</span><br><span class="line">|----------------------------------------------------------------------------------------</span><br><span class="line">| UNIX_SOCKET       | single            | Unix socket mode</span><br><span class="line">|                   ---------------------------------------------------------------------</span><br><span class="line">|                   | autofp            | Unix socket mode</span><br></pre></td></tr></table></figure>
+<h4 id="Disable-NIC-LRO-GRO"><a href="#Disable-NIC-LRO-GRO" class="headerlink" title="Disable NIC LRO/GRO"></a>Disable NIC LRO/GRO</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ethtool -k ensxx # check if LRO/GRO is open</span><br><span class="line">$ sudo ethtool -K ensxx lro off # disable LRO</span><br><span class="line">$ sudo ethtool -K ensxx gro off # disable GRO</span><br></pre></td></tr></table></figure>
+<h4 id="Run-suricata"><a href="#Run-suricata" class="headerlink" title="Run suricata"></a>Run suricata</h4><p>Event will be logged in <span style="color:darkblue"><strong>fast.log</strong></span> uder <span style="color:darkblue"><strong>/var/log/suricata/</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo suricata -c /etc/suricata/suricata.yaml -i ens33</span><br><span class="line"></span><br><span class="line">29/5/2018 -- 13:47:43 - &lt;Notice&gt; - This is Suricata version 4.0.4 RELEASE</span><br><span class="line">29/5/2018 -- 13:47:52 - &lt;Notice&gt; - all 1 packet processing threads, 4 management threads initialized, engine started.</span><br></pre></td></tr></table></figure>
+<h3 id="Scirius-CE-Portal-on-Ubuntu"><a href="#Scirius-CE-Portal-on-Ubuntu" class="headerlink" title="Scirius CE (Portal) on Ubuntu"></a>Scirius CE (Portal) on Ubuntu</h3><p>Scirius Community Edition is a web interface dedicated to Suricata ruleset management. It handles the rules file and update associated files.</p>
+<h4 id="Installation-Steps"><a href="#Installation-Steps" class="headerlink" title="Installation Steps"></a>Installation Steps</h4><p>Install pip on Debian</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install aptitude</span><br><span class="line">$ sudo aptitude install python-pip python-dev</span><br></pre></td></tr></table></figure>
+<p>If you have these packages installed you need to remove them so that Scirius would work with the latest python dependencies.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get remove django-tables python-django python-django-south python-git</span><br></pre></td></tr></table></figure>
+<p>Install django and the dependencies</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ pip install django django-tables2 South GitPython pyinotify daemon</span><br><span class="line">$ pip install -r requirements.txt</span><br><span class="line">$ pip install pyinotify</span><br><span class="line">$ pip install gitpython==0.3.1-beta2</span><br><span class="line">$ pip install gitdb</span><br></pre></td></tr></table></figure>
+<p>We need a stable version of npm and webpack version 3.11</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install npm</span><br><span class="line">$ sudo npm install -g npm@latest webpack@3.11</span><br><span class="line">root@hostname:/opt/scirius# npm install</span><br><span class="line"></span><br><span class="line">$ npm install --save-dev webpack</span><br></pre></td></tr></table></figure>
+<p>[Optional] If errors occur</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ sudo npm install eslint-loader --save-dev</span><br><span class="line">$ sudo npm install eslint --save-dev</span><br><span class="line">$ sudo npm install babel-eslint --save-dev</span><br><span class="line"></span><br><span class="line">$ sudo npm install webpack</span><br><span class="line">$ sudo npm install babel-loader</span><br><span class="line">$ sudo npm install &quot;babel-loader@^8.0.0-beta&quot; @babel/core @babel/preset-env webpack</span><br><span class="line">$ sudo npm i extract-text-webpack-plugin</span><br><span class="line"></span><br><span class="line">$ sudo npm install style-loader css-loader --save</span><br><span class="line">$ sudo npm install sass-loader -D</span><br><span class="line">$ sudo npm install node-sass -D</span><br></pre></td></tr></table></figure>
+<p>Clone the latest version</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd /opt</span><br><span class="line">$ sudo git clone https://github.com/StamusNetworks/scirius.git</span><br><span class="line">$ cd scirius</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-Scirius-CE"><a href="#Configure-Scirius-CE" class="headerlink" title="Configure Scirius CE"></a>Configure Scirius CE</h4><p>Initiate Django database from inside the source directory.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /opt/scirius</span><br><span class="line">$ sudo python manage.py migrate</span><br></pre></td></tr></table></figure>
+<p>Authentication is by default in scirius so you will need to create a superuser account</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python manage.py createsuperuser</span><br></pre></td></tr></table></figure>
+<p>Before starting the application you need to construct the bundles by running webpack</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo webpack</span><br></pre></td></tr></table></figure>
+<h4 id="Permanent-way-of-making-ES-Replicas-0"><a href="#Permanent-way-of-making-ES-Replicas-0" class="headerlink" title="Permanent way of making ES Replicas = 0"></a>Permanent way of making ES Replicas = 0</h4><p><a href="https://discuss.elastic.co/t/permanent-way-of-making-es-replicas-0/58206" target="_blank" rel="noopener">https://discuss.elastic.co/t/permanent-way-of-making-es-replicas-0/58206</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ curl -XPUT &apos;localhost:9200/_template/priority1&apos; -d &apos;</span><br><span class="line">&#123;</span><br><span class="line">&quot;template&quot; : &quot;*&quot;,</span><br><span class="line">&quot;settings&quot; : &#123;&quot;number_of_replicas&quot; : 0 &#125;</span><br><span class="line">&#125; &apos;</span><br></pre></td></tr></table></figure>
+<h4 id="Run-Scirius-CE"><a href="#Run-Scirius-CE" class="headerlink" title="Run Scirius CE"></a>Run Scirius CE</h4><p>One of the easiest way to try Scirius CE is to run the Django test server. You can then connect to <span style="color:darkblue"><strong><a href="http://localhost:8000" target="_blank" rel="noopener">http://localhost:8000</a></strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python manage.py runserver</span><br><span class="line"></span><br><span class="line">Django version 1.11.13, using settings &apos;scirius.settings&apos;</span><br><span class="line">Starting development server at http://127.0.0.1:8000/</span><br><span class="line">Quit the server with CONTROL-C.</span><br></pre></td></tr></table></figure>
+<p>If you need the application to listen to a reachable address, you can run something like</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo python manage.py runserver 192.168.1.220:8000</span><br></pre></td></tr></table></figure>
+<p>Also, don’t forget tp add the HOST IP that you want to actually access, to ALLOWED_HOSTS under <span style="color:darkblue"><strong>scirius/scirius/settings.py</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALLOWED_HOSTS = [&apos;192.168.1.220&apos;]</span><br></pre></td></tr></table></figure>
+<h4 id="Initialize-Scirius-CE"><a href="#Initialize-Scirius-CE" class="headerlink" title="Initialize Scirius CE"></a>Initialize Scirius CE</h4><p>To interact with Scirius CE, you need to detect when <span style="color:darkblue"><strong>/etc/suricata/rules/scirius.reload</strong></span>  file are created, initiate a reload or restart of Suricata when it is the case and delete the reload file once this is done.</p>
+<p>Run below command in one Terminal [scirius]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /opt/scirius/suricata/scripts</span><br><span class="line">$ sudo ./suri_reloader -p /etc/suricata/rules/ -l /var/log/suri-reload.log -r</span><br></pre></td></tr></table></figure>
+<p>Start Suricata in another Terminal [suricata]</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo suricata -c /etc/suricata/suricata.yaml -i ens33</span><br></pre></td></tr></table></figure>
+<p>Create a new source on scirius web portal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Source -&gt; Emerging Threats Open Ruleset</span><br></pre></td></tr></table></figure>
+<p><img src="/uploadimage/scirius_add_source_1.png" alt="Image"></p>
+<p><img src="/uploadimage/scirius_add_source_2.png" alt="Image"></p>
+<p>Create a new Ruleset on scirius web portal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Rulesets -&gt; myScirius </span><br><span class="line">[Using &quot;Emerging Threats Open Ruleset&quot; as a source]</span><br></pre></td></tr></table></figure>
+<p><img src="/uploadimage/scirius_add_ruleset_1.png" alt="Image"></p>
+<p><img src="/uploadimage/scirius_add_ruleset_2.png" alt="Image"></p>
+<p>Edit Suricata on scirius web portal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Name: suricata</span><br><span class="line">Descr: suricata</span><br><span class="line">Rules directory: /etc/suricata/rules/</span><br><span class="line">Suricata configuration file: /etc/suricata/suricata.yaml</span><br><span class="line">Ruleset: myScirius</span><br></pre></td></tr></table></figure>
+<p>Tick Suricata Ruleset Actions on scirius web portal</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Actions: Update | Build | Push</span><br></pre></td></tr></table></figure>
+<p>Then, IDS rules will be auto-generated under</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">xxx@hostname:/etc/suricata/rules$ ls -l</span><br><span class="line">total 13800</span><br><span class="line">-rw-rw-r-- 1 root root     1673 May 30 21:53 BSD-License.txt</span><br><span class="line">-rw-rw-r-- 1 root root     2638 May 30 21:53 classification.config</span><br><span class="line">-rw-rw-r-- 1 root root     9013 May 30 21:53 compromised-ips.txt</span><br><span class="line">-rw-rw-r-- 1 root root     3349 May 30 21:53 emerging.conf</span><br><span class="line">-rw-rw-r-- 1 root root    18273 May 30 21:53 gen-msg.map</span><br><span class="line">-rw-rw-r-- 1 root root    18092 May 30 21:53 gpl-2.0.txt</span><br><span class="line">-rw-rw-r-- 1 root root     2243 May 30 21:53 LICENSE</span><br><span class="line">-rw-rw-r-- 1 root root     1377 May 30 21:53 reference.config</span><br><span class="line">-rw-r--r-- 1 root root       32 May 30 22:06 scirius.reload</span><br><span class="line">-rw-r--r-- 1 root root 10307949 May 30 22:06 scirius.rules</span><br><span class="line">-rw-rw-r-- 1 root root  3570798 May 30 21:53 sid-msg.map</span><br><span class="line">-rw-rw-r-- 1 root root    32438 May 30 21:53 suricata-1.2-prior-open.yaml</span><br><span class="line">-rw-rw-r-- 1 root root    37450 May 30 21:53 suricata-1.3-etpro-etnamed.yaml</span><br><span class="line">-rw-rw-r-- 1 root root    37589 May 30 21:53 suricata-1.3-open.yaml</span><br><span class="line">-rw-rw-r-- 1 root root        0 May 30 21:53 suricata-4.0-enhanced-open.txt</span><br><span class="line">-rw-r--r-- 1 root root        0 May 30 22:06 threshold.config</span><br><span class="line">-rw-rw-r-- 1 root root    53841 May 30 21:53 unicode.map</span><br></pre></td></tr></table></figure>
+<h4 id="Install-Elasticsearch"><a href="#Install-Elasticsearch" class="headerlink" title="Install Elasticsearch"></a>Install Elasticsearch</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install openjdk-8-jre</span><br><span class="line">$ curl -L -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.4.deb</span><br><span class="line">$ sudo dpkg -i elasticsearch-6.2.4.deb</span><br><span class="line">$ sudo /etc/init.d/elasticsearch start</span><br></pre></td></tr></table></figure>
+<h4 id="Install-Logstash"><a href="#Install-Logstash" class="headerlink" title="Install Logstash"></a>Install Logstash</h4><p>An important advantage to this approach is that you can use Logstash to modify the data captured by Beats in any way you like. You can also use Logstash’s many output plugins to integrate with other systems.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install openjdk-8-jre</span><br><span class="line">$ curl -L -O https://artifacts.elastic.co/downloads/logstash/logstash-6.2.4.deb</span><br><span class="line">$ sudo dpkg -i logstash-6.2.4.deb</span><br></pre></td></tr></table></figure>
+<p>Logstash set up</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.elastic.co/guide/en/beats/libbeat/current/logstash-installation.html</span><br></pre></td></tr></table></figure>
+<p>Run Logstash</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/logstash start</span><br></pre></td></tr></table></figure>
+<h4 id="Link-with-Elasticsearch"><a href="#Link-with-Elasticsearch" class="headerlink" title="Link with Elasticsearch"></a>Link with Elasticsearch</h4><p>To setup Elasticsearch connection, you can edit <strong>settings.py</strong> or create a <strong>local_settings.py</strong> file under scirius directory to setup the feature. </p>
+<p>Elasticsearch is activated if a variable names <strong>USE_ELASTICSEARCH</strong> is set to True in /opt/scirius/scirius/settings.py.</p>
+<p>The address of the Elasticsearch is stored in the <strong>ELASTICSEARCH_ADDRESS</strong> variable and uses the format <strong>IP:Port</strong>.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /opt/scirius/scirius/settings.py</span><br><span class="line">USE_ELASTICSEARCH = True</span><br><span class="line">ELASTICSEARCH_ADDRESS = &quot;192.168.1.210:9200&quot;</span><br><span class="line">ELASTICSEARCH_VERSION = 2 # In 1, 2, 5 set depending on ES major version</span><br></pre></td></tr></table></figure>
+<p><img src="/uploadimage/RaspberryPi3-NSM-Design_Link_Scirius_Elasticsearch_1.png" alt="Image"></p>
+<p><img src="/uploadimage/RaspberryPi3-NSM-Design_Link_Scirius_Elasticsearch_2.png" alt="Image"></p>
+<h3 id="SELKS-Suricata-Scirius-Kibana-Logstash-Evebox"><a href="#SELKS-Suricata-Scirius-Kibana-Logstash-Evebox" class="headerlink" title="SELKS (Suricata + Scirius + Kibana + Logstash + Evebox)"></a>SELKS (Suricata + Scirius + Kibana + Logstash + Evebox)</h3><p>SELKS 4.0 Stamus Networks</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.stamus-networks.com/2017/08/22/selks-4-0/</span><br></pre></td></tr></table></figure>
+<p>The SELKS Wiki - User Documentation</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/StamusNetworks/SELKS/wiki</span><br></pre></td></tr></table></figure>
+<h3 id="Moloch-with-Elasticsearch-on-Ubuntu"><a href="#Moloch-with-Elasticsearch-on-Ubuntu" class="headerlink" title="Moloch (with Elasticsearch) on Ubuntu"></a>Moloch (with Elasticsearch) on Ubuntu</h3><h4 id="Modify-Hostname"><a href="#Modify-Hostname" class="headerlink" title="Modify Hostname"></a>Modify Hostname</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/hostname</span><br><span class="line">$ sudo nano /etc/hosts</span><br><span class="line">$ sudo reboot</span><br></pre></td></tr></table></figure>
+<h4 id="Install-dpendencies-including-JRE-JDK"><a href="#Install-dpendencies-including-JRE-JDK" class="headerlink" title="Install dpendencies including JRE/JDK"></a>Install dpendencies including JRE/JDK</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install libjson-perl</span><br><span class="line">$ sudo apt-get install default-jre</span><br></pre></td></tr></table></figure>
+<h4 id="Modify-max-file-descriptors"><a href="#Modify-max-file-descriptors" class="headerlink" title="Modify max file descriptors"></a>Modify max file descriptors</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/security/limits.conf</span><br><span class="line">*        -      nofile          128000</span><br><span class="line">*        -      memlock         unlimited</span><br></pre></td></tr></table></figure>
+<h4 id="Optional-Disable-device-and-files-paging-and-swapping-to-increase-efficiency"><a href="#Optional-Disable-device-and-files-paging-and-swapping-to-increase-efficiency" class="headerlink" title="[Optional] Disable device and files paging and swapping to increase efficiency"></a>[Optional] Disable device and files paging and swapping to increase efficiency</h4><p>Method 1</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo swapoff -a (swapon -a)</span><br></pre></td></tr></table></figure>
+<p>Method 2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/fstab</span><br><span class="line"># UUID=xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxx none  swap   sw   0  0</span><br></pre></td></tr></table></figure>
+<h4 id="Download-Moloch-v0-17-for-Ubuntu-16-04"><a href="#Download-Moloch-v0-17-for-Ubuntu-16-04" class="headerlink" title="Download Moloch v0.17 for Ubuntu 16.04"></a>Download <strong>Moloch v0.17</strong> for <strong>Ubuntu 16.04</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget http://files.molo.ch/builds/ubuntu-16.04/moloch_0.17.0-1_amd64.deb</span><br></pre></td></tr></table></figure>
+<h4 id="Install-Moloch"><a href="#Install-Moloch" class="headerlink" title="Install Moloch"></a>Install Moloch</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo dpkg -i moloch_0.17.0-1_amd64.deb</span><br></pre></td></tr></table></figure>
+<h4 id="Install-Dependencies-if-the-previous-step-halts-due-to-errors"><a href="#Install-Dependencies-if-the-previous-step-halts-due-to-errors" class="headerlink" title="Install Dependencies (if the previous step halts due to errors)"></a>Install Dependencies (if the previous step halts due to errors)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install -f</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-Moloch"><a href="#Configure-Moloch" class="headerlink" title="Configure Moloch"></a>Configure Moloch</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /data/moloch/bin/Configure</span><br><span class="line"></span><br><span class="line">Found interfaces: ens33,lo</span><br><span class="line">Interface to monitor [eth1] ens33</span><br><span class="line">Install Elasticsearch server locally for demo, must have at least 3G of memory, NOT recommended for production use (yes or no) [no] yes</span><br><span class="line">... ...</span><br><span class="line">... ...</span><br><span class="line">Moloch - Configured - Now continue with step 4 in /data/moloch/README.txt</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-elasticsearch-yml-in-data-moloch-elasticsearch-config"><a href="#Configure-elasticsearch-yml-in-data-moloch-elasticsearch-config" class="headerlink" title="Configure elasticsearch.yml in /data/moloch/elasticsearch/config"></a>Configure <strong>elasticsearch.yml</strong> in <strong>/data/moloch/elasticsearch/config</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line"># ======================== Elasticsearch Configuration =========================</span><br><span class="line">#</span><br><span class="line"># NOTE: Elasticsearch comes with reasonable defaults for most settings.</span><br><span class="line">#       Before you set out to tweak and tune the configuration, make sure you</span><br><span class="line">#       understand what are you trying to accomplish and the consequences.</span><br><span class="line">#</span><br><span class="line"># The primary way of configuring a node is via this file. This template lists</span><br><span class="line"># the most important settings you may want to configure for a production cluster.</span><br><span class="line">#</span><br><span class="line"># Please see the documentation for further information on configuration options:</span><br><span class="line"># &lt;http://www.elastic.co/guide/en/elasticsearch/reference/current/setup-configuration.html&gt;</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Cluster -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for your cluster:</span><br><span class="line">#</span><br><span class="line">cluster.name: moloch</span><br><span class="line">#</span><br><span class="line"># ------------------------------------ Node ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Use a descriptive name for the node:</span><br><span class="line">#</span><br><span class="line">node.name: node1</span><br><span class="line">#</span><br><span class="line"># Add custom attributes to the node:</span><br><span class="line"># node.rack: r1</span><br><span class="line"># ----------------------------------- Paths ------------------------------------</span><br><span class="line">#</span><br><span class="line"># Path to directory where to store the data (separate multiple locations by comma):</span><br><span class="line">#</span><br><span class="line"># path.data: /path/to/data</span><br><span class="line"># Path to log files:</span><br><span class="line">#path.logs: /path/to/logs</span><br><span class="line">#path.logs: /data/moloch/elasticsearch/logs</span><br><span class="line">#</span><br><span class="line"># ----------------------------------- Memory -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Lock the memory on startup:</span><br><span class="line"># bootstrap.memory_lock: true</span><br><span class="line">#</span><br><span class="line"># Make sure that the `ES_HEAP_SIZE` environment variable is set to about half the memory</span><br><span class="line"># available on the system and that the owner of the process is allowed to use this limit.</span><br><span class="line">#</span><br><span class="line"># Elasticsearch performs poorly when the system is swapping the memory.</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Network -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Set the bind address to a specific IP (IPv4 or IPv6):</span><br><span class="line">#</span><br><span class="line"># network.host: 192.168.0.1</span><br><span class="line">#</span><br><span class="line"># Set a custom port for HTTP:</span><br><span class="line">#</span><br><span class="line"># http.port: 9200</span><br><span class="line">#</span><br><span class="line"># For more information, see the documentation at:</span><br><span class="line"># &lt;http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-network.html&gt;</span><br><span class="line">#</span><br><span class="line"># --------------------------------- Discovery ----------------------------------</span><br><span class="line">#</span><br><span class="line"># Pass an initial list of hosts to perform discovery when new node is started:</span><br><span class="line"># The default list of hosts is [&quot;127.0.0.1&quot;, &quot;[::1]&quot;]</span><br><span class="line">#</span><br><span class="line"># discovery.zen.ping.unicast.hosts: [&quot;host1&quot;, &quot;host2&quot;]</span><br><span class="line">#</span><br><span class="line"># Prevent the &quot;split brain&quot; by configuring the majority of nodes (total number of nodes / 2 + 1):</span><br><span class="line">#</span><br><span class="line">discovery.zen.minimum_master_nodes: 1</span><br><span class="line"></span><br><span class="line">#</span><br><span class="line"># For more information, see the documentation at:</span><br><span class="line"># &lt;http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-discovery.html&gt;</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Gateway -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Block initial recovery after a full cluster restart until N nodes are started:</span><br><span class="line">#</span><br><span class="line"># gateway.recover_after_nodes: 3</span><br><span class="line">#</span><br><span class="line"># For more information, see the documentation at:</span><br><span class="line"># &lt;http://www.elastic.co/guide/en/elasticsearch/reference/current/modules-gateway.html&gt;</span><br><span class="line">#</span><br><span class="line"># ---------------------------------- Various -----------------------------------</span><br><span class="line">#</span><br><span class="line"># Disable starting multiple nodes on a single system:</span><br><span class="line">#</span><br><span class="line"># node.max_local_storage_nodes: 1</span><br><span class="line">#</span><br><span class="line"># Require explicit names when deleting indices:</span><br><span class="line">#</span><br><span class="line"># action.destructive_requires_name: true</span><br></pre></td></tr></table></figure>
+<h4 id="Run-elasticsearch"><a href="#Run-elasticsearch" class="headerlink" title="Run elasticsearch"></a>Run <strong>elasticsearch</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /data/moloch/elasticsearch/bin</span><br><span class="line">$ ./elasticsearch</span><br></pre></td></tr></table></figure>
+<h4 id="Initialise-Elasticsearch-Database-on-port-9200-and-add-a-new-user"><a href="#Initialise-Elasticsearch-Database-on-port-9200-and-add-a-new-user" class="headerlink" title="Initialise Elasticsearch Database on port 9200 and add a new user"></a>Initialise Elasticsearch Database on port 9200 and add a new user</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ /data/moloch/db/db.pl http://localhost:9200 init</span><br><span class="line">$ /data/moloch/bin/moloch_add_user.sh admin admin PASSWORDGOESHERE --admin</span><br></pre></td></tr></table></figure>
+<h4 id="Install-Capture-on-ubuntu-in-order-to-capture-data"><a href="#Install-Capture-on-ubuntu-in-order-to-capture-data" class="headerlink" title="Install Capture on ubuntu, in order to capture data"></a>Install Capture on ubuntu, in order to capture data</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install wget curl libpcre3-dev uuid-dev libmagic-dev pkg-config g++ flex bison zlib1g-dev libffi-dev gettext libgeoip-dev make libjson-perl libbz2-dev libwww-perl libpng-dev xz-utils libffi-dev</span><br><span class="line"></span><br><span class="line"># This bash file can be downloaded from Git</span><br><span class="line">$ sudo ./easybutton-build.sh</span><br><span class="line"></span><br><span class="line"># Specify the thirdparty software location (/data/moloch/thirdparty)</span><br><span class="line">$ sudo ./Configure --prefix=/data/moloch --with-libpcap=/data/moloch/thirdparty/libpcap-1.8.1 --with-yara=thirdparty/yara/yara-3.7.1 --with-maxminddb=thirdparty/libmaxminddb-1.3.2 --with-glib2=thirdparty/glib-2.54.3 --with-curl=thirdparty/curl-7.59.0 --with-lua=thirdparty/lua-5.3.4</span><br></pre></td></tr></table></figure>
+<h4 id="Start-molochcapture-service-and-molochviewer-service"><a href="#Start-molochcapture-service-and-molochviewer-service" class="headerlink" title="Start molochcapture.service and molochviewer.service"></a>Start <strong>molochcapture.service</strong> and <strong>molochviewer.service</strong></h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl start molochcapture.service molochviewer.service</span><br></pre></td></tr></table></figure>
+<h4 id="Access-Moloch"><a href="#Access-Moloch" class="headerlink" title="Access Moloch"></a>Access Moloch</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://#.#.#.#:8005</span><br></pre></td></tr></table></figure>
+<h4 id="Optional–xxx-Try-to-Auto-Restart-Moloch-and-Elasticsearch-at-system-boot"><a href="#Optional–xxx-Try-to-Auto-Restart-Moloch-and-Elasticsearch-at-system-boot" class="headerlink" title="[Optional–xxx???] Try to Auto Restart Moloch and Elasticsearch at system-boot"></a>[Optional–xxx???] Try to Auto Restart Moloch and Elasticsearch at system-boot</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl enable elasticsearch.service</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/elasticsearch.service to /etc/systemd/system/elasticsearch.service.</span><br><span class="line"></span><br><span class="line">$ sudo systemctl enable molochcapture.service</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/molochcapture.service to /etc/systemd/system/molochcapture.service.</span><br><span class="line"></span><br><span class="line">$ sudo systemctl enable molochviewer.service</span><br><span class="line">Created symlink from /etc/systemd/system/multi-user.target.wants/molochviewer.service to /etc/systemd/system/molochviewer.service.</span><br></pre></td></tr></table></figure>
+<h4 id="Optional-Delete-all-Elasticsearch-indexes"><a href="#Optional-Delete-all-Elasticsearch-indexes" class="headerlink" title="[Optional] Delete all Elasticsearch indexes"></a>[Optional] Delete all Elasticsearch indexes</h4><p>Note: You need to initialise Moloch database after using this command</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl stop molochcapture.service molochviewer.service</span><br><span class="line">$ curl -X DELETE &apos;http://localhost:9200/_all&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="Optional-Moloch-Raw-Data-Storage-Location"><a href="#Optional-Moloch-Raw-Data-Storage-Location" class="headerlink" title="[Optional] Moloch Raw Data Storage Location"></a>[Optional] Moloch Raw Data Storage Location</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/data/moloch/raw# ls -l</span><br><span class="line">total 2816</span><br><span class="line">-rw-r----- 1 nobody daemon  262144 Jun  5 19:24 ubuntu-180605-00000007.pcap</span><br><span class="line">-rw-r----- 1 nobody daemon       0 Jun  5 19:22 ubuntu-180605-00000008.pcap</span><br><span class="line">-rw-r----- 1 nobody daemon 1048576 Jun  5 19:47 ubuntu-180605-00000010.pcap</span><br><span class="line">-rw-r----- 1 nobody daemon 1572864 Jun  5 19:50 ubuntu-180605-00000011.pcap</span><br></pre></td></tr></table></figure>
+<h4 id="Optional-Moloch-optimization"><a href="#Optional-Moloch-optimization" class="headerlink" title="[Optional] Moloch optimization"></a>[Optional] Moloch optimization</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># Set ring buf size, see max with ethool -g eth0</span><br><span class="line">$ sudo ethtool -G eth0 rx 4096 tx 4096</span><br><span class="line"></span><br><span class="line"># Turn off feature, see available features with ethtool -k eth0</span><br><span class="line">$ sudo ethtool -K eth0 rx off tx off gs off tso off gso off</span><br></pre></td></tr></table></figure>
+<h4 id="Optional-Moloch-upgrade"><a href="#Optional-Moloch-upgrade" class="headerlink" title="[Optional] Moloch upgrade"></a>[Optional] Moloch upgrade</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://files.molo.ch/builds/ubuntu-16.04/moloch_0.18.2-1_amd64.deb</span><br><span class="line"></span><br><span class="line">$ sudo dpkg -i moloch_0.18.2-1_amd64.deb </span><br><span class="line">(Reading database ... 345537 files and directories currently installed.)</span><br><span class="line">Preparing to unpack moloch_0.18.2-1_amd64.deb ...</span><br><span class="line">Unpacking moloch (0.18.2-1) over (0.17.0-1) ...</span><br><span class="line">Setting up moloch (0.18.2-1) ...</span><br><span class="line">READ /data/moloch/README.txt and RUN /data/moloch/bin/Configure</span><br><span class="line"></span><br><span class="line">$ systemctl stop molochcapture.service</span><br><span class="line">$ systemctl stop molochviewer.service</span><br><span class="line"></span><br><span class="line">$ /data/moloch/db/db.pl http://localhost:9200 upgrade</span><br><span class="line"></span><br><span class="line">$ systemctl start molochcapture.service</span><br><span class="line">$ systemctl start molochviewer.service</span><br></pre></td></tr></table></figure>
+<h4 id="Optional-Configure-Rsyslog-Receiver-on-Moloch-Instance"><a href="#Optional-Configure-Rsyslog-Receiver-on-Moloch-Instance" class="headerlink" title="[Optional] Configure Rsyslog Receiver on Moloch Instance"></a>[Optional] Configure Rsyslog Receiver on Moloch Instance</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/rsyslog.conf</span><br><span class="line"></span><br><span class="line"># To enable these modules and servers, uncomment the lines so the file now contains:</span><br><span class="line"></span><br><span class="line"># provides UDP syslog reception</span><br><span class="line">module(load=&quot;imudp&quot;)</span><br><span class="line">input(type=&quot;imudp&quot; port=&quot;514&quot;)</span><br><span class="line"></span><br><span class="line"># provides TCP syslog reception</span><br><span class="line">module(load=&quot;imtcp&quot;)</span><br><span class="line">input(type=&quot;imtcp&quot; port=&quot;514&quot;)</span><br></pre></td></tr></table></figure>
+<h4 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Ubuntu Server v16.04+ + Moloch v0.17</span><br><span class="line">http://moloch.3ilson.com/2017/01/moloch-installubuntu-16moloch-v017.html</span><br><span class="line"></span><br><span class="line">moloch 网络流量回溯分析系统</span><br><span class="line">https://paper.seebug.org/427/</span><br></pre></td></tr></table></figure>
+<h3 id="Splunk-Receiver-on-Ubuntu"><a href="#Splunk-Receiver-on-Ubuntu" class="headerlink" title="Splunk (Receiver) on Ubuntu"></a>Splunk (Receiver) on Ubuntu</h3><h4 id="Install-Splunk-on-Linux-Machine"><a href="#Install-Splunk-on-Linux-Machine" class="headerlink" title="Install Splunk on Linux Machine"></a>Install Splunk on Linux Machine</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ dpkg -i splunk-7.1.0-2e75b3406c5b-linux-2.6-amd64.deb</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-and-run-Splunk"><a href="#Configure-and-run-Splunk" class="headerlink" title="Configure and run Splunk"></a>Configure and run Splunk</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cp /opt/splunk/etc/system/default/web.conf /opt/splunk/etc/system/local/</span><br><span class="line">$ sudo /opt/splunk/bin/splunk start</span><br></pre></td></tr></table></figure>
+<h4 id="Remove-Indexed-Spunk-Eventdata"><a href="#Remove-Indexed-Spunk-Eventdata" class="headerlink" title="Remove Indexed Spunk Eventdata"></a>Remove Indexed Spunk Eventdata</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /opt/splunk/bin/splunk help clean</span><br><span class="line">$ sudo /opt/splunk/bin/splunk clean eventdata</span><br></pre></td></tr></table></figure>
+<h4 id="Access-Splunk-Web-Interface"><a href="#Access-Splunk-Web-Interface" class="headerlink" title="Access Splunk Web Interface"></a>Access Splunk Web Interface</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://localhost:8000</span><br></pre></td></tr></table></figure>
+<h3 id="Splunk-Universal-Forwarder-Client-on-RaspberryPi3"><a href="#Splunk-Universal-Forwarder-Client-on-RaspberryPi3" class="headerlink" title="Splunk Universal Forwarder (Client) on RaspberryPi3"></a>Splunk Universal Forwarder (Client) on RaspberryPi3</h3><h4 id="Download-Splunk-Universal-Forwarder"><a href="#Download-Splunk-Universal-Forwarder" class="headerlink" title="Download Splunk Universal Forwarder"></a>Download Splunk Universal Forwarder</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://www.splunk.com/en_us/download/universal-forwarder.html</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-a-Client-Name-Set-the-clientName-attribute"><a href="#Configure-a-Client-Name-Set-the-clientName-attribute" class="headerlink" title="Configure a Client Name. Set the clientName attribute"></a>Configure a Client Name. Set the clientName attribute</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano  ~/splunkforwarder/etc/system/local/deploymentclient.conf</span><br><span class="line">[target-broker:deploymentServer]</span><br><span class="line">targetUri = 192.168.1.210:8089</span><br><span class="line">clientName = pi3</span><br></pre></td></tr></table></figure>
+<h4 id="Open-TCP-Port-9997-in-Splunk-Receiver-No-Need-to-‘Add-Splunk-Forwarder’"><a href="#Open-TCP-Port-9997-in-Splunk-Receiver-No-Need-to-‘Add-Splunk-Forwarder’" class="headerlink" title="Open TCP Port 9997 in Splunk Receiver (No Need to ‘Add Splunk Forwarder’)"></a>Open TCP Port 9997 in Splunk Receiver (No Need to ‘Add Splunk Forwarder’)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Splunk -&gt; Receive Data -&gt; Forwarding and Receiving -&gt; New Receiving Port</span><br></pre></td></tr></table></figure>
+<h4 id="Configure-and-Start-Splunk-Universal-Forwarder"><a href="#Configure-and-Start-Splunk-Universal-Forwarder" class="headerlink" title="Configure and Start Splunk Universal Forwarder"></a>Configure and Start Splunk Universal Forwarder</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">## Splunk Forwarder Auto-Restart</span><br><span class="line"></span><br><span class="line">$ sudo splunkforwarder/bin/splunk enable boot-start</span><br><span class="line"></span><br><span class="line">### This is for the local mamg port 8089</span><br><span class="line">$ sudo splunkforwarder/bin/splunk set deploy-poll 192.168.1.210:8089</span><br><span class="line"></span><br><span class="line">## Specify which system log folder to be monitored.</span><br><span class="line">## For example /var/log</span><br><span class="line"></span><br><span class="line">$ sudo splunkforwarder/bin/splunk add monitor /var/spool/bro/bro/</span><br><span class="line">$ sudo splunkforwarder/bin/splunk add forward-server x.x.x.x:9997</span><br><span class="line"></span><br><span class="line">## Check inputs.conf</span><br><span class="line">[default]</span><br><span class="line">host = raspberrypi3</span><br><span class="line">index = soc</span><br><span class="line">source = /var/spool/bro/bro/</span><br><span class="line"></span><br><span class="line">## Check props.conf</span><br><span class="line">[source::/var/log/suricata/fast.log]</span><br><span class="line">sourcetype = suricata</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">## Check deploymentserver.conf</span><br><span class="line">[target-broker:deploymentServer]</span><br><span class="line">targetUri = 192.168.1.210:8089</span><br><span class="line"></span><br><span class="line">## Start Splunk Forwarder</span><br><span class="line">$ sudo splunkforwarder/bin/splunk start</span><br><span class="line"></span><br><span class="line">Splunk&gt; 4TW</span><br><span class="line"></span><br><span class="line">Checking prerequisites...</span><br><span class="line">    Checking mgmt port [8089]: open</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/lib/splunk</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/run/splunk/appserver/i18n</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/run/splunk/appserver/modules/static/css</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/run/splunk/upload</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/spool/splunk</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/spool/dirmoncache</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/lib/splunk/authDb</span><br><span class="line">        Creating: /home/pi/splunkforwarder/var/lib/splunk/hashDb</span><br><span class="line">New certs have been generated in &apos;/home/pi/splunkforwarder/etc/auth&apos;.</span><br><span class="line">    Checking conf files for problems...</span><br><span class="line">    Done</span><br><span class="line">    Checking default conf files for edits...</span><br><span class="line">    Validating installed files against hashes from &apos;/home/pi/splunkforwarder/splunkforwarder-7.1.1-8f0ead9ec3db-Linux-arm-manifest&apos;</span><br><span class="line">    All installed files intact.</span><br><span class="line">    Done</span><br><span class="line">All preliminary checks passed.</span><br><span class="line"></span><br><span class="line">Starting splunk server daemon (splunkd)...</span><br><span class="line">Done</span><br></pre></td></tr></table></figure>
+<h3 id="Access-the-Whole-System-from-Internet"><a href="#Access-the-Whole-System-from-Internet" class="headerlink" title="Access the Whole System from Internet"></a>Access the Whole System from Internet</h3><h4 id="Raspberry-Pi3"><a href="#Raspberry-Pi3" class="headerlink" title="Raspberry Pi3"></a>Raspberry Pi3</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh px@xx.xxx.com -p 22000</span><br></pre></td></tr></table></figure>
+<h4 id="SELKS"><a href="#SELKS" class="headerlink" title="SELKS"></a>SELKS</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh pxxx@xx.xxx.com -p 22020</span><br></pre></td></tr></table></figure>
+<p>Enable the remote web access</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -L 4443:localhost:443 pippo@xx.xxx.com -p 22020</span><br></pre></td></tr></table></figure>
+<p>Restart services</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ systemctl restart elasticsearch logstash kibana</span><br></pre></td></tr></table></figure>
+<h4 id="Mini-Ubuntu-VM-Machine-acting-as-Internal-Client"><a href="#Mini-Ubuntu-VM-Machine-acting-as-Internal-Client" class="headerlink" title="Mini-Ubuntu (VM Machine acting as Internal Client)"></a>Mini-Ubuntu (VM Machine acting as Internal Client)</h4><ul>
+<li>IP: 10.0.0.200</li>
+<li>Network: 10.0.0.0/24</li>
+<li>Gateway: 10.0.0.1</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh pxxx@xx.xxx.com -p 22030</span><br></pre></td></tr></table></figure>
+<p>Prerequisite on other machines</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1) Enable the DNAT on Home Router</span><br><span class="line">-- Allow incoming traffic towards port 22030</span><br><span class="line"></span><br><span class="line">2) Enable the DNAT on 192.168.1.220:22030</span><br><span class="line">pxxx@selks:~$ sudo iptables -t nat -A PREROUTING -d 192.168.1.220 -p tcp --dport 22030 -j DNAT --to 10.0.0.200:22</span><br><span class="line"></span><br><span class="line">3) Enable the DNAT on 192.168.1.220:5901</span><br><span class="line">pxxx@selks:~$ sudo iptables -t nat -A PREROUTING -d 192.168.1.220 -p tcp --dport 5901 -j DNAT --to 10.0.0.200:5901</span><br></pre></td></tr></table></figure>
+<p>[Optional] VNC Tunnel for encryption purposes</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -L 5901:127.0.0.1:5901 -N -f -l username server_ip_address</span><br></pre></td></tr></table></figure>
+<h4 id="Moloch"><a href="#Moloch" class="headerlink" title="Moloch"></a>Moloch</h4><h4 id="Splunk"><a href="#Splunk" class="headerlink" title="Splunk"></a>Splunk</h4>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NSM/" rel="tag"># NSM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/08/Linux/" rel="next" title="All About Linux">
+                <i class="fa fa-chevron-left"></i> All About Linux
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/16/DNS/" rel="prev" title="DNS">
+                DNS <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Patrick Dong" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Dong</p>
+              <p class="site-description motion-element" itemprop="description">Cyber Security Analyst | OSCP | CCNP</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="http://www.freebuf.com" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/superpb9" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:d.pippo9@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#System-Requirement"><span class="nav-number">1.</span> <span class="nav-text">System Requirement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BRO-IDS-on-RaspberryPi-3"><span class="nav-number">2.</span> <span class="nav-text">BRO IDS on RaspberryPi 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#BRO-IDS-Basic-Installation-and-Configuration"><span class="nav-number">2.1.</span> <span class="nav-text">BRO IDS Basic Installation and Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-OpenSSL-v1-0-headers"><span class="nav-number">2.1.1.</span> <span class="nav-text">Install OpenSSL v1.0 headers:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Verify-the-headers-have-been-properly-replaced-We-should-see-libssl1-0-dev-instaed-of-libssl-dev"><span class="nav-number">2.1.2.</span> <span class="nav-text">Verify the headers have been properly replaced. We should see libssl1.0-dev instaed of libssl-dev:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-other-required-dependencies"><span class="nav-number">2.1.3.</span> <span class="nav-text">Install other required dependencies:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Download-Bro-using-git-clone-or-wget"><span class="nav-number">2.1.4.</span> <span class="nav-text">Download Bro using git clone or wget:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Install-BRO-using-make-amp-make-install"><span class="nav-number">2.1.5.</span> <span class="nav-text">Install BRO using make &amp; make install:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Select-which-NIC-and-which-subnet-will-be-used-for-monitoring"><span class="nav-number">2.1.6.</span> <span class="nav-text">Select which NIC and which subnet will be used for monitoring:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Command-to-start-BRO-IDS"><span class="nav-number">2.1.7.</span> <span class="nav-text">Command to start BRO IDS:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Add-the-following-into-rc-local-for-auto-start"><span class="nav-number">2.1.8.</span> <span class="nav-text">Add the following into rc.local for auto-start:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Optimization-using-Cron"><span class="nav-number">2.1.9.</span> <span class="nav-text">Optimization using Cron</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Start-Bro-and-ensure-that-files-needed-by-BroControl-amp-Bro-are-brought-up-to-date-based-on-the-current-configurations"><span class="nav-number">2.1.10.</span> <span class="nav-text">Start Bro and ensure that files needed by BroControl &amp; Bro are brought up-to-date based on the current configurations</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BRO-IDS-sending-emails"><span class="nav-number">2.2.</span> <span class="nav-text">BRO IDS sending emails</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BRO-IDS-Command-Lines"><span class="nav-number">2.3.</span> <span class="nav-text">BRO IDS Command Lines</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Critical-Stack-on-RaspberryPi-3"><span class="nav-number">3.</span> <span class="nav-text">Critical Stack on RaspberryPi 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Add-“Collecter”-“Sensor”-and-“Feed”-from"><span class="nav-number">3.1.</span> <span class="nav-text">Add “Collecter”, “Sensor” and “Feed” from</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Config-Critical-Stack-with-Bro"><span class="nav-number">3.2.</span> <span class="nav-text">Config Critical Stack with Bro</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Check-Critical-Stack-IOCs"><span class="nav-number">3.3.</span> <span class="nav-text">Check Critical Stack IOCs</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Fetch-from-the-Intel-Market-using-API-key"><span class="nav-number">3.4.</span> <span class="nav-text">Fetch from the Intel Market using API key</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Restart-Bro-for-changes-to-take-effect"><span class="nav-number">3.5.</span> <span class="nav-text">Restart Bro for changes to take effect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-automatic-restarts"><span class="nav-number">3.6.</span> <span class="nav-text">Set automatic restarts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Test-if-our-TI-is-working-properly"><span class="nav-number">3.7.</span> <span class="nav-text">Test if our TI is working properly</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Suricata-IDS-on-Ubuntu"><span class="nav-number">4.</span> <span class="nav-text">Suricata IDS on Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Dependencies"><span class="nav-number">4.1.</span> <span class="nav-text">Install Dependencies</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-libhtp-via-OISF"><span class="nav-number">4.2.</span> <span class="nav-text">Install libhtp via OISF</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Download-suricata-and-unzip"><span class="nav-number">4.3.</span> <span class="nav-text">Download suricata and unzip</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Complie-suricata"><span class="nav-number">4.4.</span> <span class="nav-text">Complie suricata</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-suricata-with-default-configuration"><span class="nav-number">4.5.</span> <span class="nav-text">Install suricata with default configuration</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Edit-etc-suricata-suricata-yaml"><span class="nav-number">4.6.</span> <span class="nav-text">Edit /etc/suricata/suricata.yaml</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Create-our-own-rules-for-testing-purposes"><span class="nav-number">4.7.</span> <span class="nav-text">Create our own rules for testing purposes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Suricata-Running-Mode"><span class="nav-number">4.8.</span> <span class="nav-text">Suricata Running Mode</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Disable-NIC-LRO-GRO"><span class="nav-number">4.9.</span> <span class="nav-text">Disable NIC LRO/GRO</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Run-suricata"><span class="nav-number">4.10.</span> <span class="nav-text">Run suricata</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scirius-CE-Portal-on-Ubuntu"><span class="nav-number">5.</span> <span class="nav-text">Scirius CE (Portal) on Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Installation-Steps"><span class="nav-number">5.1.</span> <span class="nav-text">Installation Steps</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-Scirius-CE"><span class="nav-number">5.2.</span> <span class="nav-text">Configure Scirius CE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Permanent-way-of-making-ES-Replicas-0"><span class="nav-number">5.3.</span> <span class="nav-text">Permanent way of making ES Replicas = 0</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Run-Scirius-CE"><span class="nav-number">5.4.</span> <span class="nav-text">Run Scirius CE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Initialize-Scirius-CE"><span class="nav-number">5.5.</span> <span class="nav-text">Initialize Scirius CE</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Elasticsearch"><span class="nav-number">5.6.</span> <span class="nav-text">Install Elasticsearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Logstash"><span class="nav-number">5.7.</span> <span class="nav-text">Install Logstash</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link-with-Elasticsearch"><span class="nav-number">5.8.</span> <span class="nav-text">Link with Elasticsearch</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SELKS-Suricata-Scirius-Kibana-Logstash-Evebox"><span class="nav-number">6.</span> <span class="nav-text">SELKS (Suricata + Scirius + Kibana + Logstash + Evebox)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Moloch-with-Elasticsearch-on-Ubuntu"><span class="nav-number">7.</span> <span class="nav-text">Moloch (with Elasticsearch) on Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Modify-Hostname"><span class="nav-number">7.1.</span> <span class="nav-text">Modify Hostname</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-dpendencies-including-JRE-JDK"><span class="nav-number">7.2.</span> <span class="nav-text">Install dpendencies including JRE/JDK</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Modify-max-file-descriptors"><span class="nav-number">7.3.</span> <span class="nav-text">Modify max file descriptors</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optional-Disable-device-and-files-paging-and-swapping-to-increase-efficiency"><span class="nav-number">7.4.</span> <span class="nav-text">[Optional] Disable device and files paging and swapping to increase efficiency</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Download-Moloch-v0-17-for-Ubuntu-16-04"><span class="nav-number">7.5.</span> <span class="nav-text">Download Moloch v0.17 for Ubuntu 16.04</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Moloch"><span class="nav-number">7.6.</span> <span class="nav-text">Install Moloch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Dependencies-if-the-previous-step-halts-due-to-errors"><span class="nav-number">7.7.</span> <span class="nav-text">Install Dependencies (if the previous step halts due to errors)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-Moloch"><span class="nav-number">7.8.</span> <span class="nav-text">Configure Moloch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-elasticsearch-yml-in-data-moloch-elasticsearch-config"><span class="nav-number">7.9.</span> <span class="nav-text">Configure elasticsearch.yml in /data/moloch/elasticsearch/config</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Run-elasticsearch"><span class="nav-number">7.10.</span> <span class="nav-text">Run elasticsearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Initialise-Elasticsearch-Database-on-port-9200-and-add-a-new-user"><span class="nav-number">7.11.</span> <span class="nav-text">Initialise Elasticsearch Database on port 9200 and add a new user</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Capture-on-ubuntu-in-order-to-capture-data"><span class="nav-number">7.12.</span> <span class="nav-text">Install Capture on ubuntu, in order to capture data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Start-molochcapture-service-and-molochviewer-service"><span class="nav-number">7.13.</span> <span class="nav-text">Start molochcapture.service and molochviewer.service</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Access-Moloch"><span class="nav-number">7.14.</span> <span class="nav-text">Access Moloch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optional–xxx-Try-to-Auto-Restart-Moloch-and-Elasticsearch-at-system-boot"><span class="nav-number">7.15.</span> <span class="nav-text">[Optional–xxx???] Try to Auto Restart Moloch and Elasticsearch at system-boot</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optional-Delete-all-Elasticsearch-indexes"><span class="nav-number">7.16.</span> <span class="nav-text">[Optional] Delete all Elasticsearch indexes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optional-Moloch-Raw-Data-Storage-Location"><span class="nav-number">7.17.</span> <span class="nav-text">[Optional] Moloch Raw Data Storage Location</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optional-Moloch-optimization"><span class="nav-number">7.18.</span> <span class="nav-text">[Optional] Moloch optimization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optional-Moloch-upgrade"><span class="nav-number">7.19.</span> <span class="nav-text">[Optional] Moloch upgrade</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Optional-Configure-Rsyslog-Receiver-on-Moloch-Instance"><span class="nav-number">7.20.</span> <span class="nav-text">[Optional] Configure Rsyslog Receiver on Moloch Instance</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reference"><span class="nav-number">7.21.</span> <span class="nav-text">Reference</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Splunk-Receiver-on-Ubuntu"><span class="nav-number">8.</span> <span class="nav-text">Splunk (Receiver) on Ubuntu</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Splunk-on-Linux-Machine"><span class="nav-number">8.1.</span> <span class="nav-text">Install Splunk on Linux Machine</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-and-run-Splunk"><span class="nav-number">8.2.</span> <span class="nav-text">Configure and run Splunk</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Remove-Indexed-Spunk-Eventdata"><span class="nav-number">8.3.</span> <span class="nav-text">Remove Indexed Spunk Eventdata</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Access-Splunk-Web-Interface"><span class="nav-number">8.4.</span> <span class="nav-text">Access Splunk Web Interface</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Splunk-Universal-Forwarder-Client-on-RaspberryPi3"><span class="nav-number">9.</span> <span class="nav-text">Splunk Universal Forwarder (Client) on RaspberryPi3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Download-Splunk-Universal-Forwarder"><span class="nav-number">9.1.</span> <span class="nav-text">Download Splunk Universal Forwarder</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-a-Client-Name-Set-the-clientName-attribute"><span class="nav-number">9.2.</span> <span class="nav-text">Configure a Client Name. Set the clientName attribute</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Open-TCP-Port-9997-in-Splunk-Receiver-No-Need-to-‘Add-Splunk-Forwarder’"><span class="nav-number">9.3.</span> <span class="nav-text">Open TCP Port 9997 in Splunk Receiver (No Need to ‘Add Splunk Forwarder’)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Configure-and-Start-Splunk-Universal-Forwarder"><span class="nav-number">9.4.</span> <span class="nav-text">Configure and Start Splunk Universal Forwarder</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Access-the-Whole-System-from-Internet"><span class="nav-number">10.</span> <span class="nav-text">Access the Whole System from Internet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Raspberry-Pi3"><span class="nav-number">10.1.</span> <span class="nav-text">Raspberry Pi3</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SELKS"><span class="nav-number">10.2.</span> <span class="nav-text">SELKS</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mini-Ubuntu-VM-Machine-acting-as-Internal-Client"><span class="nav-number">10.3.</span> <span class="nav-text">Mini-Ubuntu (VM Machine acting as Internal Client)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Moloch"><span class="nav-number">10.4.</span> <span class="nav-text">Moloch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Splunk"><span class="nav-number">10.5.</span> <span class="nav-text">Splunk</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018.05.05 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Dong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

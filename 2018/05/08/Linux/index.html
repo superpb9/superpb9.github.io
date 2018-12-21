@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English, Chinese">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+  <link rel="alternate" href="http://www.freebuf.com" title="Superpb9" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Network ConfigurationSet static IP addressThe primary network interface  1234567$ sudo nano /etc/network/interfaces auto eth0 iface eth0 inet static  address 192.168.1.Xnetmask 255.255.255.0gateway 19">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="All About Linux">
+<meta property="og:url" content="http://yoursite.com/2018/05/08/Linux/index.html">
+<meta property="og:site_name" content="Superpb9">
+<meta property="og:description" content="Network ConfigurationSet static IP addressThe primary network interface  1234567$ sudo nano /etc/network/interfaces auto eth0 iface eth0 inet static  address 192.168.1.Xnetmask 255.255.255.0gateway 19">
+<meta property="og:locale" content="English, Chinese">
+<meta property="og:updated_time" content="2018-12-01T08:00:33.231Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="All About Linux">
+<meta name="twitter:description" content="Network ConfigurationSet static IP addressThe primary network interface  1234567$ sudo nano /etc/network/interfaces auto eth0 iface eth0 inet static  address 192.168.1.Xnetmask 255.255.255.0gateway 19">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/08/Linux/"/>
+
+
+
+
+
+  <title>All About Linux | Superpb9</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Superpb9</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A journey of a thousand miles may not be achieved without accumulation of each single step, just as the enormous ocean may not be formed without gathering every brook or stream.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/08/Linux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Dong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Superpb9">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">All About Linux</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-08T14:45:00+12:00">
+                2018-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Security-Incident-Response/" itemprop="url" rel="index">
+                    <span itemprop="name">Security Incident Response</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Network-Configuration"><a href="#Network-Configuration" class="headerlink" title="Network Configuration"></a>Network Configuration</h3><h4 id="Set-static-IP-address"><a href="#Set-static-IP-address" class="headerlink" title="Set static IP address"></a>Set static IP address</h4><p>The primary network interface </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/network/interfaces </span><br><span class="line">auto eth0 </span><br><span class="line">iface eth0 inet static  </span><br><span class="line">address 192.168.1.X</span><br><span class="line">netmask 255.255.255.0</span><br><span class="line">gateway 192.168.1.X</span><br><span class="line">dns-nameservers X.X.X.X</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo ifdown eth0 &amp;&amp; sudo ifup eth0</span><br></pre></td></tr></table></figure>
+<h4 id="DNS-nameserver-configuration-Ubuntu-18-04"><a href="#DNS-nameserver-configuration-Ubuntu-18-04" class="headerlink" title="DNS nameserver configuration (Ubuntu 18.04)"></a>DNS nameserver configuration (Ubuntu 18.04)</h4><p><strong>Solution 1</strong></p>
+<p>Keep it mind that Ubuntu appends a tail file to the <span style="color:darkblue"><strong>resolv.conf</strong></span> file that it generates. Editing the tail file instead of the actual resolv.conf file will prevent your change from being lost upon a system reboot.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/resolvconf/resolv.conf.d/tail</span><br><span class="line">$ nameserver 8.8.8.8</span><br></pre></td></tr></table></figure>
+<p>You will need to activate the change via</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo resolvconf -u</span><br></pre></td></tr></table></figure>
+<p><strong>Solution 2</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/resolv.conf</span><br><span class="line"># Generated by resolvconf</span><br><span class="line">nameserver 8.8.8.8</span><br><span class="line">nameserver 8.8.4.4</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/resolv.conf</span><br></pre></td></tr></table></figure>
+<h4 id="Dual-NIC-configuration-via-NAT"><a href="#Dual-NIC-configuration-via-NAT" class="headerlink" title="Dual NIC configuration via NAT"></a>Dual NIC configuration via NAT</h4><h5 id="Set-static-IP-address-1"><a href="#Set-static-IP-address-1" class="headerlink" title="Set static IP address"></a>Set static IP address</h5><p>This subnet 192.168.1.0/24 will act as a Internet Facing interface<br>auto ens33</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/network/interfaces</span><br><span class="line">iface ens33 inet static</span><br><span class="line">    address 192.168.1.220</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 192.168.1.0</span><br><span class="line">    broadcast 192.168.1.255</span><br><span class="line">    gateway 192.168.1.1</span><br><span class="line">    dns-nameservers 8.8.8.8</span><br></pre></td></tr></table></figure>
+<p>This subnet 10.0.0.0/24 will act as a gateway of LAN PCs</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/network/interfaces</span><br><span class="line">auto ens38</span><br><span class="line">iface ens38 inet static</span><br><span class="line">    address 10.0.0.1</span><br><span class="line">    netmask 255.255.255.0</span><br><span class="line">    network 10.0.0.0</span><br><span class="line">    broadcast 10.0.0.255</span><br><span class="line">    dns-nameservers 8.8.8.8</span><br></pre></td></tr></table></figure>
+<p>Restart the networking function </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /etc/init.d/networking restart</span><br><span class="line">``` </span><br><span class="line">Alternatively, you can</span><br><span class="line">``` </span><br><span class="line">$ sudo ifup eth0</span><br><span class="line">$ sudo ifdown eth0</span><br></pre></td></tr></table></figure>
+<h5 id="Enable-IP-Forwarding"><a href="#Enable-IP-Forwarding" class="headerlink" title="Enable IP Forwarding"></a>Enable IP Forwarding</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/sysctl.conf</span><br><span class="line">net.ipv4.ip_forward=1</span><br></pre></td></tr></table></figure>
+<p>Alternatively, you can<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo echo 1 &gt; /proc/sys/net/ipv4/ip_forward</span><br></pre></td></tr></table></figure></p>
+<h5 id="Set-iptable-Rules"><a href="#Set-iptable-Rules" class="headerlink" title="Set iptable Rules"></a>Set iptable Rules</h5><p>Step 1: There’re four rule sets availabe and we will use the first two</p>
+<ul>
+<li>FILTER (Default)</li>
+<li>NAT</li>
+<li>MANGLE</li>
+<li>RAW</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo iptables -X</span><br><span class="line">$ sudo iptables -F</span><br><span class="line">$ sudo iptables -t nat -X</span><br><span class="line">$ sudo iptables -t nat -F</span><br></pre></td></tr></table></figure>
+<p>Step 2: Set accepted destination of forwarding chain</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo iptables -I INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br><span class="line">$ sudo iptables -I FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT</span><br></pre></td></tr></table></figure>
+<p>Step 3: Enable IP Masquerade</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo iptables -t nat -I POSTROUTING -o ens33 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<p>Alternative Method</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo iptables -F</span><br><span class="line">$ sudo iptables -t nat -F</span><br><span class="line">$ sudo iptables -t mangle -F</span><br><span class="line">$ sudo iptables -P INPUT ACCEPT</span><br><span class="line">$ sudo iptables -P FORWARD ACCEPT</span><br><span class="line">$ sudo iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</span><br></pre></td></tr></table></figure>
+<h4 id="Enable-DNAT"><a href="#Enable-DNAT" class="headerlink" title="Enable DNAT"></a>Enable DNAT</h4><p>External Client via [NIC_1: 192.168.1.220:22030 | NIC_2: 10.0.0.1] –&gt; 10.0.0.200:22</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo iptables -t nat -A PREROUTING -d 192.168.1.220 -p tcp --dport 22030 -j DNAT --to 10.0.0.200:22</span><br></pre></td></tr></table></figure>
+<h4 id="Save-iptables-Rules-persistently"><a href="#Save-iptables-Rules-persistently" class="headerlink" title="Save iptables Rules persistently"></a>Save iptables Rules persistently</h4><p>On Ubuntu, the easiest way to save iptables rules, so they will survive a reboot, is to use the iptables-persistent package. Install it with apt-get like this:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install iptables-persistent</span><br></pre></td></tr></table></figure>
+<p>During the installation, you will asked if you want to save your current firewall rules. If you update your firewall rules and want to save the changes, run this command:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netfilter-persistent save</span><br></pre></td></tr></table></figure>
+<p>On versions of Ubuntu prior to 16.04, run this command instead:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo invoke-rc.d iptables-persistent save</span><br></pre></td></tr></table></figure>
+<h4 id="SSH-without-using-password"><a href="#SSH-without-using-password" class="headerlink" title="SSH without using password"></a>SSH without using password</h4><h5 id="Step-1-Generate-a-public-private-key-pair-using-ssh-kengen"><a href="#Step-1-Generate-a-public-private-key-pair-using-ssh-kengen" class="headerlink" title="Step 1: Generate a public/private key pair using ssh-kengen"></a>Step 1: Generate a public/private key pair using ssh-kengen</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+<h5 id="Step-2-Copy-the-key-to-the-destination-server"><a href="#Step-2-Copy-the-key-to-the-destination-server" class="headerlink" title="Step 2: Copy the key to the destination server"></a>Step 2: Copy the key to the destination server</h5><p>ssh-copy-id 命令可以把本地主机的公钥复制到远程主机的authorized_keys文件上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-copy-id server01</span><br><span class="line">/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: &quot;/home/vagrant/.ssh/id_rsa.pub&quot;</span><br><span class="line">The authenticity of host &apos;server01 (10.9.8.11)&apos; can&apos;t be established.</span><br><span class="line">ECDSA key fingerprint is SHA256:Fi4FisVgFyEkos9NgKz0q+zzZwe3+xhCHWGrXL+jZck.</span><br><span class="line">ECDSA key fingerprint is MD5:b6:04:55:d7:db:3c:a8:a1:b6:f6:15:1f:be:7e:48:41.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)? yes</span><br><span class="line">/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed</span><br><span class="line">/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys</span><br><span class="line">vagrant@server01&apos;s password:</span><br><span class="line"></span><br><span class="line">Number of key(s) added: 1</span><br><span class="line"></span><br><span class="line">Now try logging into the machine, with:   &quot;ssh &apos;server01&apos;&quot;</span><br><span class="line">and check to make sure that only the key(s) you wanted were added.</span><br><span class="line"></span><br><span class="line">[vagrant@admin01 ~]$ ssh server01</span><br><span class="line">[vagrant@server01 ~]$ exit</span><br></pre></td></tr></table></figure>
+<h5 id="Easy-for-system-admin-to-manage-various-servers"><a href="#Easy-for-system-admin-to-manage-various-servers" class="headerlink" title="Easy for system admin to manage various servers"></a>Easy for system admin to manage various servers</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ for SERVER in $(cat server)</span><br><span class="line">&gt; do</span><br><span class="line">&gt;   ssh $&#123;SERVER&#125; hostname</span><br><span class="line">&gt;   ssh $&#123;SERVER&#125; uptime</span><br><span class="line">&gt; done</span><br><span class="line">server01</span><br><span class="line"> 03:29:44 up 26 min,  0 users,  load average: 0.00, 0.01, 0.05</span><br><span class="line">server02</span><br><span class="line"> 03:29:44 up 25 min,  0 users,  load average: 0.00, 0.01, 0.04</span><br></pre></td></tr></table></figure>
+<p>One time command running with SSH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ssh server01 &apos;hostname ; hostname&apos;</span><br><span class="line">server01</span><br><span class="line">server01</span><br></pre></td></tr></table></figure></p>
+<p>Remote system health checking with SSH<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh server01 &quot;ps -ef | head -3&quot;</span><br><span class="line">UID        PID  PPID  C STIME TTY          TIME CMD</span><br><span class="line">root         1     0  0 03:03 ?        00:00:00 /usr/lib/systemd/systemd --switched-root --system --deserialize 21</span><br><span class="line">root         2     0  0 03:03 ?        00:00:00 [kthreadd]</span><br></pre></td></tr></table></figure></p>
+<h3 id="System-Running"><a href="#System-Running" class="headerlink" title="System Running"></a>System Running</h3><h4 id="Start-a-service-when-booting-system"><a href="#Start-a-service-when-booting-system" class="headerlink" title="Start a service when booting system"></a>Start a service when booting system</h4><p>For ubuntu 16.04 and above, creat a service file named <span style="color:darkblue"><strong>startup.service</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ sudo nano /etc/systemd/system/startup.service</span><br><span class="line">[Unit]</span><br><span class="line">Description=Startup Applications</span><br><span class="line">[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">RemainAfterExit=false</span><br><span class="line">ExecStart=/etc/rc.local start</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target</span><br></pre></td></tr></table></figure>
+<p>Create a <span style="color:darkblue"><strong>rc.local</strong></span> file</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd /etc</span><br><span class="line">$ sudo touch rc.local</span><br></pre></td></tr></table></figure>
+<p>For example, auto-start IP Masquerade service for NAT</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/bin/sh</span><br><span class="line">iptables -t nat -I POSTROUTING -o ens33 -j MASQUERADE</span><br><span class="line">exit 0</span><br></pre></td></tr></table></figure>
+<p>To make it executable</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo chmod +x /etc/rc.local</span><br></pre></td></tr></table></figure>
+<p>Then go back to <span style="color:darkblue"><strong>/etc/systemd/system</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo systemctl enable startup</span><br><span class="line">$ sudo systemctl start startup</span><br><span class="line">$ sudo systemctl status startup</span><br></pre></td></tr></table></figure>
+<h4 id="System-runnig-process-and-port-number"><a href="#System-runnig-process-and-port-number" class="headerlink" title="System runnig process and port number"></a>System runnig process and port number</h4><p>To find which port the system is listening</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ netstat -a</span><br></pre></td></tr></table></figure>
+<p>To find a process number associated with port 12345 on TCP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ fuser 12345/tcp</span><br><span class="line">12345/tcp:  490</span><br></pre></td></tr></table></figure>
+<p>Next, to find what (service/program) that particular process number is runnning</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ ps -ef | grep 490</span><br><span class="line">root    490   483  0 Sep19 ? 00:02:17 /usr/local/bin/license_manager</span><br></pre></td></tr></table></figure>
+<p>Kill a running port</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ sudo netstat -lpn | grep 4000</span><br><span class="line">$ sudo fuser -k 4000/tcp</span><br><span class="line">$ sudo kill -9 PID</span><br></pre></td></tr></table></figure>
+<p>[LINUX] Other commands to display programs associated with ports</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">## To find the process ID associated with the service listening on port 901</span><br><span class="line">$ lsof -i TCP:901</span><br><span class="line">COMMAND PID USER   FD   TYPE DEVICE SIZE NODE NAME</span><br><span class="line">inetd   387 root   9u   IPv4 369    TCP *:swat (LISTEN)</span><br></pre></td></tr></table></figure>
+<p>[WINDOWS] </p>
+<p>A Windows tool known as fport (available with a tool search on <a href="http://www.securityfocus.com" target="_blank" rel="noopener">www.securityfocus.com</a>) can<br>be used to associate processes with ports on which they run.</p>
+<h3 id="File-System"><a href="#File-System" class="headerlink" title="File System"></a>File System</h3><h4 id="Using-‘df’-command"><a href="#Using-‘df’-command" class="headerlink" title="Using ‘df’ command"></a>Using ‘df’ command</h4><p>Show information about the linux file system on which each FILE resides,<br>or all file systems by default.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$ df -h</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/root        30G  7.4G   21G  27% /</span><br><span class="line">devtmpfs        460M     0  460M   0% /dev</span><br><span class="line">tmpfs           464M     0  464M   0% /dev/shm</span><br><span class="line">tmpfs           464M   19M  446M   4% /run</span><br><span class="line">tmpfs           5.0M  4.0K  5.0M   1% /run/lock</span><br><span class="line">tmpfs           464M     0  464M   0% /sys/fs/cgroup</span><br><span class="line">/dev/mmcblk0p1   41M   21M   21M  51% /boot</span><br><span class="line">tmpfs            93M     0   93M   0% /run/user/1000</span><br></pre></td></tr></table></figure>
+<h4 id="Using-‘du’-command"><a href="#Using-‘du’-command" class="headerlink" title="Using ‘du’ command"></a>Using ‘du’ command</h4><p>Summarize disk usage of the set of FILEs, recursively for directories.</p>
+<p>Size of a file:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ du -h xxx</span><br></pre></td></tr></table></figure>
+<p>Size of a directory (recursively):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ du -h /tmp</span><br></pre></td></tr></table></figure>
+<h3 id="Cron-Jobs"><a href="#Cron-Jobs" class="headerlink" title="Cron Jobs"></a>Cron Jobs</h3><h4 id="Cron-Job-Types"><a href="#Cron-Job-Types" class="headerlink" title="Cron Job Types"></a>Cron Job Types</h4><ul>
+<li>You should use <span style="color:darkblue"><strong>crontab -e</strong></span> to edit user crontabs (including root’s);</li>
+<li>User crontabs don’t have a user field, but the system crontabs do.</li>
+</ul>
+<p><strong>User</strong> cron jobs (e.g. root) are located in <span style="color:darkblue"><strong>/var/spool/cron/crontabs</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cat /var/spool/cron/crontabs/xx(root)</span><br><span class="line">... ...</span><br><span class="line"># m h  dom mon dow   command</span><br><span class="line">*/5 * * * * broctl cron</span><br><span class="line">59 23 * * * rm -rf /nsm/bro/logs/20??-*-*</span><br><span class="line">59 23 * * * rm -rf /nsm/bro/extracted/</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+<p>We can use crontab to modify the file<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo crontab -e</span><br></pre></td></tr></table></figure></p>
+<p><strong>System-wide</strong> Cron Directory (there’s a ‘user’ field in the file) <span style="color:darkblue"><strong>/etc/crontab</strong></span></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ sudo cat /etc/crontab</span><br><span class="line">... ...</span><br><span class="line"># m h dom mon dow user  command</span><br><span class="line">*/5 * * * * root /nsm/scripts/cleanup</span><br><span class="line">30 * * * *  root /nsm/scripts/update</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure>
+<h3 id="Bash-Shell"><a href="#Bash-Shell" class="headerlink" title="Bash Shell"></a>Bash Shell</h3><h4 id="Shelll-variables-useful-commands"><a href="#Shelll-variables-useful-commands" class="headerlink" title="Shelll variables, useful commands"></a>Shelll variables, useful commands</h4><p>Bash Shell Built-in Variables<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$&#123;0&#125; -&gt; Display the command just executed</span><br><span class="line">$&#123;#&#125; -&gt; Total number of positional parameters</span><br><span class="line">$ echo &quot;Parameter 1: $&#123;1&#125;&quot;</span><br><span class="line">$ echo &quot;Parameter 2: $&#123;2&#125;&quot;</span><br><span class="line">$ echo &quot;Parameter 3: $&#123;3&#125;&quot;</span><br><span class="line">$&#123;?&#125; -&gt; The return/exit number of last execution</span><br><span class="line">$&#123;@&#125; -&gt; Using in FOR LOOP to represent all the arguments one by one | When used in quotes: &quot;$1&quot; &quot;$2&quot;...</span><br><span class="line">$&#123;*&#125; -&gt; Represent the arguments as a whole $&#123;1&#125; | When used in quotes: &quot;$1 $2...&quot;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo $&#123;UID&#125;</span><br><span class="line">501</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo $&#123;RANDOM&#125;</span><br><span class="line">15718</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ echo $&#123;HOST&#125;</span><br><span class="line">MBP2017.local</span><br></pre></td></tr></table></figure>
+<p>Command <strong>which</strong> shows the full path of (shell) commands.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ which head</span><br><span class="line">/usr/bin/head</span><br></pre></td></tr></table></figure>
+<p>Command <strong>locate</strong> (N.B. need to run <strong>$ sudo updatedb</strong> to reflect the current searching list)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">system admin command —&gt; /usr/sbin/*</span><br><span class="line">normal command —&gt; /usr/sbin/*</span><br></pre></td></tr></table></figure></p>
+<p>Command <strong>find</strong> with <strong>/dev/null</strong> to ignore any “find: <strong>‘xxx’: Permission denied”</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ find /usr/sbin/ -name userdel</span><br><span class="line">/usr/sbin/userdel</span><br><span class="line"></span><br><span class="line">$ find / -name userdel 2&gt; /dev/null</span><br><span class="line">/usr/sbin/userdel</span><br><span class="line">/usr/share/bash-completion/completions/userdel</span><br></pre></td></tr></table></figure></p>
+<p>Command <strong>basename</strong> returns the file without directory path<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ basename /vagrant/luser-demo06.sh</span><br><span class="line">$ luser-demo06.sh</span><br></pre></td></tr></table></figure></p>
+<p>Command <strong>dirname</strong> returns the directory path without file name<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ dirname /vagrant/luser-demo06.sh</span><br><span class="line">$ /vagrant</span><br></pre></td></tr></table></figure></p>
+<p>Command <strong>let</strong> can be used as double parentheses such as <strong>NUM=$(( NUM += 5 ))</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ let NUM=&apos;2 + 3&apos;</span><br><span class="line">$ echo $&#123;NUM&#125;</span><br><span class="line">5</span><br></pre></td></tr></table></figure>
+<p>Command <strong>expr</strong> can be used as a calculator (with white space)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ expr 1 + 1</span><br><span class="line">2</span><br><span class="line">$ expr 5 * 2</span><br><span class="line">10</span><br></pre></td></tr></table></figure>
+<h4 id="The-if-statement-for-loop-while-loop-and-getops"><a href="#The-if-statement-for-loop-while-loop-and-getops" class="headerlink" title="The if statement, for loop, while loop and getops"></a>The if statement, for loop, while loop and getops</h4><p>‘if’ statement<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if [[ COMMANDS ]]</span><br><span class="line">then</span><br><span class="line">  COMMANDS</span><br><span class="line">else</span><br><span class="line">COMMANDS</span><br><span class="line">fi</span><br></pre></td></tr></table></figure></p>
+<p>‘for’ loop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for VARIABLE in LIST</span><br><span class="line">do</span><br><span class="line">  COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>‘while’ loop<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">while [[ COMMANDS ]]</span><br><span class="line">do</span><br><span class="line">  COMMANDS</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<p>‘getopts’ with while<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">while getopts vl:s OPTION</span><br><span class="line">do</span><br><span class="line">  case $&#123;OPTION&#125; in</span><br><span class="line">     v) … ;;</span><br><span class="line">     l) … ;;</span><br><span class="line">     s) … ;;</span><br><span class="line">     ?)</span><br><span class="line">        usage</span><br><span class="line">        ;;</span><br><span class="line">  esac</span><br><span class="line">done</span><br></pre></td></tr></table></figure></p>
+<h4 id="Program-exit-statues"><a href="#Program-exit-statues" class="headerlink" title="Program exit statues"></a>Program exit statues</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">0 = true / successful</span><br><span class="line">1 = false / unsuccessful</span><br></pre></td></tr></table></figure>
+<p>Any non-zero exit status represents a failure.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">exit 1</span><br><span class="line">echo $&#123;?&#125; # You can also use $?</span><br></pre></td></tr></table></figure></p>
+<h4 id="I-O-Redirection-Pipes"><a href="#I-O-Redirection-Pipes" class="headerlink" title="I/O Redirection - Pipes"></a>I/O Redirection - Pipes</h4><p>File Descriptor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FD 0 - STDIN</span><br><span class="line">FD 1 - STDOUT</span><br><span class="line">FD 2 - STDERR</span><br></pre></td></tr></table></figure></p>
+<p>File (Command) I/O Redirection<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">COMMAND &gt; /path/to/file</span><br><span class="line">COMMAND &gt;&gt; /path/to/file</span><br><span class="line">COMMAND &lt; /path/to/file</span><br><span class="line">COMMAND 2&gt; /path/to/file</span><br><span class="line">COMMAND &amp;&gt; /path/to/file</span><br><span class="line"></span><br><span class="line">COMMAND |&amp; COMMAND</span><br><span class="line">COMMAND &gt;&amp;2</span><br><span class="line">COMMAND &gt; /dev/null</span><br></pre></td></tr></table></figure></p>
+<p>Sending STDOUT as STDIN<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo $&#123;PWORD&#125; | passwd --stdin $&#123;NAME&#125;</span><br></pre></td></tr></table></figure></p>
+<p>String manipulation &amp; data munging with pipes<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &apos;!@#$%^&apos; | fold -w1 | shuf | head -c1</span><br></pre></td></tr></table></figure></p>
+<p>In a pipe, the standard input (&gt;) comes from the output of command<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ echo &quot;secret&quot; &gt; my_passwd_in_file</span><br></pre></td></tr></table></figure></p>
+<p>With the help of less-than-simple (&lt;), the standard input comes from a file<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo passwd --stdin einstein &lt; my_passwd_in_file</span><br></pre></td></tr></table></figure></p>
+<p>You cannot echo a <strong>FILE</strong> but you can echo a <strong>VARIABLE</strong> such as <strong>${FILE}</strong> acting as a file name<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FILE=&quot;/tmp/data&quot;</span><br><span class="line">head -n3 /etc/passwd &gt; $&#123;FILE&#125;</span><br><span class="line">echo &quot;The file name (path) $&#123;FILE&#125; has the content of:&quot;</span><br><span class="line">cat $&#123;FILE&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Examples</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ read X &lt; /etc/centos-release</span><br><span class="line">$ echo $&#123;X&#125;</span><br><span class="line">CentOS Linux release 7.4.1708 (Core)</span><br><span class="line"></span><br><span class="line">$ read X 0&lt; /etc/centos-release</span><br><span class="line">$ echo $&#123;X&#125;</span><br><span class="line">CentOS Linux release 7.4.1708 (Core)</span><br></pre></td></tr></table></figure>
+<p>Using <strong>2&gt;&amp;1</strong> to redirect the <strong>stderr</strong> to the front <strong>stdout</strong> (2&gt;&amp;1), which is <strong>stdboth</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[New Method] $ head -n1 /etc/passwd /etc/hosts /nofilelol &amp;&gt; stdboth</span><br><span class="line">[Old Method] $ head -n1 /etc/passwd /etc/hosts /nofilelol 1&gt; stdboth 2&gt;&amp;1 (&amp;1 stands for stdout put)</span><br></pre></td></tr></table></figure></p>
+<p>Using cat to show <strong>stdout</strong> and <strong>stderr</strong> … <strong>Please note</strong> stderr <strong>does not</strong> float to the pipe … only stdout …<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ head -n1 /etc/passwd /etc/hosts /nofilelol 2&gt;&amp;1 | cat -n</span><br><span class="line">$ head -n1 /etc/passwd /etc/hosts /nofilelol |&amp; cat -n</span><br></pre></td></tr></table></figure></p>
+<p>Send output to stderr<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;This is STDERR!&quot; 1&gt;&amp;2</span><br></pre></td></tr></table></figure></p>
+<p>To throw whatever to that you don’t want to see using <strong>/dev/null</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ head -n1 /etc/passwd /etc/hosts /nofilelol 2&gt; /dev/null </span><br><span class="line">(so that we don&apos;t see any error messages)</span><br></pre></td></tr></table></figure></p>
+<h4 id="File-Editing-grep-cut-awk-sort-wc-tww"><a href="#File-Editing-grep-cut-awk-sort-wc-tww" class="headerlink" title="File Editing (grep, cut, awk, sort, wc, tww)"></a>File Editing (grep, cut, awk, sort, wc, tww)</h4><h5 id="Using-“echo-e”-along-with-“cut”-command"><a href="#Using-“echo-e”-along-with-“cut”-command" class="headerlink" title="Using “echo -e” along with “cut” command"></a>Using “echo -e” along with “cut” command</h5><p>Option “-e” enable interpretation of backslash escapes.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"># For example, the &quot;\t&quot; stands for horizontal tab</span><br><span class="line">$ echo -e &quot;one\ttwo\tthree&quot; | cut -f 1</span><br><span class="line">one</span><br><span class="line">$ echo -e &quot;one\ttwo\tthree&quot; | cut -f 2</span><br><span class="line">two</span><br><span class="line">$ echo -e &quot;one\ttwo\tthree&quot; | cut -f 3</span><br><span class="line">three</span><br></pre></td></tr></table></figure>
+<h5 id="The-“grep”-command-with-“Reg”"><a href="#The-“grep”-command-with-“Reg”" class="headerlink" title="The “grep” command with “Reg”"></a>The “grep” command with “Reg”</h5><p>Match every line which starts with ‘first’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep &apos;^first&apos; /etc/passwd</span><br></pre></td></tr></table></figure></p>
+<p>Match every line which ends with ‘bash’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep &apos;bash$&apos; /etc/passwd</span><br></pre></td></tr></table></figure></p>
+<p>Match every line which starts with ‘first’ and ends with ‘end’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/passwd | grep &apos;^test&apos; | grep &apos;bash$&apos;</span><br></pre></td></tr></table></figure></p>
+<p>Use ‘-v’ option to inverse the match result (unmatch the reg below)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ grep -Ev &apos;^root|bash$&apos; /etc/passwd</span><br></pre></td></tr></table></figure></p>
+<h5 id="The-“cut”-command"><a href="#The-“cut”-command" class="headerlink" title="The “cut” command"></a>The “cut” command</h5><p>Change the delimiter from ‘:’ to ‘,’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cut -d &apos;:&apos; -f 1,2 --output-delimiter=&apos;,&apos; /etc/passwd</span><br><span class="line">root,x</span><br><span class="line">bin,x</span><br><span class="line">... ...</span><br></pre></td></tr></table></figure></p>
+<h5 id="The-“awk”-command"><a href="#The-“awk”-command" class="headerlink" title="The “awk” command"></a>The “awk” command</h5><p><strong>Scenario 1</strong> - When we need more than one character as a delimiter</p>
+<p>[Example 1] Using <strong>‘/home’</strong> as a delimiter<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ cat /etc/passwd | grep &apos;^test0&apos; | grep &apos;bash$&apos;</span><br><span class="line">test01:x:1027:1028::/home/test01:/bin/bash</span><br><span class="line">test02:x:1028:1029::/home/test02:/bin/bash</span><br><span class="line">$ cat /etc/passwd | grep &apos;^test0&apos; | grep &apos;bash$&apos; | awk -F &apos;/home&apos; &apos;&#123;print $1&#125;&apos;</span><br><span class="line">test01:x:1027:1028::</span><br><span class="line">test02:x:1028:1029::</span><br><span class="line">$ cat /etc/passwd | grep &apos;^test0&apos; | grep &apos;bash$&apos; | awk -F &apos;/home&apos; &apos;&#123;print $2&#125;&apos;</span><br><span class="line">/test01:/bin/bash</span><br><span class="line">/test02:/bin/bash</span><br></pre></td></tr></table></figure></p>
+<p>[Example 2] See the differece between <strong>‘cut’</strong> and <strong>‘awk’</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cut -d &apos;:&apos; -f 1,3 /etc/passwd</span><br><span class="line">root:0</span><br><span class="line">$ awk -F &apos;:&apos; &apos;&#123;print $1, $3&#125;&apos; /etc/passwd</span><br><span class="line">root 0</span><br></pre></td></tr></table></figure></p>
+<p>[Example 3] Modify the <strong>delimiter</strong> between <strong>$1</strong> and <strong>$3</strong> flexibly<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F &apos;:&apos; -v OFS=‘_#_’ &apos;&#123;print $1, $3&#125;&apos; /etc/passwd</span><br><span class="line">root_#_0</span><br><span class="line">$ awk -F &apos;:&apos; &apos;&#123;print $1 &quot;_#_&quot; $3&#125;&apos; /etc/passwd</span><br><span class="line">root_#_0</span><br><span class="line">$ awk -F &apos;:&apos; &apos;&#123;print &quot; NAME:&quot; $1 &quot; UID:&quot; $3&#125;&apos; /etc/passwd</span><br><span class="line">NAME:root UID:0</span><br><span class="line">$ awk -F &apos;:&apos; &apos;&#123;print &quot;UID:&quot; $3 &quot; NAME:&quot; $1&#125;&apos; /etc/passwd</span><br><span class="line">UID:0 NAME:root</span><br></pre></td></tr></table></figure></p>
+<p>[Example 4] Print the last field using <strong>$NF</strong>, along with math within <strong>parentheses</strong> ()<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">$ awk -F &apos;:&apos; &apos;&#123;print $NF&#125;&apos; /etc/passwd</span><br><span class="line">/bin/bash</span><br><span class="line">$ awk -F &apos;:&apos; &apos;&#123;print &quot;Shell: &quot; $NF&#125;&apos; /etc/passwd</span><br><span class="line">Shell: /bin/bash</span><br><span class="line">$ awk -F &apos;:&apos; &apos;&#123;print $(NF-1)&#125;&apos; /etc/passwd</span><br><span class="line">/root</span><br></pre></td></tr></table></figure></p>
+<p><strong>Scenario 2</strong> - Consider non-white space characters to be a field by default, so we can use ‘awk’ to easily seperate file via white space </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;L1      L2&apos; &gt; lines</span><br><span class="line">$ echo &apos;L3 L4&apos; &gt;&gt; lines</span><br><span class="line">$ echo &apos;L5   L6&apos; &gt;&gt; lines</span><br><span class="line">$ echo &apos;L7  L8&apos; &gt;&gt; lines</span><br><span class="line">$ cat lines</span><br><span class="line">L1      L2</span><br><span class="line">L3 L4</span><br><span class="line">L5   L6</span><br><span class="line">L7  L8</span><br><span class="line">$ awk &apos;&#123;print $1 $2&#125;&apos; lines</span><br><span class="line">L1L2</span><br><span class="line">L3L4</span><br><span class="line">L5L6</span><br><span class="line">L7L8</span><br><span class="line">$ awk &apos;&#123;print $1, $2&#125;&apos; lines</span><br><span class="line">L1 L2</span><br><span class="line">L3 L4</span><br><span class="line">L5 L6</span><br><span class="line">L7 L8</span><br></pre></td></tr></table></figure>
+<h5 id="The-“sort”-command-with-–field-separator-SEP-and-–key-KEYDEF"><a href="#The-“sort”-command-with-–field-separator-SEP-and-–key-KEYDEF" class="headerlink" title="The “sort” command with –field-separator=SEP and –key=KEYDEF"></a>The “sort” command with –field-separator=SEP and –key=KEYDEF</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"># [option -t, --field-separator=SEP] use SEP instead of non-blank to blank transition</span><br><span class="line"># [option -k, --key=KEYDEF] sort via a key; KEYDEF gives location and type</span><br><span class="line"># [option -n, --numeric-sort] compare according to string numerical value</span><br><span class="line"># [option -r, --reverse] reverse the result of comparisons</span><br><span class="line"></span><br><span class="line"># For example, file &quot;/etc/passwd&quot; is sorted by the third numeric filed, which is &quot;0&quot;, &quot;1&quot;, &quot;2&quot;, etc.</span><br><span class="line">$ cat /etc/passwd | sort -t &apos;:&apos; -k 3 -n</span><br><span class="line">root:x:0:0:root:/root:/bin/bash</span><br><span class="line">bin:x:1:1:bin:/bin:/sbin/nologin</span><br><span class="line">daemon:x:2:2:daemon:/sbin:/sbin/nologin</span><br><span class="line"></span><br><span class="line">$ zcat access.log.9.gz | cut -d &apos;&quot;&apos; -f 2 | cut -d &apos; &apos; -f 2 | sort | uniq -c | sort -r | head -3</span><br><span class="line">    171 /cgi-bin/soctools/http.css</span><br><span class="line">    131 /cgi-bin/soctools/http_get.html</span><br><span class="line">     32 /cgi-bin/soctools/http.py?domain=ss&amp;ip=122.122.12.111&amp;sid=1&amp;google=1</span><br></pre></td></tr></table></figure>
+<h5 id="The-“sort”-with-“du”command"><a href="#The-“sort”-with-“du”command" class="headerlink" title="The “sort” with “du”command"></a>The “sort” with “du”command</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># [option -h] </span><br><span class="line"># --human-numeric-sort</span><br><span class="line"></span><br><span class="line">$ sudo du -h /var | sort -h | tail -5</span><br><span class="line">63M	/var/cache/yum/x86_64/7</span><br><span class="line">64M	/var/cache</span><br><span class="line">98M	/var/lib/rpm</span><br><span class="line">106M	/var/lib</span><br><span class="line">171M	/var</span><br></pre></td></tr></table></figure>
+<h5 id="The-“sort”-with-‘uniq’-command"><a href="#The-“sort”-with-‘uniq’-command" class="headerlink" title="The “sort” with ‘uniq’ command"></a>The “sort” with ‘uniq’ command</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"># [option -u] </span><br><span class="line"># -- to be unique</span><br><span class="line"></span><br><span class="line">$ netstat -nutl | grep &apos;:&apos; | awk &apos;&#123;print $4&#125;&apos; | awk -F &apos;:&apos; &apos;&#123;print $NF&#125;&apos; | sort -n</span><br><span class="line">22</span><br><span class="line">22</span><br><span class="line">25</span><br><span class="line">25</span><br><span class="line">68</span><br><span class="line">323</span><br><span class="line">323</span><br><span class="line">28010</span><br><span class="line">38207</span><br><span class="line">$ netstat -nutl | grep &apos;:&apos; | awk &apos;&#123;print $4&#125;&apos; | awk -F &apos;:&apos; &apos;&#123;print $NF&#125;&apos; | sort -n | uniq -c</span><br><span class="line">2 22</span><br><span class="line">2 25</span><br><span class="line">1 68</span><br><span class="line">2 323</span><br><span class="line">1 28010</span><br><span class="line">1 38207</span><br><span class="line"></span><br><span class="line">$ sudo cat /var/log/messages | awk &apos;&#123;print $5&#125;&apos; | sort | uniq -c | sort -n</span><br><span class="line">      1 polkitd[609]:</span><br><span class="line">      1 polkitd[612]:</span><br><span class="line">      1 sm-notify[905]:</span><br><span class="line">      1 systemd-journald[93]:</span><br><span class="line">      1 systemd-journald[95]:</span><br><span class="line">      1 systemd-journald[96]:</span><br><span class="line">      3 dhclient[1149]:</span><br><span class="line">      3 dhclient[696]:</span><br><span class="line">... ...</span><br><span class="line">     58 NetworkManager[610]:</span><br><span class="line">     58 NetworkManager[615]:</span><br><span class="line">    105 systemd[1]:</span><br><span class="line">    791 systemd:</span><br><span class="line">   1125 kernel:</span><br></pre></td></tr></table></figure>
+<h5 id="The-“wc”-command"><a href="#The-“wc”-command" class="headerlink" title="The “wc” command"></a>The “wc” command</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$ wc /etc/passwd</span><br><span class="line">53  84  2634 /etc/passwd</span><br><span class="line">$ wc -l /etc/passwd</span><br><span class="line">53 /etc/passwd</span><br><span class="line">$ wc -w /etc/passwd</span><br><span class="line">84 /etc/passwd</span><br><span class="line">$ wc -c /etc/passwd</span><br><span class="line">2634 /etc/passwd</span><br><span class="line"></span><br><span class="line">$ grep test0 /etc/passwd</span><br><span class="line">test01:x:1027:1028::/home/test01:/bin/bash</span><br><span class="line">test02:x:1028:1029::/home/test02:/bin/bash</span><br><span class="line">$ grep test0 /etc/passwd | wc -l</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
+<h5 id="The-“tee”-command"><a href="#The-“tee”-command" class="headerlink" title="The “tee” command"></a>The “tee” command</h5><p>Sometimes we can use <strong>’tee’</strong> command to add a hostname in /etc/host <strong>when privilege is a concern</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ echo &apos;10.9.8.11 server01&apos; | sudo tee -a /etc/hosts</span><br><span class="line">10.9.8.11 server01</span><br><span class="line">$ cat /etc/hosts</span><br><span class="line">127.0.0.1	admin01	admin01</span><br><span class="line">127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4</span><br><span class="line">::1         localhost localhost.localdomain localhost6 localhost6.localdomain6</span><br><span class="line">10.9.8.11 server01</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
+<p>Because the comand <strong>echo</strong>is not allowed due to priviledge issue<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ sudo echo test &gt;&gt; /etc/hsots</span><br><span class="line">-bash: /etc/hsots: Permission denied</span><br></pre></td></tr></table></figure></p>
+<h3 id="VIM-Cheatsheet"><a href="#VIM-Cheatsheet" class="headerlink" title="VIM Cheatsheet"></a>VIM Cheatsheet</h3><h4 id="Cursor-movement"><a href="#Cursor-movement" class="headerlink" title="Cursor movement"></a>Cursor movement</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">:set nu	        # Display Line Numbers</span><br><span class="line">gg (or 1G)      # Move the cursor to the first line of the document</span><br><span class="line">G (Shift + g)   # Move the cursor to the last line of the document</span><br><span class="line">58G				# Move the cursor to Line 58</span><br><span class="line">40-&gt;			# Move the cursor right 40 characters</span><br><span class="line">^ (Shift + 6)   # jump to the first non-blank character of the line</span><br><span class="line">$ (Shift + 4)   # Quickly move the cursor the the last bit of one line</span><br><span class="line">Control + g     # Show the total lines and the current position using percentage</span><br><span class="line">Ctrl + b        # move back one full screen</span><br><span class="line">Ctrl + f        # move forward one full screen</span><br><span class="line">Ctrl + d        # move forward 1/2 a screen</span><br><span class="line">Ctrl + u        # move back 1/2 a screen</span><br></pre></td></tr></table></figure>
+<h4 id="Editing"><a href="#Editing" class="headerlink" title="Editing"></a>Editing</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">u               # undo</span><br><span class="line">Ctrl + r        # redo</span><br><span class="line">. 				# repeat</span><br></pre></td></tr></table></figure>
+<h4 id="Copy-and-paste"><a href="#Copy-and-paste" class="headerlink" title="Copy and paste"></a>Copy and paste</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">yy              # yank (copy) a line</span><br><span class="line">Nyy -&gt; p        # Copy multiple lines and paste all of them</span><br><span class="line">yw              # yank (copy) the characters of the word from the cursor position to the next start</span><br><span class="line">y$              # yank (copy) to end of line</span><br><span class="line">p               # put (paste) the clipboard after cursor</span><br><span class="line">P               # put (paste) before cursor</span><br><span class="line">dd              # delete (cut) a line</span><br><span class="line">2dd             # delete (cut) 2 lines</span><br><span class="line">dw              # delete (cut) the characters of the word from the cursor position to next start</span><br><span class="line">D               # delete (cut) to the end of the line</span><br><span class="line">d$              # delete (cut) to the end of the line</span><br><span class="line">d^              # delete (cut) to the first non-blank character of the line</span><br><span class="line">d0              # delete (cut) to the begining of the line</span><br><span class="line">x               # delete (cut) character</span><br><span class="line">15x				# delete (cut) 15 characters from the current cursor position</span><br></pre></td></tr></table></figure>
+<h4 id="Search-and-replace"><a href="#Search-and-replace" class="headerlink" title="Search and replace"></a>Search and replace</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">:%s/old/new/g   # Replace all old with new throughout file</span><br><span class="line">:%s/old/new/gc  # Replace all old with new throughout file with confirmations</span><br><span class="line">:50,100s/old/new/gc    </span><br><span class="line">                # From Line 50 to Line 100, replace all old with new throughout file</span><br><span class="line">/pattern        # Search for pattern</span><br><span class="line">n               # Repeat search in same direction</span><br></pre></td></tr></table></figure>
+<h4 id="Comment-multple-lines-In-Out"><a href="#Comment-multple-lines-In-Out" class="headerlink" title="Comment multple lines In/Out"></a>Comment multple lines In/Out</h4><p>注释多行文本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 使用vim打开要操作的文件</span><br><span class="line">2. Ctrl+V，进入VISUAL BLOCK模式</span><br><span class="line">3. 使用上下的方向键移动光标，选择你需要注释的行</span><br><span class="line">3. shift+i</span><br><span class="line">4. 输入注释符号 #</span><br><span class="line">5. esc，退出visual block模式，</span><br><span class="line">稍微等待一下（其他行的注释可能会有一些延迟），是不是已经将多行注释掉了啊？</span><br></pre></td></tr></table></figure></p>
+<p>取消注释多行文本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1. 使用vim打开要操作的文件</span><br><span class="line">2. Ctrl+V，进入VISUAL BLOCK模式</span><br><span class="line">3. 使用上下的方向键移动光标，选择你需要取消注释的行</span><br><span class="line">3. 输入 x，删除所有的 #，同时退出visual block模式</span><br></pre></td></tr></table></figure></p>
+<h4 id="Save-as-a-new-File"><a href="#Save-as-a-new-File" class="headerlink" title="Save as a new File"></a>Save as a new File</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">:w &lt;new filename&gt;    # Save the current file as a new File</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/IP-Reputation-Check/" rel="next" title="IP Reputation Check">
+                <i class="fa fa-chevron-left"></i> IP Reputation Check
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/08/RaspberryPi3-NSM-Design/" rel="prev" title="[HomeLab] RaspberryPi3 NSM Design">
+                [HomeLab] RaspberryPi3 NSM Design <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Patrick Dong" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Dong</p>
+              <p class="site-description motion-element" itemprop="description">Cyber Security Analyst | OSCP | CCNP</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="http://www.freebuf.com" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/superpb9" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:d.pippo9@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-Configuration"><span class="nav-number">1.</span> <span class="nav-text">Network Configuration</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-static-IP-address"><span class="nav-number">1.1.</span> <span class="nav-text">Set static IP address</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DNS-nameserver-configuration-Ubuntu-18-04"><span class="nav-number">1.2.</span> <span class="nav-text">DNS nameserver configuration (Ubuntu 18.04)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Dual-NIC-configuration-via-NAT"><span class="nav-number">1.3.</span> <span class="nav-text">Dual NIC configuration via NAT</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Set-static-IP-address-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">Set static IP address</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Enable-IP-Forwarding"><span class="nav-number">1.3.2.</span> <span class="nav-text">Enable IP Forwarding</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Set-iptable-Rules"><span class="nav-number">1.3.3.</span> <span class="nav-text">Set iptable Rules</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Enable-DNAT"><span class="nav-number">1.4.</span> <span class="nav-text">Enable DNAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Save-iptables-Rules-persistently"><span class="nav-number">1.5.</span> <span class="nav-text">Save iptables Rules persistently</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SSH-without-using-password"><span class="nav-number">1.6.</span> <span class="nav-text">SSH without using password</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Step-1-Generate-a-public-private-key-pair-using-ssh-kengen"><span class="nav-number">1.6.1.</span> <span class="nav-text">Step 1: Generate a public/private key pair using ssh-kengen</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Step-2-Copy-the-key-to-the-destination-server"><span class="nav-number">1.6.2.</span> <span class="nav-text">Step 2: Copy the key to the destination server</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Easy-for-system-admin-to-manage-various-servers"><span class="nav-number">1.6.3.</span> <span class="nav-text">Easy for system admin to manage various servers</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System-Running"><span class="nav-number">2.</span> <span class="nav-text">System Running</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Start-a-service-when-booting-system"><span class="nav-number">2.1.</span> <span class="nav-text">Start a service when booting system</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#System-runnig-process-and-port-number"><span class="nav-number">2.2.</span> <span class="nav-text">System runnig process and port number</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File-System"><span class="nav-number">3.</span> <span class="nav-text">File System</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-‘df’-command"><span class="nav-number">3.1.</span> <span class="nav-text">Using ‘df’ command</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Using-‘du’-command"><span class="nav-number">3.2.</span> <span class="nav-text">Using ‘du’ command</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cron-Jobs"><span class="nav-number">4.</span> <span class="nav-text">Cron Jobs</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cron-Job-Types"><span class="nav-number">4.1.</span> <span class="nav-text">Cron Job Types</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bash-Shell"><span class="nav-number">5.</span> <span class="nav-text">Bash Shell</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Shelll-variables-useful-commands"><span class="nav-number">5.1.</span> <span class="nav-text">Shelll variables, useful commands</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-if-statement-for-loop-while-loop-and-getops"><span class="nav-number">5.2.</span> <span class="nav-text">The if statement, for loop, while loop and getops</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Program-exit-statues"><span class="nav-number">5.3.</span> <span class="nav-text">Program exit statues</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#I-O-Redirection-Pipes"><span class="nav-number">5.4.</span> <span class="nav-text">I/O Redirection - Pipes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#File-Editing-grep-cut-awk-sort-wc-tww"><span class="nav-number">5.5.</span> <span class="nav-text">File Editing (grep, cut, awk, sort, wc, tww)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Using-“echo-e”-along-with-“cut”-command"><span class="nav-number">5.5.1.</span> <span class="nav-text">Using “echo -e” along with “cut” command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“grep”-command-with-“Reg”"><span class="nav-number">5.5.2.</span> <span class="nav-text">The “grep” command with “Reg”</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“cut”-command"><span class="nav-number">5.5.3.</span> <span class="nav-text">The “cut” command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“awk”-command"><span class="nav-number">5.5.4.</span> <span class="nav-text">The “awk” command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“sort”-command-with-–field-separator-SEP-and-–key-KEYDEF"><span class="nav-number">5.5.5.</span> <span class="nav-text">The “sort” command with –field-separator=SEP and –key=KEYDEF</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“sort”-with-“du”command"><span class="nav-number">5.5.6.</span> <span class="nav-text">The “sort” with “du”command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“sort”-with-‘uniq’-command"><span class="nav-number">5.5.7.</span> <span class="nav-text">The “sort” with ‘uniq’ command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“wc”-command"><span class="nav-number">5.5.8.</span> <span class="nav-text">The “wc” command</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#The-“tee”-command"><span class="nav-number">5.5.9.</span> <span class="nav-text">The “tee” command</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VIM-Cheatsheet"><span class="nav-number">6.</span> <span class="nav-text">VIM Cheatsheet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cursor-movement"><span class="nav-number">6.1.</span> <span class="nav-text">Cursor movement</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Editing"><span class="nav-number">6.2.</span> <span class="nav-text">Editing</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Copy-and-paste"><span class="nav-number">6.3.</span> <span class="nav-text">Copy and paste</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Search-and-replace"><span class="nav-number">6.4.</span> <span class="nav-text">Search and replace</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Comment-multple-lines-In-Out"><span class="nav-number">6.5.</span> <span class="nav-text">Comment multple lines In/Out</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Save-as-a-new-File"><span class="nav-number">6.6.</span> <span class="nav-text">Save as a new File</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018.05.05 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Dong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

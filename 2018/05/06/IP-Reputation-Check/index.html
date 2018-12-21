@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English, Chinese">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="python,Web Scraping," />
+
+
+
+
+
+  <link rel="alternate" href="http://www.freebuf.com" title="Superpb9" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Program Introduction Author: Patrick Dong  Modules Developed: abuseipdb.py, ipvoid.py, myIPWhois.py, sans.py, xforceIBM.py  System Requirement: Python 2.7 and BeautifulSoup, requests, pandas   12345$">
+<meta name="keywords" content="python,Web Scraping">
+<meta property="og:type" content="article">
+<meta property="og:title" content="IP Reputation Check">
+<meta property="og:url" content="http://yoursite.com/2018/05/06/IP-Reputation-Check/index.html">
+<meta property="og:site_name" content="Superpb9">
+<meta property="og:description" content="Program Introduction Author: Patrick Dong  Modules Developed: abuseipdb.py, ipvoid.py, myIPWhois.py, sans.py, xforceIBM.py  System Requirement: Python 2.7 and BeautifulSoup, requests, pandas   12345$">
+<meta property="og:locale" content="English, Chinese">
+<meta property="og:updated_time" content="2018-12-21T07:47:09.834Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="IP Reputation Check">
+<meta name="twitter:description" content="Program Introduction Author: Patrick Dong  Modules Developed: abuseipdb.py, ipvoid.py, myIPWhois.py, sans.py, xforceIBM.py  System Requirement: Python 2.7 and BeautifulSoup, requests, pandas   12345$">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/06/IP-Reputation-Check/"/>
+
+
+
+
+
+  <title>IP Reputation Check | Superpb9</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Superpb9</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A journey of a thousand miles may not be achieved without accumulation of each single step, just as the enormous ocean may not be formed without gathering every brook or stream.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/06/IP-Reputation-Check/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Dong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Superpb9">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">IP Reputation Check</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-06T14:50:19+12:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Security-Incident-Response/" itemprop="url" rel="index">
+                    <span itemprop="name">Security Incident Response</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Program-Introduction"><a href="#Program-Introduction" class="headerlink" title="Program Introduction"></a>Program Introduction</h3><ul>
+<li><p>Author: Patrick Dong</p>
+</li>
+<li><p>Modules Developed: abuseipdb.py, ipvoid.py, myIPWhois.py, sans.py, xforceIBM.py</p>
+</li>
+<li><p>System Requirement: Python 2.7 and BeautifulSoup, requests, pandas</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install python-setuptools python-dev build-essential.</span><br><span class="line"></span><br><span class="line">$ sudo easy_install pip</span><br><span class="line"></span><br><span class="line">$ sudo pip install --upgrade virtualenv</span><br></pre></td></tr></table></figure>
+<h4 id="Python-Code-Usage"><a href="#Python-Code-Usage" class="headerlink" title="Python Code Usage"></a>Python Code Usage</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">$ python webscraping.py &lt;IP|Domain&gt;</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;&gt;&gt; Welcome to WebScraping Tool &lt;&lt;&lt;&lt;&lt;</span><br><span class="line">Now checking 5.188.11.131 ...</span><br><span class="line"></span><br><span class="line">[.] IP Whois Result:</span><br><span class="line">% This is the RIPE Database query service.</span><br><span class="line">% The objects are in RPSL format.</span><br><span class="line">%</span><br><span class="line">% The RIPE Database is subject to Terms and Conditions.</span><br><span class="line">% See http://www.ripe.net/db/support/db-terms-conditions.pdf</span><br><span class="line"></span><br><span class="line">%ERROR:201: access denied for this server.</span><br><span class="line">%</span><br><span class="line">% Sorry, access from your host has been permanently</span><br><span class="line">% denied because of a repeated excessive querying.</span><br><span class="line">% For more information, see</span><br><span class="line">% http://www.ripe.net/data-tools/db/faq/faq-db/why-did-you-receive-the-error-201-access-denied</span><br><span class="line"></span><br><span class="line">% This query was served by the RIPE Database Query Service version 1.91.2 (ANGUS)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[.] IPVoid Result: </span><br><span class="line">                    ITEM                              DATA</span><br><span class="line">0          Analysis Date               2018-05-07 05:16:50</span><br><span class="line">1           Elapsed Time                         2 seconds</span><br><span class="line">2       Blacklist Status                 BLACKLISTED 10/96</span><br><span class="line">3             IP Address                      5.188.11.131</span><br><span class="line">4            Reverse DNS                           Unknown</span><br><span class="line">5                    ASN                           AS43350</span><br><span class="line">6              ASN Owner         NForce Entertainment B.V.</span><br><span class="line">7                    ISP  Petersburg Internet Network ltd.</span><br><span class="line">8              Continent                            Europe</span><br><span class="line">9           Country Code                      (HR) Croatia</span><br><span class="line">10  Latitude / Longitude                 44.8683 / 13.8481</span><br><span class="line">11                  City                              Pula</span><br><span class="line">12                Region                           Istria  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[.] SANS Result:</span><br><span class="line">Report Times 128963</span><br><span class="line">Total Targets 2401</span><br><span class="line">First Reported 2018-05-03</span><br><span class="line">Recent Report 2018-05-07 06:33:41</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">[.] AbuseIPDB Result:</span><br><span class="line">Reported 173 times</span><br><span class="line">             Date   Reporter                   Category</span><br><span class="line">0  47 seconds ago  Anonymous   | Port Scan | Hacking | </span><br><span class="line">1  20 minutes ago      Scan    | Port Scan | Hacking | </span><br><span class="line">2  36 minutes ago      Scan    | Port Scan | Hacking | </span><br><span class="line">3      1 hour ago      Scan    | Port Scan | Hacking | </span><br><span class="line">4     2 hours ago    AWSBot              | Port Scan | </span><br><span class="line">5     2 hours ago      Scan    | Port Scan | Hacking | </span><br><span class="line">6     3 hours ago      Scan    | Port Scan | Hacking |  </span><br><span class="line"></span><br><span class="line">[.] IBM X-Force Result:</span><br><span class="line">Country: Russia</span><br><span class="line">Risk Score: 10</span><br><span class="line">Categorization: Dynamic IPs (71%)</span><br><span class="line">Categorization: Scanning IPs (100%)</span><br><span class="line"></span><br><span class="line">[.] IPVoid Result: BLACKLISTED 10/96</span><br><span class="line">[.] SANS Result: Report Times 128963 | Total Targets 2401 | First Reported 2018-05-03 | Recent Report 2018-05-07 06:33:41</span><br><span class="line">[.] AbuseIPDB Result: Reported 173 times</span><br><span class="line">[.] XForce Result:  Country: Russia | Risk Score: 10 | Categorization: Dynamic IPs (71%) | Categorization: Scanning IPs (100%)</span><br></pre></td></tr></table></figure>
+<h3 id="Python-Code"><a href="#Python-Code" class="headerlink" title="Python Code"></a>Python Code</h3><h4 id="Main-webscraping-py"><a href="#Main-webscraping-py" class="headerlink" title="Main: webscraping.py"></a>Main: webscraping.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">from __future__ import print_function</span><br><span class="line">import sys,re, smtplib</span><br><span class="line">import abuseipdb, ipvoid, sans, myIPwhois, xforceIBM</span><br><span class="line"></span><br><span class="line">def webscraping():</span><br><span class="line">    myIPvoidPrint1 = &apos;&apos;</span><br><span class="line">    mySansPrint2 = &apos;&apos;</span><br><span class="line">    myAbuseIPDBPrint3 = &apos;&apos;</span><br><span class="line">    myXForcePrint4 = &apos;&apos;</span><br><span class="line"></span><br><span class="line">    if len(sys.argv) != 2:</span><br><span class="line">        print(&apos;&gt;&gt;&gt;&gt;&gt; Welcome to my WebScraping Tool &lt;&lt;&lt;&lt;&lt;&apos;)</span><br><span class="line">        print(&apos;     Usage: python webscraping.py [x.x.x.x | domain]&apos;)</span><br><span class="line">    else:</span><br><span class="line">        print(&apos;&gt;&gt;&gt;&gt;&gt; Welcome to WebScraping Tool &lt;&lt;&lt;&lt;&lt;&apos;)</span><br><span class="line"></span><br><span class="line">        # regular expression for IP</span><br><span class="line">        re_ip = re.compile(&apos;^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)&#123;3&#125;(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$&apos;)</span><br><span class="line"></span><br><span class="line">        print(&quot;Now checking &quot; + sys.argv[1] + &quot; ...&quot;)</span><br><span class="line">        print(&quot;&quot;)</span><br><span class="line"></span><br><span class="line">        # If the IP format is valid:</span><br><span class="line">        if re_ip.match(sys.argv[1]):</span><br><span class="line">            # Call myIPwhois.py</span><br><span class="line">            myIPwhois.IPWhoisChecker(&quot;https://www.abuseipdb.com/whois/&quot; + sys.argv[1])</span><br><span class="line"></span><br><span class="line">            # Call ipvoid.py</span><br><span class="line">            myIPvoidPrint1 = ipvoid.ipvoidChecker(sys.argv[1])</span><br><span class="line"></span><br><span class="line">            # Call sans.py</span><br><span class="line">            mySansPrint2 = sans.sansChecker(sys.argv[1])</span><br><span class="line"></span><br><span class="line">            # Call abuseipdb.py</span><br><span class="line">            myAbuseIPDBPrint3 = abuseipdb.abuseipdbChecker(&quot;https://www.abuseipdb.com/check/&quot; + sys.argv[1])</span><br><span class="line"></span><br><span class="line">            # Call xforceIBM.py</span><br><span class="line">            myXForcePrint4 = xforceIBM.myXForceChecker(&quot;https://api.xforce.ibmcloud.com/ipr/&quot; + sys.argv[1])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        # If the input is a domain or other strings, let the website validate then ...</span><br><span class="line">        else:</span><br><span class="line">            #Call myIPwhois.py</span><br><span class="line">            myIPwhois.IPWhoisChecker(&quot;https://www.abuseipdb.com/whois/&quot; + sys.argv[1])</span><br><span class="line"></span><br><span class="line">            # Call sans.py</span><br><span class="line">            # sans.sansChecker(&quot;https://isc.sans.edu/api/ip/&quot; + sys.argv[1])</span><br><span class="line">            sans.sansChecker(sys.argv[1])</span><br><span class="line"></span><br><span class="line">            # Call abuseipdb.py</span><br><span class="line">            abuseipdb.abuseipdbChecker(&quot;https://www.abuseipdb.com/check/&quot; + sys.argv[1])</span><br><span class="line"></span><br><span class="line">            # Call xforceIBM.py</span><br><span class="line">            # Check the domain</span><br><span class="line">            xforceIBM.myXForceChecker(&quot;https://api.xforce.ibmcloud.com/url/&quot; + sys.argv[1])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    print (&quot;&quot;)</span><br><span class="line">    message = &quot;[.] IPVoid Result: &quot; + myIPvoidPrint1 + &apos;\n&apos; +\</span><br><span class="line">              &quot;[.] SANS Result: &quot; + &apos; | &apos;.join(mySansPrint2) + &apos;\n&apos; +\</span><br><span class="line">              &quot;[.] AbuseIPDB Result: &quot; + myAbuseIPDBPrint3 + &apos;\n&apos; +\</span><br><span class="line">              &quot;[.] XForce Result:  &quot; + &apos; | &apos;.join(myXForcePrint4)</span><br><span class="line">    print (message)</span><br><span class="line"></span><br><span class="line">    sendemail(from_addr=&apos;xxx@gmail.com&apos;,</span><br><span class="line">              to_addr_list=[&apos;xxx@xx.co.nz&apos;],</span><br><span class="line">              cc_addr_list=[&apos;xxx@xx.co.nz&apos;],</span><br><span class="line">              subject=&apos;Some Testing Shxxt&apos;,</span><br><span class="line">              message= message,</span><br><span class="line">              login=&apos;xxx&apos;,</span><br><span class="line">              password=&apos;xxx!&apos;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def sendemail(from_addr, to_addr_list, cc_addr_list,</span><br><span class="line">              subject, message,</span><br><span class="line">              login, password,</span><br><span class="line">              smtpserver=&apos;smtp.gmail.com:587&apos;):</span><br><span class="line">    header = &apos;From: %s\n&apos; % from_addr</span><br><span class="line">    header += &apos;To: %s\n&apos; % &apos;,&apos;.join(to_addr_list)</span><br><span class="line">    header += &apos;Cc: %s\n&apos; % &apos;,&apos;.join(cc_addr_list)</span><br><span class="line">    header += &apos;Subject: %s\n\n&apos; % subject</span><br><span class="line">    message = header + message</span><br><span class="line"></span><br><span class="line">    server = smtplib.SMTP(smtpserver)</span><br><span class="line">    server.starttls()</span><br><span class="line">    server.login(login, password)</span><br><span class="line">    problems = server.sendmail(from_addr, to_addr_list, message)</span><br><span class="line">    server.quit()</span><br><span class="line">    return problems</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    webscraping()</span><br></pre></td></tr></table></figure>
+<h4 id="Module-abuseipdb-py"><a href="#Module-abuseipdb-py" class="headerlink" title="Module: abuseipdb.py"></a>Module: abuseipdb.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line">from pandas import Series, DataFrame</span><br><span class="line"></span><br><span class="line">def abuseipdbChecker(url):</span><br><span class="line"></span><br><span class="line">    # e.g. url = &quot;https://www.abuseipdb.com/check/220.191.211.7&quot;</span><br><span class="line">    #      url = &quot;https://www.abuseipdb.com/check/baidu.com&quot;</span><br><span class="line">    # HTTP Query</span><br><span class="line">    myResult = requests.get(url)</span><br><span class="line">    printResult = &apos;&apos;</span><br><span class="line">    print &apos;[.] AbuseIPDB Result:&apos;</span><br><span class="line"></span><br><span class="line">    # if the input value is invalid, such as &apos;baidu.comx&apos;, &apos;x.x.x.x.x&apos;, etc.</span><br><span class="line">    # Invalid Input: &apos;422 Unprocessable Entity&apos;</span><br><span class="line">    if myResult.status_code == 422:</span><br><span class="line">        print &apos;Error: 422 Unprocessable Entity (e.g. http://www.com)&apos;</span><br><span class="line">        print &apos;We expected a valid IP address or Domain name.&apos;</span><br><span class="line">        exit()</span><br><span class="line">    else:</span><br><span class="line">        # If domain resolved to an IP</span><br><span class="line">        if url != myResult.url:</span><br><span class="line">            print &apos;Your request has been resolved to &apos; + myResult.url</span><br><span class="line">        c = myResult.content</span><br><span class="line">        soup = BeautifulSoup(c, &quot;lxml&quot;)</span><br><span class="line"></span><br><span class="line">        # Part 1: Locate the reporting times that we want</span><br><span class="line">        # reportTimes = soup.find_all(class_=&quot;well&quot;)</span><br><span class="line">        mySoup = soup.find(&apos;div&apos;, &#123;&apos;class&apos;: &apos;col-md-6&apos;&#125;)</span><br><span class="line"></span><br><span class="line">        # Http Response code is still 200 but we got a message:</span><br><span class="line">        #      &apos;We can&apos;t resolve the domain www.comz! Please try your query again.&apos;</span><br><span class="line">        if mySoup is None:</span><br><span class="line">            print (&apos;We expected a valid IP address or Domain name.&apos;)</span><br><span class="line">        else:</span><br><span class="line">            # Get the first &apos;p&apos; tag in &lt;div class=&quot;well&quot;&gt;</span><br><span class="line">            # You can only put &apos;find_all&apos; after &apos;find&apos;</span><br><span class="line">            pTag = mySoup.find(&apos;p&apos;)</span><br><span class="line">            reportTimes = pTag.find(&apos;b&apos;)</span><br><span class="line"></span><br><span class="line">            # Print reporting times</span><br><span class="line">            try:</span><br><span class="line">                if reportTimes.string == &quot;Important Note:&quot;:</span><br><span class="line">                    print &apos;Note: You probably input a private IP. Please check again ...&apos;</span><br><span class="line">                    exit()</span><br><span class="line">                else:</span><br><span class="line">                    print &apos;Reported &apos; + reportTimes.string + &apos; times&apos;</span><br><span class="line">                    printResult = &apos;Reported &apos; + reportTimes.string + &apos; times&apos;</span><br><span class="line">            # if result equals &apos;None&apos;</span><br><span class="line">            except Exception:</span><br><span class="line">                reportTimes = 0</span><br><span class="line">                print &apos;Reported &apos; + str(reportTimes) + &apos; times&apos;</span><br><span class="line">                printResult = &apos;Reported &apos; + str(reportTimes) + &apos; times&apos;</span><br><span class="line">                print &apos;&apos;</span><br><span class="line"></span><br><span class="line">            # Part 2: Locate the table that we want</span><br><span class="line">            tables = soup.find_all(class_=&quot;table table-striped responsive-table&quot;)</span><br><span class="line"></span><br><span class="line">            if tables != []:</span><br><span class="line">                # Use BeautifulSoup to find the table entries with a For Loop</span><br><span class="line">                rawData = []</span><br><span class="line"></span><br><span class="line">                # Looking for every row in a table</span><br><span class="line">                # table[0] is just the format for BeautifulSoup</span><br><span class="line">                rows = tables[0].findAll(&apos;tr&apos;)</span><br><span class="line"></span><br><span class="line">                for tr in rows:</span><br><span class="line">                    cols = tr.findAll(&apos;td&apos;)</span><br><span class="line">                    for td in cols:</span><br><span class="line">                        # data-title = &quot;Reporter&quot;</span><br><span class="line">                        text = cols[0].text</span><br><span class="line">                        rawData.append(text)</span><br><span class="line">                        # data-title = &quot;Date&quot;</span><br><span class="line">                        text = cols[1].text</span><br><span class="line">                        rawData.append(text)</span><br><span class="line">                        &apos;&apos;&apos;</span><br><span class="line">                        # data-title = &quot;Comment&quot; (Ingnored)</span><br><span class="line">                        text = cols[2].text</span><br><span class="line">                        rawData.append(text)</span><br><span class="line">                        &apos;&apos;&apos;</span><br><span class="line">                        # data-title = &quot;Categories&quot;</span><br><span class="line">                        text = cols[3].text + &apos;\n&apos;</span><br><span class="line">                        rawData.append(text)</span><br><span class="line"></span><br><span class="line">                # Modify rawData</span><br><span class="line">                reporter = []</span><br><span class="line">                date = []</span><br><span class="line">                category = []</span><br><span class="line"></span><br><span class="line">                itemNum = len(rawData)</span><br><span class="line">                index = 0</span><br><span class="line"></span><br><span class="line">                # For &apos;reporter&apos;</span><br><span class="line">                index1 = 0</span><br><span class="line">                # For &apos;date&apos;</span><br><span class="line">                index2 = 1</span><br><span class="line">                # For &apos;category&apos;</span><br><span class="line">                index3 = 2</span><br><span class="line"></span><br><span class="line">                for index in range(0, itemNum - 1):</span><br><span class="line">                    # Make sure this loop will not exceed the limit</span><br><span class="line">                    if index1 &lt;= itemNum - 3:</span><br><span class="line">                        # Reporter</span><br><span class="line">                        reporter.append(rawData[index1].replace(&apos;\n&apos;, &apos;&apos;))</span><br><span class="line">                        index1 += 3</span><br><span class="line"></span><br><span class="line">                        # Date</span><br><span class="line">                        date.append(rawData[index2].replace(&apos;\n&apos;, &apos;&apos;))</span><br><span class="line">                        index2 += 3</span><br><span class="line"></span><br><span class="line">                        # Category</span><br><span class="line">                        category.append(rawData[index3].replace(&apos;\n\n&apos;, &apos; | &apos;).replace(&apos;\n&apos;, &apos; | &apos;))</span><br><span class="line">                        index3 += 3</span><br><span class="line"></span><br><span class="line">                        # Global Index</span><br><span class="line">                        index += 1</span><br><span class="line"></span><br><span class="line">                # Panda Series</span><br><span class="line">                reporter = Series(reporter)</span><br><span class="line">                date = Series(date)</span><br><span class="line">                category = Series(category)</span><br><span class="line"></span><br><span class="line">                # Concatenate into a DataFrame</span><br><span class="line">                legislative_df = pd.concat([date, reporter, category], axis=1)</span><br><span class="line"></span><br><span class="line">                # Set up the columns</span><br><span class="line">                legislative_df.columns = [&apos;Date&apos;, &apos;Reporter&apos;, &apos;Category&apos;]</span><br><span class="line"></span><br><span class="line">                # Delete the dups and reset index (and drop the old index)</span><br><span class="line">                legislative_df = legislative_df.drop_duplicates().reset_index(drop=True)</span><br><span class="line"></span><br><span class="line">                # Show the finished DataFrame</span><br><span class="line">                print legislative_df,</span><br><span class="line">                print &apos;&apos;</span><br><span class="line">    return printResult</span><br></pre></td></tr></table></figure>
+<h4 id="Module-ipvoid-py"><a href="#Module-ipvoid-py" class="headerlink" title="Module: ipvoid.py"></a>Module: ipvoid.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">import pandas as pd</span><br><span class="line">from pandas import Series, DataFrame</span><br><span class="line"></span><br><span class="line">def ipvoidChecker(ip):</span><br><span class="line"></span><br><span class="line">    url = &quot;http://www.ipvoid.com/ip-blacklist-check/&quot;</span><br><span class="line">    headers = &#123;&quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded&quot;,</span><br><span class="line">               &quot;Referer&quot;:&quot;http://www.ipvoid.com/ip-blacklist-check/&quot;,&#125;</span><br><span class="line">    payload = &#123;&apos;ip&apos;:ip&#125;</span><br><span class="line">    # Note: Using &apos;data&apos; instead of &apos;params&apos;</span><br><span class="line">    r = requests.post(url, headers=headers, data=payload)</span><br><span class="line">    returnData = r.content</span><br><span class="line">    soup = BeautifulSoup(returnData, &quot;lxml&quot;)</span><br><span class="line"></span><br><span class="line">    #mySoup = soup.find(&apos;div&apos;, &#123;&apos;class&apos;: &apos;responsive&apos;&#125;)</span><br><span class="line">    tables = soup.find_all(class_=&quot;table table-striped table-bordered&quot;)</span><br><span class="line"></span><br><span class="line">    column1 = []</span><br><span class="line">    column2 = []</span><br><span class="line">    printResult = &apos;&apos;</span><br><span class="line"></span><br><span class="line">    if tables !=[]:</span><br><span class="line">        rows = tables[0].findAll(&apos;tr&apos;)</span><br><span class="line">        i = 0</span><br><span class="line">        for tr in rows:</span><br><span class="line">            i+=1</span><br><span class="line">            cols = tr.findAll(&apos;td&apos;)</span><br><span class="line">            column1.append(cols[0].text)</span><br><span class="line">            column2.append(cols[1].text.</span><br><span class="line">                           replace(&quot; Find Sites | IP Whois&quot;,&quot;&quot;).</span><br><span class="line">                           replace(&quot; Google Map&quot;,&quot;&quot;))</span><br><span class="line">            #Get the Blacklist Status</span><br><span class="line">            if i == 3:</span><br><span class="line">                printResult = cols[1].text</span><br><span class="line">    # Panda Series</span><br><span class="line">    column1 = Series(column1)</span><br><span class="line">    column2 = Series(column2)</span><br><span class="line"></span><br><span class="line">    # Concatenate into a DataFrame</span><br><span class="line">    legislative_df = pd.concat([column1, column2], axis=1)</span><br><span class="line"></span><br><span class="line">    # Set up the columns</span><br><span class="line">    legislative_df.columns = [&apos;ITEM&apos;, &apos;DATA&apos;]</span><br><span class="line"></span><br><span class="line">    # Show the finished DataFrame</span><br><span class="line">    print &apos;[.] IPVoid Result: &apos;</span><br><span class="line">    print legislative_df,&apos;\n\n&apos;</span><br><span class="line">    return printResult</span><br></pre></td></tr></table></figure>
+<h4 id="Module-myIPwhois-py"><a href="#Module-myIPwhois-py" class="headerlink" title="Module: myIPwhois.py"></a>Module: myIPwhois.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">def IPWhoisChecker(url):</span><br><span class="line"></span><br><span class="line">    # e.g. url = &quot;https://www.abuseipdb.com/whois/114.200.4.207&quot;</span><br><span class="line">    myResult = requests.get(url)</span><br><span class="line">    print &apos;[.] IP Whois Result:&apos;</span><br><span class="line"></span><br><span class="line">    # if the input value is invalid, such as &apos;baidu.comx&apos;, &apos;x.x.x.x.x&apos;, etc.</span><br><span class="line">    # Invalid Input: &apos;422 Unprocessable Entity&apos;</span><br><span class="line">    if myResult.status_code == 422:</span><br><span class="line">        print &apos;Error: 422 Unprocessable Entity (e.g. http://www.com)&apos;</span><br><span class="line">        print &apos;We expected a valid IP address or Domain name.&apos;</span><br><span class="line">        print &apos;Program will exit ...&apos;</span><br><span class="line">        exit()</span><br><span class="line">    elif myResult.status_code == 404:</span><br><span class="line">        print &apos;Response Error: 404 We expected a valid IP address or Domain name.&apos;</span><br><span class="line">        print &apos;Program will exit ...&apos;</span><br><span class="line">        exit()</span><br><span class="line">    else:</span><br><span class="line">        # If domain resolved to an IP</span><br><span class="line">        if url != myResult.url:</span><br><span class="line">            print &apos;Your request has been resolved to &apos; + myResult.url</span><br><span class="line">        c = myResult.content</span><br><span class="line">        soup = BeautifulSoup(c, &quot;lxml&quot;)</span><br><span class="line"></span><br><span class="line">        # Parse https://www.abuseipdb.com/whois/x.x.x.x</span><br><span class="line">        mySoup = soup.find(&apos;section&apos;, &#123;&apos;id&apos;: &apos;report-wrapper&apos;&#125;)</span><br><span class="line">        preTag = mySoup.find(&apos;pre&apos;)</span><br><span class="line">        ipWhoisInfo = preTag.text</span><br><span class="line"></span><br><span class="line">        if not ipWhoisInfo:</span><br><span class="line">            print &quot;None&quot;</span><br><span class="line">        else:</span><br><span class="line">            print ipWhoisInfo</span><br></pre></td></tr></table></figure>
+<h4 id="Module-sans-py"><a href="#Module-sans-py" class="headerlink" title="Module: sans.py"></a>Module: sans.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">import re</span><br><span class="line"></span><br><span class="line">from bs4 import BeautifulSoup</span><br><span class="line">import requests, dns.resolver</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def sansChecker(IPOrDomain):</span><br><span class="line"></span><br><span class="line">    # HTTP Query</span><br><span class="line">    url = &quot;https://isc.sans.edu/api/ip/&quot; + IPOrDomain</span><br><span class="line"></span><br><span class="line">    # If the input value is a domain</span><br><span class="line">    re_ip = re.compile(&apos;^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.)&#123;3&#125;(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$&apos;)</span><br><span class="line">    if not re_ip.match(IPOrDomain):</span><br><span class="line">        #Try to resolve the domain first</span><br><span class="line">        aRecord = []</span><br><span class="line">        my_resolver = dns.resolver.Resolver()</span><br><span class="line">        my_resolver.nameservers = [&apos;8.8.8.8&apos;]</span><br><span class="line">        for rdata in my_resolver.query(IPOrDomain, &quot;A&quot;):</span><br><span class="line">            aRecord.append(rdata.address)</span><br><span class="line">        # Only use the 1st A record</span><br><span class="line">        url = &quot;https://isc.sans.edu/api/ip/&quot; + aRecord[0]</span><br><span class="line"></span><br><span class="line">    # Our actual checking begins from here</span><br><span class="line">    printResult = []</span><br><span class="line">    myResult = requests.get(url)</span><br><span class="line">    c = myResult.content</span><br><span class="line">    soup = BeautifulSoup(c, &quot;lxml&quot;)</span><br><span class="line">    mySoup = soup.find(&apos;error&apos;)</span><br><span class="line">    print &apos;[.] SANS Result:&apos;</span><br><span class="line"></span><br><span class="line">    # If the input IP has a correct format</span><br><span class="line">    if mySoup is None:</span><br><span class="line">        c = myResult.content</span><br><span class="line">        soup = BeautifulSoup(c, &quot;lxml&quot;)</span><br><span class="line">        try:</span><br><span class="line">            reportedTimes = soup.find(&apos;count&apos;)</span><br><span class="line">            if reportedTimes.text != &apos;&apos;:</span><br><span class="line">                print &apos;Report Times &apos; + reportedTimes.text</span><br><span class="line">                printResult.append(&apos;Report Times &apos; + reportedTimes.text)</span><br><span class="line">            else:</span><br><span class="line">                print &apos;Report Times 0&apos;</span><br><span class="line">                printResult.append(&quot;Report Times 0&quot;)</span><br><span class="line">        except Exception:</span><br><span class="line">            print &apos;Report Times 0&apos;</span><br><span class="line">            printResult.append(&quot;Report Times 0&quot;)</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line">            targets = soup.find(&apos;attacks&apos;)</span><br><span class="line">            if targets.text != &apos;&apos;:</span><br><span class="line">                print &apos;Total Targets &apos; + targets.text</span><br><span class="line">                printResult.append(&apos;Total Targets &apos; + targets.text)</span><br><span class="line">            else:</span><br><span class="line">                print &apos;Total Targets 0&apos;</span><br><span class="line">                printResult.append(&apos;Total Targets 0&apos;)</span><br><span class="line">        except Exception:</span><br><span class="line">            print &apos;Total Targets 0&apos;</span><br><span class="line">            printResult.append(&apos;Total Targets 0&apos;)</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line">            firstReported = soup.find(&apos;mindate&apos;)</span><br><span class="line">            if firstReported.text != &apos;&apos;:</span><br><span class="line">                print &apos;First Reported &apos; + firstReported.text</span><br><span class="line">                printResult.append(&apos;First Reported &apos; + firstReported.text)</span><br><span class="line">            else:</span><br><span class="line">                print &apos;First Reported 0&apos;</span><br><span class="line">                printResult.append(&apos;First Reported 0&apos;)</span><br><span class="line">        except Exception:</span><br><span class="line">            print &apos;First Reported 0&apos;</span><br><span class="line">            printResult.append(&apos;First Reported 0&apos;)</span><br><span class="line"></span><br><span class="line">        try:</span><br><span class="line">            latestReported = soup.find(&apos;updated&apos;)</span><br><span class="line">            if latestReported.text != &apos;&apos;:</span><br><span class="line">                print &apos;Recent Report &apos; + latestReported.text</span><br><span class="line">                printResult.append(&apos;Recent Report &apos; + latestReported.text)</span><br><span class="line">            else:</span><br><span class="line">                print &apos;Recent Report 0&apos;</span><br><span class="line">                printResult.append(&apos;Recent Report 0&apos;)</span><br><span class="line">        except Exception:</span><br><span class="line">            print &apos;Recent Report 0&apos;</span><br><span class="line">            printResult.append(&apos;Recent Report 0&apos;)</span><br><span class="line"></span><br><span class="line">        print &quot;\n&quot;</span><br><span class="line"></span><br><span class="line">    # Elif the input IP is wrong</span><br><span class="line">    elif mySoup.text == &apos;bad IP address&apos;:</span><br><span class="line">        print &apos;We expected a valid IP address.&apos;</span><br><span class="line">        exit()</span><br><span class="line"></span><br><span class="line">    return printResult</span><br></pre></td></tr></table></figure>
+<h4 id="Module-xforceIBM-py"><a href="#Module-xforceIBM-py" class="headerlink" title="Module: xforceIBM.py"></a>Module: xforceIBM.py</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">from requests.auth import HTTPBasicAuth</span><br><span class="line"></span><br><span class="line">import json</span><br><span class="line"></span><br><span class="line">def myXForceChecker(url):</span><br><span class="line"></span><br><span class="line">    # User: 473284ee-2c45-4719-a201-5e6c81c0253a</span><br><span class="line">    # Password: 8acd0774-7238-4ad7-bc09-a2003ca6e80f</span><br><span class="line"></span><br><span class="line">    # Auth first</span><br><span class="line">    print &apos;&apos;</span><br><span class="line">    print &apos;[.] IBM X-Force Result:&apos;</span><br><span class="line"></span><br><span class="line">    printResult = []</span><br><span class="line">    # e.g. url = &quot;https://exchange.xforce.ibmcloud.com/ip//114.200.4.207&quot;</span><br><span class="line">    # IP Report</span><br><span class="line">    myResult1 = requests.get(url, auth=HTTPBasicAuth(&apos;473284ee-2c45-4719-a201-5e6c81c0253a&apos;,</span><br><span class="line">                                                     &apos;8acd0774-7238-4ad7-bc09-a2003ca6e80f&apos;))</span><br><span class="line">    c1 = myResult1.content</span><br><span class="line">    myJson1 = json.loads(c1)</span><br><span class="line"></span><br><span class="line">    # &gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;  IP/Domain Report Check &lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;</span><br><span class="line">    # ...........</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line">    # indent = 2</span><br><span class="line">    # json.dumps() change data to python dictionary</span><br><span class="line">    # sortedData = json.dumps(myJson1, sort_keys=True, indent=2)</span><br><span class="line">    # print sortedData</span><br><span class="line">    &apos;&apos;&apos;</span><br><span class="line"></span><br><span class="line">    #----------These three keys are for IP checker----------</span><br><span class="line">    # [Print] Geo information</span><br><span class="line">    if &quot;geo&quot; in myJson1:</span><br><span class="line">        for key, value in myJson1[&quot;geo&quot;].items():</span><br><span class="line">            geo = &quot;Country&quot; + &quot;: &quot; + str(value)</span><br><span class="line">            print geo</span><br><span class="line">            printResult.append(geo)</span><br><span class="line">            # Only print country</span><br><span class="line">            # (Ingore country code)</span><br><span class="line">            break</span><br><span class="line">    # [Print] Overrall Risk Score</span><br><span class="line">    if &quot;score&quot; in myJson1:</span><br><span class="line">        if myJson1[&quot;score&quot;] == 1:</span><br><span class="line">            print &quot;Risk Score: &quot; + str(myJson1[&quot;score&quot;]) + &quot; (low)&quot;</span><br><span class="line">            printResult.append(&quot;Risk Score: &quot; + str(myJson1[&quot;score&quot;]) + &quot; (low)&quot;)</span><br><span class="line">        else:</span><br><span class="line">            print &quot;Risk Score: &quot; + str(myJson1[&quot;score&quot;])</span><br><span class="line">            printResult.append(&quot;Risk Score: &quot; + str(myJson1[&quot;score&quot;]))</span><br><span class="line">    # [Print] Categorization:</span><br><span class="line">    if &quot;cats&quot; in myJson1:</span><br><span class="line">        if myJson1[&quot;cats&quot;]:</span><br><span class="line">            for key, value in myJson1[&quot;cats&quot;].items():</span><br><span class="line">                cat = str(key) + &quot; (&quot; + str(value) + &quot;%)&quot;</span><br><span class="line">                print &quot;Categorization: &quot; + cat</span><br><span class="line">                printResult.append(&quot;Categorization: &quot; + cat)</span><br><span class="line">        else:</span><br><span class="line">            print &quot;Categorization: Unsuspicious&quot;</span><br><span class="line">            printResult.append(&quot;Categorization: Unsuspicious&quot;)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    # ----------These keys are for Domain checker----------</span><br><span class="line">    if &quot;result&quot; in myJson1:</span><br><span class="line">        myJsonResult = myJson1[&quot;result&quot;]</span><br><span class="line">        if myJsonResult[&quot;score&quot;] == 1:</span><br><span class="line">            print &quot;Risk Score: &quot; + str(myJsonResult[&quot;score&quot;]) + &quot; (low)&quot;</span><br><span class="line">            printResult.append(&quot;Risk Score: &quot; + str(myJsonResult[&quot;score&quot;]) + &quot; (low)&quot;)</span><br><span class="line">        else:</span><br><span class="line">            print &quot;Risk Score: &quot; + str(myJsonResult[&quot;score&quot;])</span><br><span class="line">            printResult.append(&quot;Risk Score: &quot; + str(myJsonResult[&quot;score&quot;]))</span><br><span class="line"></span><br><span class="line">        if myJsonResult[&quot;categoryDescriptions&quot;]:</span><br><span class="line">            for key, value in myJsonResult[&quot;categoryDescriptions&quot;].items():</span><br><span class="line">                cat = &quot;&lt;&quot; + str(key).replace(&quot; / &quot;, &quot;|&quot;) + &quot;&gt;: &quot; + str(value)</span><br><span class="line">                print cat</span><br><span class="line">                printResult.append(cat)</span><br><span class="line"></span><br><span class="line">    return printResult</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+            <a href="/tags/Web-Scraping/" rel="tag"># Web Scraping</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/Splunk/" rel="next" title="Splunk">
+                <i class="fa fa-chevron-left"></i> Splunk
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/08/Linux/" rel="prev" title="All About Linux">
+                All About Linux <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Patrick Dong" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Dong</p>
+              <p class="site-description motion-element" itemprop="description">Cyber Security Analyst | OSCP | CCNP</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="http://www.freebuf.com" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/superpb9" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:d.pippo9@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Program-Introduction"><span class="nav-number">1.</span> <span class="nav-text">Program Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Python-Code-Usage"><span class="nav-number">1.1.</span> <span class="nav-text">Python Code Usage</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Python-Code"><span class="nav-number">2.</span> <span class="nav-text">Python Code</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Main-webscraping-py"><span class="nav-number">2.1.</span> <span class="nav-text">Main: webscraping.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Module-abuseipdb-py"><span class="nav-number">2.2.</span> <span class="nav-text">Module: abuseipdb.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Module-ipvoid-py"><span class="nav-number">2.3.</span> <span class="nav-text">Module: ipvoid.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Module-myIPwhois-py"><span class="nav-number">2.4.</span> <span class="nav-text">Module: myIPwhois.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Module-sans-py"><span class="nav-number">2.5.</span> <span class="nav-text">Module: sans.py</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Module-xforceIBM-py"><span class="nav-number">2.6.</span> <span class="nav-text">Module: xforceIBM.py</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018.05.05 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Dong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

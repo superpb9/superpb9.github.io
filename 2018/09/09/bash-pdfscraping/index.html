@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="English, Chinese">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux,Bash Shell Programming," />
+
+
+
+
+
+  <link rel="alternate" href="http://www.freebuf.com" title="Superpb9" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="Main Code block ‘pdfscraping.sh’123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+<meta name="keywords" content="Linux,Bash Shell Programming">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Bash] PDF Scraping">
+<meta property="og:url" content="http://yoursite.com/2018/09/09/bash-pdfscraping/index.html">
+<meta property="og:site_name" content="Superpb9">
+<meta property="og:description" content="Main Code block ‘pdfscraping.sh’123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+<meta property="og:locale" content="English, Chinese">
+<meta property="og:updated_time" content="2018-09-10T18:37:42.658Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[Bash] PDF Scraping">
+<meta name="twitter:description" content="Main Code block ‘pdfscraping.sh’123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/09/bash-pdfscraping/"/>
+
+
+
+
+
+  <title>[Bash] PDF Scraping | Superpb9</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="English, Chinese">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Superpb9</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A journey of a thousand miles may not be achieved without accumulation of each single step, just as the enormous ocean may not be formed without gathering every brook or stream.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/09/bash-pdfscraping/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Patrick Dong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Superpb9">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">[Bash] PDF Scraping</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-09T15:43:00+12:00">
+                2018-09-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Security-Automation/" itemprop="url" rel="index">
+                    <span itemprop="name">Security Automation</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Main-Code-block-‘pdfscraping-sh’"><a href="#Main-Code-block-‘pdfscraping-sh’" class="headerlink" title="Main Code block ‘pdfscraping.sh’"></a>Main Code block ‘pdfscraping.sh’</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># This script is to grep the useful data from PDF</span></span><br><span class="line"><span class="comment"># Pre-requisite: poppler-utils, mutt, ssmtp(/etc/ssmtp/ssmtp.conf), getmail4</span></span><br><span class="line"></span><br><span class="line">CURRENT_DIR=<span class="string">"<span class="variable">$(pwd)</span>"</span></span><br><span class="line">FILE_LIST=<span class="string">"<span class="variable">$(ls -la | grep -E '*[.][pP][dD][fF]$')</span>"</span></span><br><span class="line">BANNER+=<span class="string">"<span class="variable">$(echo -e "#######################################\n--- XXX Vulnerability Report View</span></span></span><br><span class="line"><span class="string"><span class="variable">er ---\n------  Author: pippo9 Sep 2018  ------\n#######################################")</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Define a usage() function</span></span><br><span class="line"><span class="function"><span class="title">usage</span></span> ()&#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Usage: <span class="variable">$&#123;0&#125;</span> [-e RECEIVER]"</span> &gt;&amp;2</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"The script will automatically process any PDF files under the current directory, which</span></span><br><span class="line"><span class="string"> is <span class="variable">$&#123;CURRENT_DIR&#125;</span>."</span> &gt;&amp;2</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"    -e   Archieve PDF files and send an email."</span> &gt;&amp;2</span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># Allow user to specify the following options:</span></span><br><span class="line"><span class="comment"># Any other option will cause the script to display a usage statement</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">getopts</span> e: OPTION</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="keyword">case</span>  <span class="variable">$&#123;OPTION&#125;</span> <span class="keyword">in</span></span><br><span class="line">    e) SEND_EMAIL=<span class="string">'true'</span> RECEIVER=<span class="string">"<span class="variable">$&#123;OPTARG&#125;</span>"</span> ;;</span><br><span class="line">    ?) usage ;;</span><br><span class="line">  <span class="keyword">esac</span></span><br><span class="line"><span class="keyword">done</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Ingore all the optional arguments</span></span><br><span class="line"><span class="comment"># Remove the options while leaving the remaining arguments.</span></span><br><span class="line"><span class="comment"># OPTIND is set to the index of the first non-option argument, and name is set to ?</span></span><br><span class="line"><span class="built_in">shift</span> <span class="string">"<span class="variable">$(( OPTIND - 1 )</span>)"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># If unable to matching any file with extention of ".pdf", ".PDF", etc.</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;FILE_LIST&#125;</span>"</span> = <span class="string">""</span> ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  usage</span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Using awk to exclude Columns 1 to Columns 8</span></span><br><span class="line"><span class="comment"># each PDF file name will be saved into the below variable</span></span><br><span class="line">FILE_NAME=<span class="string">"<span class="variable">$(echo "$&#123;FILE_LIST&#125;" | awk '&#123;$1=$2=$3=$4=$5=$6=$7=$8=""; print $0&#125;' | sed 's/^[ \t</span></span></span><br><span class="line"><span class="string"><span class="variable">]*//')</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Display script banner</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;BANNER&#125;</span>"</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line"><span class="comment"># Declare an array ARR_LIST for archiving purposes</span></span><br><span class="line"><span class="comment"># Declare an array EMAIL_CONTENT used for email sending</span></span><br><span class="line"><span class="built_in">declare</span> -a ARR_LIST</span><br><span class="line"><span class="built_in">declare</span> -a EMAIL_CONTENT</span><br><span class="line">EMAIL_CONTENT+=(<span class="string">"<span class="variable">$&#123;BANNER&#125;</span>"</span>)</span><br><span class="line">EMAIL_CONTENT+=(<span class="string">""</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Using WHILE Loop to process all the PDF files</span></span><br><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">  <span class="comment"># Display the processing file name</span></span><br><span class="line">  NOW_PROCESSING=(<span class="string">"Now processing <span class="variable">$&#123;line&#125;</span> ..."</span>)</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;NOW_PROCESSING&#125;</span>"</span></span><br><span class="line">  EMAIL_CONTENT+=(<span class="string">"<span class="variable">$&#123;NOW_PROCESSING&#125;</span>"</span>)</span><br><span class="line">  <span class="comment"># Report generating date checking</span></span><br><span class="line">  <span class="comment"># SERVER_NAME_IP=$(pdftotext -f 1 -l 1 "$&#123;line&#125;" - | grep '(')</span></span><br><span class="line">  AUDITED=$(pdftotext <span class="string">"<span class="variable">$&#123;line&#125;</span>"</span> - | grep <span class="string">'Audited on'</span> | awk -F <span class="string">'on '</span> <span class="string">'&#123;print $2&#125;'</span>)</span><br><span class="line">  REPORTED=$(pdftotext <span class="string">"<span class="variable">$&#123;line&#125;</span>"</span> - | grep <span class="string">'Reported on'</span> | awk -F <span class="string">'on '</span> <span class="string">'&#123;print $2&#125;'</span>)</span><br><span class="line">  <span class="comment"># If it's an invaild PDF</span></span><br><span class="line">  <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;AUDITED&#125;</span>"</span> = <span class="string">""</span> &amp;&amp; <span class="string">"<span class="variable">$&#123;REPORTED&#125;</span>"</span> = <span class="string">""</span> ]]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    TEMP1=$(<span class="built_in">echo</span> <span class="string">"Whoops, looks like it is not a valid vulnerability report"</span>)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;TEMP1&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$&#123;TEMP1&#125;</span>"</span>)</span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$(echo "")</span>"</span>)</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="comment"># If 'audited date' equals 'reported date'</span></span><br><span class="line">  <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;AUDITED&#125;</span>"</span> = *<span class="string">"<span class="variable">$&#123;REPORTED&#125;</span>"</span>* &amp;&amp; <span class="string">"<span class="variable">$&#123;AUDITED&#125;</span>"</span> != <span class="string">""</span> ]]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    ARR_LIST+=(<span class="string">"<span class="variable">$&#123;line&#125;</span>"</span>)</span><br><span class="line">    TEMP2=$(pdftotext <span class="string">"<span class="variable">$&#123;line&#125;</span>"</span> - | grep -E <span class="string">'vulnerability was discovered|vulnerabilities were</span></span><br><span class="line"><span class="string"> discovered'</span> | cut -b 4-)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;TEMP2&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$&#123;TEMP2&#125;</span>"</span>)</span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$(echo "")</span>"</span>)</span><br><span class="line">    <span class="built_in">continue</span></span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="comment"># If 'audited date' does not equal 'reported date'</span></span><br><span class="line">  <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;AUDITED&#125;</span>"</span> != <span class="string">"<span class="variable">$&#123;REPORTED&#125;</span>"</span> &amp;&amp; <span class="string">"<span class="variable">$&#123;AUDITED&#125;</span>"</span> != <span class="string">""</span> ]]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    ARR_LIST+=(<span class="string">"<span class="variable">$&#123;line&#125;</span>"</span>)</span><br><span class="line">    TEMP3_1=$(<span class="built_in">echo</span> <span class="string">"Info: Audited Date does not equal Reported Date."</span>)</span><br><span class="line">    TEMP3_2=$(<span class="built_in">echo</span> <span class="string">"Audited on <span class="variable">$&#123;AUDITED&#125;</span>"</span>)</span><br><span class="line">    TEMP3_3=$(<span class="built_in">echo</span> <span class="string">"Reported on <span class="variable">$&#123;REPORTED&#125;</span>"</span>)</span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;TEMP3_1&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;TEMP3_2&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"<span class="variable">$&#123;TEMP3_3&#125;</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$&#123;TEMP3_1&#125;</span>"</span>)</span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$&#123;TEMP3_2&#125;</span>"</span>)</span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$&#123;TEMP3_3&#125;</span>"</span>)</span><br><span class="line">    EMAIL_CONTENT+=(<span class="string">"<span class="variable">$(echo "")</span>"</span>)</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">done</span> &lt;&lt;&lt; <span class="string">"<span class="variable">$(echo -e "$&#123;FILE_NAME&#125;")</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Archieve and remove the PDFs in which Audited Date equals Reported Date</span></span><br><span class="line"><span class="comment"># FILE Naming Convention: XXX-$(date +%d%m%y).tar.gz</span></span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$&#123;SEND_EMAIL&#125;</span> == <span class="string">"true"</span> &amp;&amp; <span class="string">"<span class="variable">$&#123;ARR_LIST&#125;</span>"</span> != <span class="string">""</span> ]]</span><br><span class="line"><span class="keyword">then</span></span><br><span class="line">  <span class="comment"># Archeving PDF files first</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"The following PDFs have been archieved ..."</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="string">'%s\n'</span> <span class="string">"<span class="variable">$&#123;ARR_LIST[@]&#125;</span>"</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">""</span></span><br><span class="line">  tar -czf XXX-$(date +%d%m%y).tar.gz <span class="string">"<span class="variable">$&#123;ARR_LIST[@]&#125;</span>"</span> --remove-files</span><br><span class="line">  <span class="comment"># tar -czf XXX-$(date +%d%m%y).tar.gz "$&#123;ARR_LIST[@]&#125;"</span></span><br><span class="line">  <span class="comment"># If there's an error when archiving PDF files</span></span><br><span class="line">  <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;?&#125;</span>"</span> -ne 0 ]]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Whoops, something wrong with the archieved file ..."</span> &gt;&amp;2</span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line">  <span class="comment"># Send an email</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"Sending an email to <span class="variable">$&#123;RECEIVER&#125;</span> ..."</span></span><br><span class="line">  <span class="built_in">printf</span> <span class="string">'%s\n'</span> <span class="string">"<span class="variable">$&#123;EMAIL_CONTENT[@]&#125;</span>"</span> | mutt -s <span class="string">"XXX-Report"</span> <span class="string">"<span class="variable">$&#123;RECEIVER&#125;</span>"</span> -a XXX-$(date +%d%m</span><br><span class="line">%y).tar.gz</span><br><span class="line">  <span class="keyword">if</span> [[ <span class="string">"<span class="variable">$&#123;?&#125;</span>"</span> -eq 0 ]]</span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Email successfully sent out ..."</span></span><br><span class="line">    <span class="built_in">exit</span> 0</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure>
+<h2 id="A-config-file-for-SSMTP-sendmail-‘-etc-ssmtp-ssmtp-conf’"><a href="#A-config-file-for-SSMTP-sendmail-‘-etc-ssmtp-ssmtp-conf’" class="headerlink" title="A config file for SSMTP sendmail ‘/etc/ssmtp/ssmtp.conf’"></a>A config file for SSMTP sendmail ‘/etc/ssmtp/ssmtp.conf’</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/ssmtp.conf -- a config file for sSMTP sendmail.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># See the ssmtp.conf(5) man page for a more verbose explanation of the</span></span><br><span class="line"><span class="comment"># available options.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The person who gets all mail for userids &lt; 1000</span></span><br><span class="line"><span class="comment"># Make this empty to disable rewriting.</span></span><br><span class="line">root=xxxxx@gmail.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># The place where the mail goes. The actual machine name is required</span></span><br><span class="line"><span class="comment"># no MX records are consulted. Commonly mailhosts are named mail.domain.com</span></span><br><span class="line"><span class="comment"># The example will fit if you are in domain.com and your mailhub is so named.</span></span><br><span class="line">mailhub=smtp.gmail.com:465</span><br><span class="line"></span><br><span class="line"><span class="comment"># Example for SMTP port number 2525</span></span><br><span class="line"><span class="comment"># mailhub=mail.your.domain:2525</span></span><br><span class="line"><span class="comment"># Example for SMTP port number 25 (Standard/RFC)</span></span><br><span class="line"><span class="comment"># mailhub=mail.your.domain</span></span><br><span class="line"><span class="comment"># Example for SSL encrypted connection</span></span><br><span class="line"><span class="comment"># mailhub=mail.your.domain:465</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Where will the mail seem to come from?</span></span><br><span class="line"><span class="comment">#RewriteDomain=</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># The full hostname</span></span><br><span class="line"><span class="comment">#Hostname=</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Set this to never rewrite the "From:" line (unless not given) and to</span></span><br><span class="line"><span class="comment"># use that address in the "from line" of the envelope.</span></span><br><span class="line">FromLineOverride=YES</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use SSL/TLS to send secure messages to server.</span></span><br><span class="line">UseTLS=YES</span><br><span class="line"><span class="comment">#IMPORTANT: The following line is mandatory for TLS authentication</span></span><br><span class="line">TLS_CA_File=/etc/pki/tls/certs/ca-bundle.crt</span><br><span class="line"></span><br><span class="line"><span class="comment"># Use SSL/TLS certificate to authenticate against smtp host.</span></span><br><span class="line"><span class="comment">#UseTLSCert=YES</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Use this RSA certificate.</span></span><br><span class="line"><span class="comment">#TLSCert=/etc/pki/tls/private/ssmtp.pem</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Get enhanced (*really* enhanced) debugging information in the logs</span></span><br><span class="line"><span class="comment"># If you want to have debugging of the config file parsing, move this option</span></span><br><span class="line"><span class="comment"># to the top of the config file and uncomment</span></span><br><span class="line"><span class="comment"># Debug=YES</span></span><br><span class="line"></span><br><span class="line">AuthUser=xxxxx@gmail.com</span><br><span class="line">AuthPass=xxxxx</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="A-config-file-for-mutt-‘-muttc’"><a href="#A-config-file-for-mutt-‘-muttc’" class="headerlink" title="A config file for mutt ‘~/.muttc’"></a>A config file for mutt ‘~/.muttc’</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> realname = <span class="string">"PD"</span></span><br><span class="line"><span class="built_in">set</span> from = <span class="string">"xxxxx@gmail.com"</span></span><br><span class="line"><span class="built_in">set</span> use_from = yes</span><br><span class="line"><span class="built_in">set</span> envelope_from = yes</span><br><span class="line"> </span><br><span class="line"><span class="built_in">set</span> smtp_url = <span class="string">"smtp://xxxxx@smtp.gmail.com:587/"</span></span><br><span class="line"><span class="built_in">set</span> smtp_pass = <span class="string">"xxxxx"</span></span><br><span class="line"><span class="built_in">set</span> imap_user = <span class="string">"xxxxx@gmail.com"</span></span><br><span class="line"><span class="built_in">set</span> imap_pass = <span class="string">"xxxxx"</span></span><br><span class="line"><span class="built_in">set</span> folder = <span class="string">"imaps://imap.gmail.com:993"</span></span><br><span class="line"><span class="built_in">set</span> spoolfile = <span class="string">"+INBOX"</span></span><br><span class="line"><span class="built_in">set</span> ssl_force_tls = yes</span><br><span class="line"><span class="built_in">set</span> smtp_authenticators = <span class="string">'gssapi:login'</span><span class="string">'</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">set editor = "vim"</span></span><br><span class="line"><span class="string">set charset = "utf-8"</span></span><br><span class="line"><span class="string">set record = '</span><span class="string">'</span></span><br><span class="line"><span class="string">bind index G imap-fetch-mail</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+            <a href="/tags/Bash-Shell-Programming/" rel="tag"># Bash Shell Programming</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/09/Python-Web-Scraping/" rel="next" title="[Python] Web Scraping v1.0">
+                <i class="fa fa-chevron-left"></i> [Python] Web Scraping v1.0
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/20/Python-Regex/" rel="prev" title="[Python] Regex">
+                [Python] Regex <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="Patrick Dong" />
+            
+              <p class="site-author-name" itemprop="name">Patrick Dong</p>
+              <p class="site-description motion-element" itemprop="description">Cyber Security Analyst | OSCP | CCNP</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="http://www.freebuf.com" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/superpb9" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:d.pippo9@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Main-Code-block-‘pdfscraping-sh’"><span class="nav-number">1.</span> <span class="nav-text">Main Code block ‘pdfscraping.sh’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-config-file-for-SSMTP-sendmail-‘-etc-ssmtp-ssmtp-conf’"><span class="nav-number">2.</span> <span class="nav-text">A config file for SSMTP sendmail ‘/etc/ssmtp/ssmtp.conf’</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#A-config-file-for-mutt-‘-muttc’"><span class="nav-number">3.</span> <span class="nav-text">A config file for mutt ‘~/.muttc’</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018.05.05 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Patrick Dong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
